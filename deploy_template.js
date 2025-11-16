@@ -314,24 +314,42 @@ class TemplateDeployer {
                             value: '• İzinsiz sunucu reklamı yasaktır\n• Davet linkleri paylaşmayın\n• Faydalı kaynak linkleri <#' + this.guild.channels.cache.find(ch => ch.name === '🔗┃faydalı-linkler')?.id + '> kanalında paylaşılabilir\n• İş ilanları sadece <#' + this.guild.channels.cache.find(ch => ch.name === '💼┃iş-ilanları')?.id + '> kanalında'
                         },
                         {
-                            name: '5️⃣ Uygun İçerik',
-                            value: '• NSFW (Not Safe For Work) içerik paylaşmayın\n• Siyasi ve dini tartışmalardan kaçının\n• Telif hakkı korumalı içerikleri paylaşmayın\n• Korsan yazılım/crack linklerini paylaşmayın'
+                            name: '5️⃣ Ayrımcılık ve Nefret Söylemi KESİNLİKLE YASAKTIR',
+                            value: '• **Irkçılık, cinsiyet ayrımcılığı, homofobia, transfobia YASAK**\n• Etnik köken, din, cinsiyet, cinsel yönelim, engellilik nedeniyle ayrımcılık yasak\n• Nefret söylemi ve gruplara yönelik hakaret yasak\n• **İhlal durumunda DERHAL BAN**\n• Bu kural için tolerans gösterilmez!'
                         },
                         {
-                            name: '6️⃣ Hesap ve Güvenlik',
+                            name: '6️⃣ Politika ve Din',
+                            value: '• Politik tartışmalar yasaktır\n• Siyasi parti/lider propagandası yasak\n• Dini tartışmalar ve misyonerlik yasak\n• Gündem konuları yerine kodlamaya odaklanın\n• Bu konular topluluk barışını bozar'
+                        },
+                        {
+                            name: '7️⃣ Uygun İçerik',
+                            value: '• NSFW (Not Safe For Work) içerik kesinlikle yasak\n• Şiddet, gore, kan içeren medya yasak\n• Telif hakkı korumalı içerikleri paylaşmayın\n• Korsan yazılım/crack linklerini paylaşmayın\n• Dolandırıcılık, illegal aktivite yasak'
+                        },
+                        {
+                            name: '8️⃣ Hesap ve Güvenlik',
                             value: '• Fake/çoklu hesap kullanmayın\n• Başkalarının hesaplarını taklit etmeyin\n• Kişisel bilgilerinizi paylaşmayın\n• Şüpheli linklere tıklamayın ve paylaşmayın'
                         },
                         {
-                            name: '7️⃣ Yardımlaşma',
+                            name: '9️⃣ Yardımlaşma',
                             value: '• Sorular net ve açık olmalı, ekran görüntüsü ekleyin\n• "Çalışmıyor" demek yerine hatayı ve kodu paylaşın\n• Yardım aldığınızda teşekkür edin\n• Ödev/proje sorularında hazır kod istemeyin, öğrenmeye çalışın'
                         },
                         {
-                            name: '8️⃣ Dil',
+                            name: '🔟 Dil',
                             value: '• Ana dil Türkçe\'dir\n• İngilizce kaynak/kod paylaşabilirsiniz\n• Anlaşılır Türkçe kullanın, yazım kurallarına dikkat edin'
                         },
                         {
-                            name: '⚠️ Kural İhlalleri',
-                            value: '**1. İhlal:** Uyarı\n**2. İhlal:** Geçici susturma (timeout)\n**3. İhlal:** Sunucudan atılma (kick)\n**4. İhlal veya ciddi ihlal:** Kalıcı ban\n\nModeratorlar duruma göre karar verir.'
+                            name: '⚠️ Kural İhlalleri ve Cezalar',
+                            value: '**Genel İhlaller:**\n' +
+                                   '• 1. İhlal: Uyarı\n' +
+                                   '• 2. İhlal: Geçici susturma (timeout)\n' +
+                                   '• 3. İhlal: Sunucudan atılma (kick)\n' +
+                                   '• 4. İhlal: Kalıcı ban\n\n' +
+                                   '**CİDDİ İHLALLER (Direkt Ban):**\n' +
+                                   '• ❌ Irkçılık, ayrımcılık, nefret söylemi\n' +
+                                   '• ❌ Taciz, tehdit, doxxing\n' +
+                                   '• ❌ NSFW içerik paylaşımı\n' +
+                                   '• ❌ Spam/raid saldırısı\n\n' +
+                                   'Moderatörler duruma göre karar verir.'
                         },
                         {
                             name: '💡 Moderatör Yardımı',
