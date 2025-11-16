@@ -13,8 +13,9 @@ const { Client, GatewayIntentBits, PermissionFlagsBits, ChannelType } = require(
 const fs = require('fs');
 
 class TemplateDeployer {
-    constructor(token, templateFile = 'vibe-coding-template.json') {
+    constructor(token, guildId, templateFile = 'vibe-coding-template.json') {
         this.token = token;
+        this.guildId = guildId;
         this.templateFile = templateFile;
         this.template = null;
         this.guild = null;
@@ -50,12 +51,12 @@ class TemplateDeployer {
     setupEvents() {
         this.client.once('ready', async () => {
             console.log(`✅ Bot giriş yaptı: ${this.client.user.tag}`);
-            console.log('🚀 Sunucu oluşturuluyor...\n');
+            console.log('🚀 Sunucu yapılandırılıyor...\n');
 
             try {
-                await this.createServer();
+                await this.setupServer();
 
-                console.log('\n✅ Sunucu başarıyla oluşturuldu!');
+                console.log('\n✅ Sunucu başarıyla yapılandırıldı!');
                 console.log(`📋 Sunucu Adı: ${this.guild.name}`);
                 console.log(`🆔 Sunucu ID: ${this.guild.id}`);
                 console.log('🔗 Davet Linki Oluşturuluyor...');
@@ -82,18 +83,18 @@ class TemplateDeployer {
         });
     }
 
-    async createServer() {
-        // Yeni sunucu oluştur
-        this.guild = await this.client.guilds.create({
-            name: this.template.name
-        });
-        console.log(`✅ Sunucu oluşturuldu: ${this.guild.name}`);
+    async setupServer() {
+        // Mevcut sunucuyu al
+        this.guild = await this.client.guilds.fetch(this.guildId);
+        console.log(`✅ Sunucu bulundu: ${this.guild.name}`);
+        console.log(`📋 Mevcut kanalları siliyorum...\n`);
 
         // Varsayılan kanalları sil
         const defaultChannels = this.guild.channels.cache;
         for (const [, channel] of defaultChannels) {
             try {
                 await channel.delete();
+                console.log(`  🗑️ ${channel.name} silindi`);
             } catch (error) {
                 // Silme hatası göz ardı edilebilir
             }
@@ -269,16 +270,21 @@ function main() {
 
     const args = process.argv.slice(2);
 
-    if (args.length < 1) {
-        console.log('Kullanım: node deploy_template.js YOUR_BOT_TOKEN');
+    if (args.length < 2) {
+        console.log('Kullanım: node deploy_template.js YOUR_BOT_TOKEN YOUR_SERVER_ID');
         console.log();
         console.log('Bot token\'ı Discord Developer Portal\'dan alabilirsiniz:');
         console.log('https://discord.com/developers/applications');
+        console.log();
+        console.log('Server ID\'yi Discord\'dan alabilirsiniz:');
+        console.log('1. Discord\'da Ayarlar > Gelişmiş > Geliştirici Modu\'nu açın');
+        console.log('2. Sunucuya sağ tıklayın > "Sunucu ID\'sini Kopyala"');
         process.exit(1);
     }
 
     const token = args[0];
-    const deployer = new TemplateDeployer(token);
+    const guildId = args[1];
+    const deployer = new TemplateDeployer(token, guildId);
     deployer.run();
 }
 
