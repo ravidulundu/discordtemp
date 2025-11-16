@@ -1,6 +1,6 @@
-# Vibe Coding Discord Template 🚀
+# Dulundu.dev Vibe Coding Discord Template 🚀
 
-Türkiye'nin en vibe'lı yazılım topluluğu **Vibe Coding** için hazırlanmış kapsamlı Discord sunucu şablonu!
+**Dulundu.dev Vibe Coding Topluluğu** için hazırlanmış kapsamlı Discord sunucu şablonu!
 
 ## 🎯 Özellikler
 
@@ -170,10 +170,10 @@ MIT License - Özgürce kullanabilirsiniz!
 
 [QUICK_START.md](QUICK_START.md) dosyasındaki "Sorun Giderme" bölümüne bakın.
 
-## 🌟 Vibe Coding
+## 🌟 Dulundu.dev Vibe Coding Topluluğu
 
-Bu template **Vibe Coding** topluluğu için özel olarak hazırlanmıştır. Kendi topluluğunuz için kullanmak isterseniz, `vibe-coding-template.json` dosyasındaki `name` alanını değiştirin.
+Bu template **Dulundu.dev Vibe Coding Topluluğu** için özel olarak hazırlanmıştır. Kendi topluluğunuz için kullanmak isterseniz, `vibe-coding-template.json` dosyasındaki `name` alanını değiştirin.
 
 ---
 
-Made with ❤️ for Vibe Coding Community
+Made with ❤️ for Dulundu.dev Vibe Coding Community

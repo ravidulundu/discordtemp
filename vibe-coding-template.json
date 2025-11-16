@@ -1,6 +1,6 @@
 {
-  "name": "Vibe Coding",
-  "description": "Vibe Coding - Türkiye'nin en vibe'lı yazılım topluluğu",
+  "name": "Dulundu.dev Vibe Coding Topluluğu",
+  "description": "Dulundu.dev Vibe Coding Topluluğu - Türkiye'nin en vibe'lı yazılım topluluğu",
   "region": "auto",
   "verification_level": 2,
   "default_message_notifications": 0,
@@ -101,7 +101,7 @@
       "name": "📢┃hoşgeldin",
       "parent_id": "100",
       "position": 0,
-      "topic": "Vibe Coding'e hoş geldin! 🎉 Burası senin yeni kodin evi!",
+      "topic": "Dulundu.dev Vibe Coding Topluluğu'na hoş geldin! 🎉 Burası senin yeni kod evin!",
       "permission_overwrites": [
         {
           "id": "1",

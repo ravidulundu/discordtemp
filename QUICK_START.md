@@ -1,6 +1,6 @@
-# Vibe Coding - Hızlı Başlangıç Rehberi 🚀
+# Dulundu.dev Vibe Coding - Hızlı Başlangıç Rehberi 🚀
 
-Bu rehber, **Vibe Coding** Discord sunucusunu nasıl kuracağınızı adım adım gösterir.
+Bu rehber, **Dulundu.dev Vibe Coding Topluluğu** Discord sunucusunu nasıl kuracağınızı adım adım gösterir.
 
 ## 📋 Gereksinimler
 
@@ -15,7 +15,7 @@ Bu rehber, **Vibe Coding** Discord sunucusunu nasıl kuracağınızı adım adı
 
 2. **Yeni Uygulama Oluşturun:**
    - "New Application" butonuna tıklayın
-   - Uygulamanıza bir isim verin (örn: "Vibe Coding Bot")
+   - Uygulamanıza bir isim verin (örn: "Dulundu.dev Bot")
    - "Create" butonuna tıklayın
 
 3. **Bot Oluşturun:**
@@ -96,11 +96,11 @@ Script çalıştığında:
 Discord Developer Community Template Deployer
 ============================================================
 
-✅ Template yüklendi: Vibe Coding
+✅ Template yüklendi: Dulundu.dev Vibe Coding Topluluğu
 ✅ Bot giriş yaptı: YourBot#1234
 🚀 Sunucu oluşturuluyor...
 
-✅ Sunucu oluşturuldu: Vibe Coding
+✅ Sunucu oluşturuldu: Dulundu.dev Vibe Coding Topluluğu
 
 📝 Roller oluşturuluyor...
   ✓ @everyone rolü güncellendi
@@ -121,7 +121,7 @@ Discord Developer Community Template Deployer
   ✓ Doğrulama seviyesi ve bildirim ayarları yapılandırıldı
 
 ✅ Sunucu başarıyla oluşturuldu!
-📋 Sunucu Adı: Vibe Coding
+📋 Sunucu Adı: Dulundu.dev Vibe Coding Topluluğu
 🆔 Sunucu ID: 1234567890123456789
 🔗 Davet Linki: https://discord.gg/xxxxxxxxxx
 ```
