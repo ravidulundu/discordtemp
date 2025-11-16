@@ -84,7 +84,9 @@ class TemplateDeployer {
 
     async createServer() {
         // Yeni sunucu oluştur
-        this.guild = await this.client.guilds.create(this.template.name);
+        this.guild = await this.client.guilds.create({
+            name: this.template.name
+        });
         console.log(`✅ Sunucu oluşturuldu: ${this.guild.name}`);
 
         // Varsayılan kanalları sil
