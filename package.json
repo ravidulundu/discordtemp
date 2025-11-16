@@ -1,0 +1,25 @@
+{
+  "name": "discord-developer-community-template",
+  "version": "1.0.0",
+  "description": "Discord template for developer communities with automated deployment",
+  "main": "deploy_template.js",
+  "scripts": {
+    "deploy": "node deploy_template.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord",
+    "template",
+    "developer",
+    "community",
+    "bot"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.14.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

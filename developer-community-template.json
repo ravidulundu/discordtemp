@@ -1,0 +1,451 @@
+{
+  "name": "Developer Community",
+  "description": "A comprehensive Discord template for developer communities",
+  "region": "auto",
+  "verification_level": 2,
+  "default_message_notifications": 0,
+  "explicit_content_filter": 2,
+  "roles": [
+    {
+      "id": "1",
+      "name": "@everyone",
+      "permissions": "1071698660929",
+      "color": 0,
+      "hoist": false,
+      "mentionable": false
+    },
+    {
+      "id": "2",
+      "name": "Admin",
+      "permissions": "8",
+      "color": 15158332,
+      "hoist": true,
+      "mentionable": true
+    },
+    {
+      "id": "3",
+      "name": "Moderator",
+      "permissions": "1099511627862",
+      "color": 15105570,
+      "hoist": true,
+      "mentionable": true
+    },
+    {
+      "id": "4",
+      "name": "Senior Developer",
+      "permissions": "1071698660929",
+      "color": 3447003,
+      "hoist": true,
+      "mentionable": true
+    },
+    {
+      "id": "5",
+      "name": "Developer",
+      "permissions": "1071698660929",
+      "color": 3066993,
+      "hoist": true,
+      "mentionable": true
+    },
+    {
+      "id": "6",
+      "name": "Contributor",
+      "permissions": "1071698660929",
+      "color": 10181046,
+      "hoist": true,
+      "mentionable": true
+    },
+    {
+      "id": "7",
+      "name": "Member",
+      "permissions": "1071698660929",
+      "color": 9807270,
+      "hoist": false,
+      "mentionable": false
+    },
+    {
+      "id": "8",
+      "name": "Bot",
+      "permissions": "412384658496",
+      "color": 5793266,
+      "hoist": true,
+      "mentionable": false
+    }
+  ],
+  "channels": [
+    {
+      "id": "100",
+      "type": 4,
+      "name": "📋 WELCOME & INFO",
+      "position": 0,
+      "permission_overwrites": []
+    },
+    {
+      "id": "101",
+      "type": 0,
+      "name": "welcome",
+      "parent_id": "100",
+      "position": 0,
+      "topic": "Welcome to the Developer Community! Start here.",
+      "permission_overwrites": [
+        {
+          "id": "1",
+          "type": "role",
+          "deny": "2048",
+          "allow": "66560"
+        }
+      ]
+    },
+    {
+      "id": "102",
+      "type": 0,
+      "name": "rules",
+      "parent_id": "100",
+      "position": 1,
+      "topic": "Server rules and guidelines",
+      "permission_overwrites": [
+        {
+          "id": "1",
+          "type": "role",
+          "deny": "2048",
+          "allow": "66560"
+        }
+      ]
+    },
+    {
+      "id": "103",
+      "type": 0,
+      "name": "announcements",
+      "parent_id": "100",
+      "position": 2,
+      "topic": "Important server announcements",
+      "permission_overwrites": [
+        {
+          "id": "1",
+          "type": "role",
+          "deny": "2048",
+          "allow": "66560"
+        },
+        {
+          "id": "2",
+          "type": "role",
+          "allow": "2048"
+        },
+        {
+          "id": "3",
+          "type": "role",
+          "allow": "2048"
+        }
+      ]
+    },
+    {
+      "id": "104",
+      "type": 0,
+      "name": "resources",
+      "parent_id": "100",
+      "position": 3,
+      "topic": "Useful resources, links, and documentation"
+    },
+    {
+      "id": "200",
+      "type": 4,
+      "name": "💬 GENERAL",
+      "position": 1,
+      "permission_overwrites": []
+    },
+    {
+      "id": "201",
+      "type": 0,
+      "name": "general-chat",
+      "parent_id": "200",
+      "position": 0,
+      "topic": "General discussions about anything"
+    },
+    {
+      "id": "202",
+      "type": 0,
+      "name": "introductions",
+      "parent_id": "200",
+      "position": 1,
+      "topic": "Introduce yourself to the community"
+    },
+    {
+      "id": "203",
+      "type": 0,
+      "name": "off-topic",
+      "parent_id": "200",
+      "position": 2,
+      "topic": "Random conversations and fun stuff"
+    },
+    {
+      "id": "204",
+      "type": 0,
+      "name": "memes",
+      "parent_id": "200",
+      "position": 3,
+      "topic": "Share your programming memes"
+    },
+    {
+      "id": "300",
+      "type": 4,
+      "name": "💻 DEVELOPMENT",
+      "position": 2,
+      "permission_overwrites": []
+    },
+    {
+      "id": "301",
+      "type": 0,
+      "name": "coding-help",
+      "parent_id": "300",
+      "position": 0,
+      "topic": "Ask for help with your code"
+    },
+    {
+      "id": "302",
+      "type": 0,
+      "name": "code-review",
+      "parent_id": "300",
+      "position": 1,
+      "topic": "Request code reviews from the community"
+    },
+    {
+      "id": "303",
+      "type": 0,
+      "name": "project-showcase",
+      "parent_id": "300",
+      "position": 2,
+      "topic": "Show off your projects"
+    },
+    {
+      "id": "304",
+      "type": 0,
+      "name": "collaboration",
+      "parent_id": "300",
+      "position": 3,
+      "topic": "Find collaborators for your projects"
+    },
+    {
+      "id": "305",
+      "type": 0,
+      "name": "github-updates",
+      "parent_id": "300",
+      "position": 4,
+      "topic": "GitHub commits and pull requests"
+    },
+    {
+      "id": "400",
+      "type": 4,
+      "name": "🔧 PROGRAMMING LANGUAGES",
+      "position": 3,
+      "permission_overwrites": []
+    },
+    {
+      "id": "401",
+      "type": 0,
+      "name": "python",
+      "parent_id": "400",
+      "position": 0,
+      "topic": "Python discussions and help"
+    },
+    {
+      "id": "402",
+      "type": 0,
+      "name": "javascript-typescript",
+      "parent_id": "400",
+      "position": 1,
+      "topic": "JavaScript and TypeScript discussions"
+    },
+    {
+      "id": "403",
+      "type": 0,
+      "name": "java",
+      "parent_id": "400",
+      "position": 2,
+      "topic": "Java discussions and help"
+    },
+    {
+      "id": "404",
+      "type": 0,
+      "name": "cpp",
+      "parent_id": "400",
+      "position": 3,
+      "topic": "C/C++ discussions and help"
+    },
+    {
+      "id": "405",
+      "type": 0,
+      "name": "web-development",
+      "parent_id": "400",
+      "position": 4,
+      "topic": "HTML, CSS, React, Vue, Angular, etc."
+    },
+    {
+      "id": "406",
+      "type": 0,
+      "name": "mobile-dev",
+      "parent_id": "400",
+      "position": 5,
+      "topic": "iOS, Android, React Native, Flutter"
+    },
+    {
+      "id": "407",
+      "type": 0,
+      "name": "databases",
+      "parent_id": "400",
+      "position": 6,
+      "topic": "SQL, NoSQL, PostgreSQL, MongoDB, etc."
+    },
+    {
+      "id": "408",
+      "type": 0,
+      "name": "devops-cloud",
+      "parent_id": "400",
+      "position": 7,
+      "topic": "Docker, Kubernetes, AWS, Azure, GCP"
+    },
+    {
+      "id": "500",
+      "type": 4,
+      "name": "📚 RESOURCES & CAREER",
+      "position": 4,
+      "permission_overwrites": []
+    },
+    {
+      "id": "501",
+      "type": 0,
+      "name": "tutorials-guides",
+      "parent_id": "500",
+      "position": 0,
+      "topic": "Share and find tutorials"
+    },
+    {
+      "id": "502",
+      "type": 0,
+      "name": "tools-and-libraries",
+      "parent_id": "500",
+      "position": 1,
+      "topic": "Useful tools, frameworks, and libraries"
+    },
+    {
+      "id": "503",
+      "type": 0,
+      "name": "job-opportunities",
+      "parent_id": "500",
+      "position": 2,
+      "topic": "Job postings and career opportunities"
+    },
+    {
+      "id": "504",
+      "type": 0,
+      "name": "interview-prep",
+      "parent_id": "500",
+      "position": 3,
+      "topic": "Interview preparation and tips"
+    },
+    {
+      "id": "505",
+      "type": 0,
+      "name": "freelance-discussion",
+      "parent_id": "500",
+      "position": 4,
+      "topic": "Freelancing tips and discussions"
+    },
+    {
+      "id": "600",
+      "type": 4,
+      "name": "🎙️ VOICE CHANNELS",
+      "position": 5,
+      "permission_overwrites": []
+    },
+    {
+      "id": "601",
+      "type": 2,
+      "name": "General Voice",
+      "parent_id": "600",
+      "position": 0
+    },
+    {
+      "id": "602",
+      "type": 2,
+      "name": "Coding Sessions",
+      "parent_id": "600",
+      "position": 1
+    },
+    {
+      "id": "603",
+      "type": 2,
+      "name": "Study Room",
+      "parent_id": "600",
+      "position": 2
+    },
+    {
+      "id": "604",
+      "type": 2,
+      "name": "Team Meeting",
+      "parent_id": "600",
+      "position": 3
+    },
+    {
+      "id": "605",
+      "type": 2,
+      "name": "AFK",
+      "parent_id": "600",
+      "position": 4
+    },
+    {
+      "id": "700",
+      "type": 4,
+      "name": "🤖 BOT & ADMIN",
+      "position": 6,
+      "permission_overwrites": [
+        {
+          "id": "1",
+          "type": "role",
+          "deny": "1024"
+        },
+        {
+          "id": "2",
+          "type": "role",
+          "allow": "1024"
+        },
+        {
+          "id": "3",
+          "type": "role",
+          "allow": "1024"
+        }
+      ]
+    },
+    {
+      "id": "701",
+      "type": 0,
+      "name": "bot-commands",
+      "parent_id": "700",
+      "position": 0,
+      "topic": "Use bot commands here",
+      "permission_overwrites": [
+        {
+          "id": "1",
+          "type": "role",
+          "allow": "1024"
+        }
+      ]
+    },
+    {
+      "id": "702",
+      "type": 0,
+      "name": "admin-chat",
+      "parent_id": "700",
+      "position": 1,
+      "topic": "Admin only discussions"
+    },
+    {
+      "id": "703",
+      "type": 0,
+      "name": "mod-logs",
+      "parent_id": "700",
+      "position": 2,
+      "topic": "Moderation logs and reports"
+    }
+  ],
+  "afk_channel_id": "605",
+  "system_channel_id": "201"
+}
