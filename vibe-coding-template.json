@@ -1,0 +1,537 @@
+{
+  "name": "Vibe Coding",
+  "description": "Vibe Coding - Türkiye'nin en vibe'lı yazılım topluluğu",
+  "region": "auto",
+  "verification_level": 2,
+  "default_message_notifications": 0,
+  "explicit_content_filter": 2,
+  "roles": [
+    {
+      "id": "1",
+      "name": "@everyone",
+      "permissions": "1071698660929",
+      "color": 0,
+      "hoist": false,
+      "mentionable": false
+    },
+    {
+      "id": "2",
+      "name": "👑 Kurucu",
+      "permissions": "8",
+      "color": 15158332,
+      "hoist": true,
+      "mentionable": true
+    },
+    {
+      "id": "3",
+      "name": "🛡️ Moderatör",
+      "permissions": "1099511627862",
+      "color": 15105570,
+      "hoist": true,
+      "mentionable": true
+    },
+    {
+      "id": "4",
+      "name": "⭐ Kıdemli Developer",
+      "permissions": "1071698660929",
+      "color": 3447003,
+      "hoist": true,
+      "mentionable": true
+    },
+    {
+      "id": "5",
+      "name": "💻 Developer",
+      "permissions": "1071698660929",
+      "color": 3066993,
+      "hoist": true,
+      "mentionable": true
+    },
+    {
+      "id": "6",
+      "name": "🎨 Tasarımcı",
+      "permissions": "1071698660929",
+      "color": 16734296,
+      "hoist": true,
+      "mentionable": true
+    },
+    {
+      "id": "7",
+      "name": "🚀 Aktif Üye",
+      "permissions": "1071698660929",
+      "color": 10181046,
+      "hoist": true,
+      "mentionable": true
+    },
+    {
+      "id": "8",
+      "name": "🌱 Yeni Başlayan",
+      "permissions": "1071698660929",
+      "color": 5763719,
+      "hoist": true,
+      "mentionable": true
+    },
+    {
+      "id": "9",
+      "name": "👤 Üye",
+      "permissions": "1071698660929",
+      "color": 9807270,
+      "hoist": false,
+      "mentionable": false
+    },
+    {
+      "id": "10",
+      "name": "🤖 Bot",
+      "permissions": "412384658496",
+      "color": 5793266,
+      "hoist": true,
+      "mentionable": false
+    }
+  ],
+  "channels": [
+    {
+      "id": "100",
+      "type": 4,
+      "name": "👋 HOŞGELDİN",
+      "position": 0,
+      "permission_overwrites": []
+    },
+    {
+      "id": "101",
+      "type": 0,
+      "name": "📢┃hoşgeldin",
+      "parent_id": "100",
+      "position": 0,
+      "topic": "Vibe Coding'e hoş geldin! 🎉 Burası senin yeni kodin evi!",
+      "permission_overwrites": [
+        {
+          "id": "1",
+          "type": "role",
+          "deny": "2048",
+          "allow": "66560"
+        }
+      ]
+    },
+    {
+      "id": "102",
+      "type": 0,
+      "name": "📜┃kurallar",
+      "parent_id": "100",
+      "position": 1,
+      "topic": "Sunucu kurallarımız - Lütfen okuyun ve uygulayın 📋",
+      "permission_overwrites": [
+        {
+          "id": "1",
+          "type": "role",
+          "deny": "2048",
+          "allow": "66560"
+        }
+      ]
+    },
+    {
+      "id": "103",
+      "type": 0,
+      "name": "📣┃duyurular",
+      "parent_id": "100",
+      "position": 2,
+      "topic": "Önemli duyurular ve güncellemeler 🔔",
+      "permission_overwrites": [
+        {
+          "id": "1",
+          "type": "role",
+          "deny": "2048",
+          "allow": "66560"
+        },
+        {
+          "id": "2",
+          "type": "role",
+          "allow": "2048"
+        },
+        {
+          "id": "3",
+          "type": "role",
+          "allow": "2048"
+        }
+      ]
+    },
+    {
+      "id": "104",
+      "type": 0,
+      "name": "🎯┃rol-seçimi",
+      "parent_id": "100",
+      "position": 3,
+      "topic": "Rollerini buradan seçebilirsin! 🎭"
+    },
+    {
+      "id": "105",
+      "type": 0,
+      "name": "🔗┃faydalı-linkler",
+      "parent_id": "100",
+      "position": 4,
+      "topic": "Faydalı kaynaklar, linkler ve dökümanlar 📚"
+    },
+    {
+      "id": "200",
+      "type": 4,
+      "name": "💬 SOHBET",
+      "position": 1,
+      "permission_overwrites": []
+    },
+    {
+      "id": "201",
+      "type": 0,
+      "name": "💭┃genel-sohbet",
+      "parent_id": "200",
+      "position": 0,
+      "topic": "Genel konuşmalar için ana kanal 🗣️"
+    },
+    {
+      "id": "202",
+      "type": 0,
+      "name": "👋┃tanışma",
+      "parent_id": "200",
+      "position": 1,
+      "topic": "Kendini tanıt, arkadaş edin! 🤝"
+    },
+    {
+      "id": "203",
+      "type": 0,
+      "name": "🎮┃off-topic",
+      "parent_id": "200",
+      "position": 2,
+      "topic": "Kod dışı her şey! Oyun, müzik, film... 🎬"
+    },
+    {
+      "id": "204",
+      "type": 0,
+      "name": "😂┃meme",
+      "parent_id": "200",
+      "position": 3,
+      "topic": "Programlama memleri ve komik şeyler paylaş! 🤣"
+    },
+    {
+      "id": "205",
+      "type": 0,
+      "name": "🎵┃müzik",
+      "parent_id": "200",
+      "position": 4,
+      "topic": "Kod yazarken dinlediğin müzikleri paylaş 🎧"
+    },
+    {
+      "id": "300",
+      "type": 4,
+      "name": "💻 KODLAMA",
+      "position": 2,
+      "permission_overwrites": []
+    },
+    {
+      "id": "301",
+      "type": 0,
+      "name": "🆘┃yardım",
+      "parent_id": "300",
+      "position": 0,
+      "topic": "Kodda takıldın mı? Buraya sor! 🤔"
+    },
+    {
+      "id": "302",
+      "type": 0,
+      "name": "🔍┃kod-inceleme",
+      "parent_id": "300",
+      "position": 1,
+      "topic": "Kodunu inceletmek istersen buraya at! 👀"
+    },
+    {
+      "id": "303",
+      "type": 0,
+      "name": "🎨┃proje-vitrini",
+      "parent_id": "300",
+      "position": 2,
+      "topic": "Projelerini göster, övün! 💪"
+    },
+    {
+      "id": "304",
+      "type": 0,
+      "name": "🤝┃işbirliği",
+      "parent_id": "300",
+      "position": 3,
+      "topic": "Proje ortağı bul, birlikte kodlayın! 👥"
+    },
+    {
+      "id": "305",
+      "type": 0,
+      "name": "💡┃proje-fikirleri",
+      "parent_id": "300",
+      "position": 4,
+      "topic": "Aklına gelen proje fikirlerini paylaş! 🚀"
+    },
+    {
+      "id": "306",
+      "type": 0,
+      "name": "📊┃github-updates",
+      "parent_id": "300",
+      "position": 5,
+      "topic": "GitHub commit ve PR bildirimleri 🔔"
+    },
+    {
+      "id": "400",
+      "type": 4,
+      "name": "🛠️ PROGRAMLAMA DİLLERİ",
+      "position": 3,
+      "permission_overwrites": []
+    },
+    {
+      "id": "401",
+      "type": 0,
+      "name": "🐍┃python",
+      "parent_id": "400",
+      "position": 0,
+      "topic": "Python ile ilgili her şey 🐍"
+    },
+    {
+      "id": "402",
+      "type": 0,
+      "name": "💛┃javascript",
+      "parent_id": "400",
+      "position": 1,
+      "topic": "JavaScript ve TypeScript tartışmaları ⚡"
+    },
+    {
+      "id": "403",
+      "type": 0,
+      "name": "☕┃java",
+      "parent_id": "400",
+      "position": 2,
+      "topic": "Java ile kodlama ☕"
+    },
+    {
+      "id": "404",
+      "type": 0,
+      "name": "⚙️┃c-cpp",
+      "parent_id": "400",
+      "position": 3,
+      "topic": "C ve C++ programlama 🔧"
+    },
+    {
+      "id": "405",
+      "type": 0,
+      "name": "🌐┃web-development",
+      "parent_id": "400",
+      "position": 4,
+      "topic": "HTML, CSS, React, Vue, Angular ve daha fazlası! 🎨"
+    },
+    {
+      "id": "406",
+      "type": 0,
+      "name": "📱┃mobile-dev",
+      "parent_id": "400",
+      "position": 5,
+      "topic": "iOS, Android, React Native, Flutter 📲"
+    },
+    {
+      "id": "407",
+      "type": 0,
+      "name": "🎮┃game-dev",
+      "parent_id": "400",
+      "position": 6,
+      "topic": "Oyun geliştirme - Unity, Unreal, Godot 🕹️"
+    },
+    {
+      "id": "408",
+      "type": 0,
+      "name": "🗄️┃database",
+      "parent_id": "400",
+      "position": 7,
+      "topic": "SQL, NoSQL, PostgreSQL, MongoDB 💾"
+    },
+    {
+      "id": "409",
+      "type": 0,
+      "name": "🔐┃backend",
+      "parent_id": "400",
+      "position": 8,
+      "topic": "Backend geliştirme, API'lar, sunucu işlemleri 🖥️"
+    },
+    {
+      "id": "410",
+      "type": 0,
+      "name": "🚀┃devops",
+      "parent_id": "400",
+      "position": 9,
+      "topic": "Docker, Kubernetes, CI/CD, AWS, Azure ☁️"
+    },
+    {
+      "id": "500",
+      "type": 4,
+      "name": "📚 ÖĞRENME & KARİYER",
+      "position": 4,
+      "permission_overwrites": []
+    },
+    {
+      "id": "501",
+      "type": 0,
+      "name": "📖┃eğitimler",
+      "parent_id": "500",
+      "position": 0,
+      "topic": "Faydalı eğitimler, kurslar ve öğretici içerikler 🎓"
+    },
+    {
+      "id": "502",
+      "type": 0,
+      "name": "🔧┃araçlar",
+      "parent_id": "500",
+      "position": 1,
+      "topic": "Faydalı araçlar, kütüphaneler, framework'ler 🛠️"
+    },
+    {
+      "id": "503",
+      "type": 0,
+      "name": "💼┃iş-ilanları",
+      "parent_id": "500",
+      "position": 2,
+      "topic": "İş ilanları ve kariyer fırsatları 💰"
+    },
+    {
+      "id": "504",
+      "type": 0,
+      "name": "🎯┃mülakat-hazırlık",
+      "parent_id": "500",
+      "position": 3,
+      "topic": "Mülakat soruları, algoritma problemleri 📝"
+    },
+    {
+      "id": "505",
+      "type": 0,
+      "name": "💸┃freelance",
+      "parent_id": "500",
+      "position": 4,
+      "topic": "Freelance işler, upwork, fiverr tavsiyeleri 💵"
+    },
+    {
+      "id": "506",
+      "type": 0,
+      "name": "🌟┃motivasyon",
+      "parent_id": "500",
+      "position": 5,
+      "topic": "Motivasyon, ilham, başarı hikayeleri ✨"
+    },
+    {
+      "id": "600",
+      "type": 4,
+      "name": "🎙️ SES KANALLARI",
+      "position": 5,
+      "permission_overwrites": []
+    },
+    {
+      "id": "601",
+      "type": 2,
+      "name": "🔊 Genel Ses",
+      "parent_id": "600",
+      "position": 0
+    },
+    {
+      "id": "602",
+      "type": 2,
+      "name": "💻 Coding Session #1",
+      "parent_id": "600",
+      "position": 1
+    },
+    {
+      "id": "603",
+      "type": 2,
+      "name": "💻 Coding Session #2",
+      "parent_id": "600",
+      "position": 2
+    },
+    {
+      "id": "604",
+      "type": 2,
+      "name": "📚 Çalışma Odası",
+      "parent_id": "600",
+      "position": 3
+    },
+    {
+      "id": "605",
+      "type": 2,
+      "name": "🎮 Oyun & Chill",
+      "parent_id": "600",
+      "position": 4
+    },
+    {
+      "id": "606",
+      "type": 2,
+      "name": "🤝 Toplantı Odası",
+      "parent_id": "600",
+      "position": 5
+    },
+    {
+      "id": "607",
+      "type": 2,
+      "name": "😴 AFK",
+      "parent_id": "600",
+      "position": 6
+    },
+    {
+      "id": "700",
+      "type": 4,
+      "name": "🤖 BOT & YÖNETİM",
+      "position": 6,
+      "permission_overwrites": [
+        {
+          "id": "1",
+          "type": "role",
+          "deny": "1024"
+        },
+        {
+          "id": "2",
+          "type": "role",
+          "allow": "1024"
+        },
+        {
+          "id": "3",
+          "type": "role",
+          "allow": "1024"
+        }
+      ]
+    },
+    {
+      "id": "701",
+      "type": 0,
+      "name": "🤖┃bot-komutları",
+      "parent_id": "700",
+      "position": 0,
+      "topic": "Bot komutlarını buradan kullanın 🎮",
+      "permission_overwrites": [
+        {
+          "id": "1",
+          "type": "role",
+          "allow": "1024"
+        }
+      ]
+    },
+    {
+      "id": "702",
+      "type": 0,
+      "name": "🔨┃admin-chat",
+      "parent_id": "700",
+      "position": 1,
+      "topic": "Yönetici sohbet kanalı 👑"
+    },
+    {
+      "id": "703",
+      "type": 0,
+      "name": "📋┃mod-logs",
+      "parent_id": "700",
+      "position": 2,
+      "topic": "Moderasyon logları ve raporlar 📊"
+    },
+    {
+      "id": "704",
+      "type": 0,
+      "name": "💭┃öneriler",
+      "parent_id": "700",
+      "position": 3,
+      "topic": "Sunucu için öneri ve geri bildirimler 💡"
+    }
+  ],
+  "afk_channel_id": "607",
+  "system_channel_id": "201"
+}

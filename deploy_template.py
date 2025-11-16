@@ -17,7 +17,7 @@ import asyncio
 
 
 class TemplateDeployer:
-    def __init__(self, token, template_file='developer-community-template.json'):
+    def __init__(self, token, template_file='vibe-coding-template.json'):
         self.token = token
         self.template_file = template_file
         self.template = None

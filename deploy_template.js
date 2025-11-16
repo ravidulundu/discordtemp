@@ -13,7 +13,7 @@ const { Client, GatewayIntentBits, PermissionFlagsBits, ChannelType } = require(
 const fs = require('fs');
 
 class TemplateDeployer {
-    constructor(token, templateFile = 'developer-community-template.json') {
+    constructor(token, templateFile = 'vibe-coding-template.json') {
         this.token = token;
         this.templateFile = templateFile;
         this.template = null;

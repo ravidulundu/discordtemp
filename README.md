@@ -1,167 +1,179 @@
-# Developer Community Discord Template
+# Vibe Coding Discord Template 🚀
 
-Bu template, yazılımcı topluluğu için hazırlanmış kapsamlı bir Discord sunucu şablonudur.
+Türkiye'nin en vibe'lı yazılım topluluğu **Vibe Coding** için hazırlanmış kapsamlı Discord sunucu şablonu!
 
-## 📋 İçerik
+## 🎯 Özellikler
 
-### Roller ve İzinler
+- ✅ **10 Özel Rol** - Kurucudan yeni başlayanlara kadar tam hiyerarşi
+- ✅ **40+ Kanal** - Her ihtiyaca uygun organize edilmiş kanallar
+- ✅ **Türkçe İçerik** - Tamamen Türkçe kanal ve rol isimleri
+- ✅ **İkon Kullanımı** - Her kanalda görsel emoji ikonları
+- ✅ **Otomatik Kurulum** - Tek komutla sunucu oluşturma
+- ✅ **Özelleştirilebilir** - İhtiyaçlarınıza göre düzenlenebilir
 
-| Rol | Renk | İzinler | Açıklama |
-|-----|------|---------|----------|
-| **Admin** | Kırmızı (#E74C3C) | Tam Yönetici | Sunucu yöneticileri |
-| **Moderator** | Turuncu (#E67E22) | Mesaj/Üye Yönetimi | Moderatörler |
-| **Senior Developer** | Mavi (#3498DB) | Standart | Kıdemli yazılımcılar |
-| **Developer** | Turkuaz (#2ECC71) | Standart | Yazılımcılar |
-| **Contributor** | Mor (#9B59B6) | Standart | Katkıda bulunanlar |
-| **Member** | Gri (#95A5A6) | Standart | Üyeler |
-| **Bot** | Açık Mavi (#586F7C) | Bot İzinleri | Botlar için |
+## 📋 Rol Yapısı
 
-### Kanal Yapısı
+| Rol | İkon | Renk | Açıklama |
+|-----|------|------|----------|
+| **Kurucu** | 👑 | Kırmızı (#E74C3C) | Sunucu sahibi ve kurucular |
+| **Moderatör** | 🛡️ | Turuncu (#E67E22) | Sunucu moderatörleri |
+| **Kıdemli Developer** | ⭐ | Mavi (#3498DB) | Deneyimli yazılımcılar |
+| **Developer** | 💻 | Yeşil (#2ECC71) | Aktif yazılımcılar |
+| **Tasarımcı** | 🎨 | Pembe (#FF7675) | UI/UX tasarımcılar |
+| **Aktif Üye** | 🚀 | Mor (#9B59B6) | Aktif katılımcılar |
+| **Yeni Başlayan** | 🌱 | Açık Yeşil (#57F287) | Yeni öğrenenler |
+| **Üye** | 👤 | Gri (#95A5A6) | Standart üyeler |
+| **Bot** | 🤖 | Lacivert (#586F7C) | Botlar |
 
-#### 📋 WELCOME & INFO
-- **welcome** - Hoş geldin mesajları (salt okunur)
-- **rules** - Sunucu kuralları (salt okunur)
-- **announcements** - Duyurular (sadece admin/mod yazabilir)
-- **resources** - Kaynaklar ve linkler
+## 🗂️ Kanal Yapısı
 
-#### 💬 GENERAL
-- **general-chat** - Genel sohbet
-- **introductions** - Tanışma kanalı
-- **off-topic** - Off-topic konuşmalar
-- **memes** - Programlama memleri
+### 👋 HOŞGELDİN (5 Kanal)
+- **📢┃hoşgeldin** - Hoş geldin mesajları (salt okunur)
+- **📜┃kurallar** - Sunucu kuralları (salt okunur)
+- **📣┃duyurular** - Önemli duyurular (sadece yetkili yazabilir)
+- **🎯┃rol-seçimi** - Roller seçme kanalı
+- **🔗┃faydalı-linkler** - Kaynaklar ve dökümanlar
 
-#### 💻 DEVELOPMENT
-- **coding-help** - Kod yardımı
-- **code-review** - Kod inceleme
-- **project-showcase** - Proje gösterimi
-- **collaboration** - İşbirliği
-- **github-updates** - GitHub bildirimleri
+### 💬 SOHBET (5 Kanal)
+- **💭┃genel-sohbet** - Ana sohbet kanalı
+- **👋┃tanışma** - Kendini tanıtma
+- **🎮┃off-topic** - Kod dışı konuşmalar
+- **😂┃meme** - Programlama memleri
+- **🎵┃müzik** - Müzik paylaşımları
 
-#### 🔧 PROGRAMMING LANGUAGES
-- **python** - Python
-- **javascript-typescript** - JavaScript/TypeScript
-- **java** - Java
-- **cpp** - C/C++
-- **web-development** - Web geliştirme
-- **mobile-dev** - Mobil geliştirme
-- **databases** - Veritabanları
-- **devops-cloud** - DevOps ve Cloud
+### 💻 KODLAMA (6 Kanal)
+- **🆘┃yardım** - Kod yardımı
+- **🔍┃kod-inceleme** - Kod review
+- **🎨┃proje-vitrini** - Proje gösterimi
+- **🤝┃işbirliği** - Proje ortağı bulma
+- **💡┃proje-fikirleri** - Proje fikirleri
+- **📊┃github-updates** - GitHub bildirimleri
 
-#### 📚 RESOURCES & CAREER
-- **tutorials-guides** - Eğitimler ve rehberler
-- **tools-and-libraries** - Araçlar ve kütüphaneler
-- **job-opportunities** - İş ilanları
-- **interview-prep** - Mülakat hazırlığı
-- **freelance-discussion** - Freelance tartışmaları
+### 🛠️ PROGRAMLAMA DİLLERİ (10 Kanal)
+- **🐍┃python** - Python
+- **💛┃javascript** - JavaScript/TypeScript
+- **☕┃java** - Java
+- **⚙️┃c-cpp** - C/C++
+- **🌐┃web-development** - Web geliştirme
+- **📱┃mobile-dev** - Mobil uygulama
+- **🎮┃game-dev** - Oyun geliştirme
+- **🗄️┃database** - Veritabanı
+- **🔐┃backend** - Backend
+- **🚀┃devops** - DevOps & Cloud
 
-#### 🎙️ VOICE CHANNELS
-- **General Voice** - Genel ses
-- **Coding Sessions** - Kodlama seansları
-- **Study Room** - Çalışma odası
-- **Team Meeting** - Takım toplantısı
-- **AFK** - AFK kanalı
+### 📚 ÖĞRENME & KARİYER (6 Kanal)
+- **📖┃eğitimler** - Eğitim içerikleri
+- **🔧┃araçlar** - Faydalı araçlar
+- **💼┃iş-ilanları** - İş ilanları
+- **🎯┃mülakat-hazırlık** - Mülakat hazırlığı
+- **💸┃freelance** - Freelance işler
+- **🌟┃motivasyon** - Motivasyon
 
-#### 🤖 BOT & ADMIN
-- **bot-commands** - Bot komutları
-- **admin-chat** - Admin sohbeti (sadece admin/mod)
-- **mod-logs** - Moderasyon logları (sadece admin/mod)
+### 🎙️ SES KANALLARI (7 Kanal)
+- **🔊 Genel Ses** - Genel ses kanalı
+- **💻 Coding Session #1** - Birlikte kodlama
+- **💻 Coding Session #2** - Birlikte kodlama
+- **📚 Çalışma Odası** - Sessiz çalışma
+- **🎮 Oyun & Chill** - Oyun ve eğlence
+- **🤝 Toplantı Odası** - Toplantılar
+- **😴 AFK** - AFK kanalı
 
-## 🚀 Kullanım
+### 🤖 BOT & YÖNETİM (4 Kanal)
+- **🤖┃bot-komutları** - Bot komutları (herkes kullanabilir)
+- **🔨┃admin-chat** - Yönetici sohbeti (sadece yönetici)
+- **📋┃mod-logs** - Moderasyon logları (sadece yönetici)
+- **💭┃öneriler** - Öneri ve geri bildirimler (sadece yönetici)
 
-### Discord.js ile Yükleme
+## 🚀 Kurulum
 
-```javascript
-const { Client, GatewayIntentBits } = require('discord.js');
-const fs = require('fs');
+### Gereksinimler
+- Discord Bot Token
+- Node.js (v16+) veya Python (3.8+)
 
-const client = new Client({
-  intents: [GatewayIntentBits.Guilds]
-});
+### Hızlı Kurulum
 
-client.once('ready', async () => {
-  const template = JSON.parse(fs.readFileSync('developer-community-template.json', 'utf8'));
-
-  try {
-    const guild = await client.guilds.create(template.name, {
-      template: template
-    });
-    console.log(`Server created: ${guild.name}`);
-  } catch (error) {
-    console.error('Error creating server:', error);
-  }
-});
-
-client.login('YOUR_BOT_TOKEN');
+**JavaScript:**
+```bash
+npm install
+node deploy_template.js YOUR_BOT_TOKEN
 ```
 
-### Discord.py ile Yükleme
-
-```python
-import discord
-import json
-
-client = discord.Client(intents=discord.Intents.default())
-
-@client.event
-async def on_ready():
-    with open('developer-community-template.json', 'r', encoding='utf-8') as f:
-        template = json.load(f)
-
-    try:
-        guild = await client.create_guild(name=template['name'])
-        print(f'Server created: {guild.name}')
-
-        # Rol ve kanal oluşturma işlemleri...
-
-    except Exception as e:
-        print(f'Error: {e}')
-
-client.run('YOUR_BOT_TOKEN')
+**Python:**
+```bash
+pip install -r requirements.txt
+python deploy_template.py YOUR_BOT_TOKEN
 ```
 
-## 🔧 İzin Detayları
+Detaylı kurulum için [QUICK_START.md](QUICK_START.md) dosyasına bakın.
 
-### İzin Bitleri
-- `8` - Administrator (Tam Yetki)
-- `1099511627862` - Moderator (Mesaj Yönetimi, Üye Yönetimi, vb.)
-- `1071698660929` - Standart Üye İzinleri
-- `412384658496` - Bot İzinleri
-- `2048` - Send Messages
-- `66560` - View Channel + Read Message History
-- `1024` - View Channel
+## 🎨 Özelleştirme
 
-### Kanal Özel İzinleri
+`vibe-coding-template.json` dosyasını düzenleyerek:
+- Sunucu adını değiştirebilirsiniz
+- Rol renklerini özelleştirebilirsiniz
+- Kanal isimlerini güncelleyebilirsiniz
+- Yeni kanallar ekleyebilirsiniz
+- İzinleri düzenleyebilirsiniz
 
-**Welcome, Rules, Announcements:**
-- @everyone: Mesaj gönderemez, sadece okuyabilir
-- Admin/Mod: Mesaj gönderebilir
+### Renk Kodları (Decimal)
+```
+Kırmızı:     15158332 (#E74C3C)
+Turuncu:     15105570 (#E67E22)
+Mavi:        3447003  (#3498DB)
+Yeşil:       3066993  (#2ECC71)
+Pembe:       16734296 (#FF7675)
+Mor:         10181046 (#9B59B6)
+Açık Yeşil:  5763719  (#57F287)
+Gri:         9807270  (#95A5A6)
+Lacivert:    5793266  (#586F7C)
+```
 
-**BOT & ADMIN Kategorisi:**
-- @everyone: Kanalları göremez
-- Admin/Mod: Tam erişim
+## 🔒 İzin Detayları
 
-## 📝 Özelleştirme
+### Rol İzinleri
+- **👑 Kurucu**: Tam yönetici yetkisi (Administrator)
+- **🛡️ Moderatör**: Mesaj yönetimi, üye yönetimi, timeout
+- **Diğer Roller**: Standart üye izinleri (okuma, yazma, ses)
 
-Template'i ihtiyaçlarınıza göre özelleştirebilirsiniz:
+### Özel Kanal İzinleri
+- **Hoşgeldin/Kurallar/Duyurular**: Sadece okuma (yetkili yazabilir)
+- **Bot & Yönetim Kategorisi**: Sadece yöneticiler görebilir
+- **Bot Komutları**: Herkes kullanabilir ama kategori gizli
 
-1. **Rol renkleri:** `color` değerini değiştirin (decimal renk kodu)
-2. **Kanal konuları:** `topic` alanını düzenleyin
-3. **İzinler:** `permissions` ve `permission_overwrites` değerlerini ayarlayın
-4. **Yeni kanallar:** Yeni channel objeleri ekleyin
+## 📊 İstatistikler
 
-## 🎨 Renk Kodları (Decimal)
-
-- Kırmızı: 15158332 (#E74C3C)
-- Turuncu: 15105570 (#E67E22)
-- Mavi: 3447003 (#3498DB)
-- Yeşil: 3066993 (#2ECC71)
-- Mor: 10181046 (#9B59B6)
-- Gri: 9807270 (#95A5A6)
-
-## 📄 Lisans
-
-Bu template açık kaynaklıdır ve serbestçe kullanılabilir.
+- 📁 **6 Kategori**
+- 💬 **33 Metin Kanalı**
+- 🎙️ **7 Ses Kanalı**
+- 👥 **10 Rol**
+- 🎨 **40+ İkon Kullanımı**
 
 ## 🤝 Katkıda Bulunma
 
-İyileştirme önerileri ve katkılarınızı bekliyoruz!
+Bu template'i geliştirmek için:
+1. Fork yapın
+2. Değişikliklerinizi yapın
+3. Pull request gönderin
+
+## 📝 Lisans
+
+MIT License - Özgürce kullanabilirsiniz!
+
+## 💡 İpuçları
+
+1. **Rol Sıralaması**: Roller template'de otomatik sıralanır
+2. **Bot İzinleri**: Bot'unuza Administrator izni verin
+3. **Gateway Intents**: Discord Developer Portal'da Privileged Gateway Intents'i aktif edin
+4. **Özelleştirme**: Template yüklendikten sonra Discord üzerinden de düzenleyebilirsiniz
+
+## 🆘 Sorun mu Yaşıyorsunuz?
+
+[QUICK_START.md](QUICK_START.md) dosyasındaki "Sorun Giderme" bölümüne bakın.
+
+## 🌟 Vibe Coding
+
+Bu template **Vibe Coding** topluluğu için özel olarak hazırlanmıştır. Kendi topluluğunuz için kullanmak isterseniz, `vibe-coding-template.json` dosyasındaki `name` alanını değiştirin.
+
+---
+
+Made with ❤️ for Vibe Coding Community

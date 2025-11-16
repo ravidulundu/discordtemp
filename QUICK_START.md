@@ -1,6 +1,6 @@
-# Hızlı Başlangıç Rehberi
+# Vibe Coding - Hızlı Başlangıç Rehberi 🚀
 
-Bu rehber, Discord Developer Community Template'i nasıl kullanacağınızı adım adım gösterir.
+Bu rehber, **Vibe Coding** Discord sunucusunu nasıl kuracağınızı adım adım gösterir.
 
 ## 📋 Gereksinimler
 
@@ -15,7 +15,7 @@ Bu rehber, Discord Developer Community Template'i nasıl kullanacağınızı ad�
 
 2. **Yeni Uygulama Oluşturun:**
    - "New Application" butonuna tıklayın
-   - Uygulamanıza bir isim verin (örn: "Community Template Bot")
+   - Uygulamanıza bir isim verin (örn: "Vibe Coding Bot")
    - "Create" butonuna tıklayın
 
 3. **Bot Oluşturun:**
@@ -96,44 +96,46 @@ Script çalıştığında:
 Discord Developer Community Template Deployer
 ============================================================
 
-✅ Template yüklendi: Developer Community
+✅ Template yüklendi: Vibe Coding
 ✅ Bot giriş yaptı: YourBot#1234
 🚀 Sunucu oluşturuluyor...
 
-✅ Sunucu oluşturuldu: Developer Community
+✅ Sunucu oluşturuldu: Vibe Coding
 
 📝 Roller oluşturuluyor...
   ✓ @everyone rolü güncellendi
-  ✓ Admin oluşturuldu
-  ✓ Moderator oluşturuldu
+  ✓ 👑 Kurucu oluşturuldu
+  ✓ 🛡️ Moderatör oluşturuldu
+  ✓ ⭐ Kıdemli Developer oluşturuldu
   ...
 
 📁 Kategoriler ve kanallar oluşturuluyor...
-  ✓ Kategori: 📋 WELCOME & INFO
-    ✓ Metin kanalı: #welcome
-    ✓ Metin kanalı: #rules
+  ✓ Kategori: 👋 HOŞGELDİN
+    ✓ Metin kanalı: #📢┃hoşgeldin
+    ✓ Metin kanalı: #📜┃kurallar
     ...
 
 ⚙️ Sunucu ayarları yapılandırılıyor...
-  ✓ AFK kanalı ayarlandı: AFK
-  ✓ Sistem kanalı ayarlandı: general-chat
+  ✓ AFK kanalı ayarlandı: 😴 AFK
+  ✓ Sistem kanalı ayarlandı: 💭┃genel-sohbet
   ✓ Doğrulama seviyesi ve bildirim ayarları yapılandırıldı
 
 ✅ Sunucu başarıyla oluşturuldu!
-📋 Sunucu Adı: Developer Community
+📋 Sunucu Adı: Vibe Coding
 🆔 Sunucu ID: 1234567890123456789
 🔗 Davet Linki: https://discord.gg/xxxxxxxxxx
 ```
 
 ## 🎨 Özelleştirme
 
-`developer-community-template.json` dosyasını düzenleyerek:
+`vibe-coding-template.json` dosyasını düzenleyerek:
 
 - ✏️ Sunucu adını değiştirin
-- 🎨 Rol renklerini değiştirin
+- 🎨 Rol renklerini ve ikonlarını değiştirin
 - 📝 Kanal isimlerini ve açıklamalarını güncelleyin
-- ➕ Yeni kanallar ekleyin
+- ➕ Yeni kanallar ve roller ekleyin
 - 🔒 İzinleri özelleştirin
+- 🌟 İkonları değiştirin veya yeni ekleyin
 
 ## 🆘 Sorun Giderme
 
