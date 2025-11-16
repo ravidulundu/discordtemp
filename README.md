@@ -78,11 +78,12 @@
 - **🤝 Toplantı Odası** - Toplantılar
 - **😴 AFK** - AFK kanalı
 
-### 🤖 BOT & YÖNETİM (4 Kanal)
+### 🤖 BOT & YÖNETİM (5 Kanal)
 - **🤖┃bot-komutları** - Bot komutları (herkes kullanabilir)
 - **🔨┃admin-chat** - Yönetici sohbeti (sadece yönetici)
 - **📋┃mod-logs** - Moderasyon logları (sadece yönetici)
 - **💭┃öneriler** - Öneri ve geri bildirimler (sadece yönetici)
+- **🔒┃güvenlik-bildirimi** - Güvenlik açıkları ve acil durumlar (sadece yönetici)
 
 ## 🚀 Kurulum
 
@@ -143,10 +144,10 @@ Lacivert:    5793266  (#586F7C)
 ## 📊 İstatistikler
 
 - 📁 **6 Kategori**
-- 💬 **33 Metin Kanalı**
+- 💬 **34 Metin Kanalı**
 - 🎙️ **7 Ses Kanalı**
 - 👥 **10 Rol**
-- 🎨 **40+ İkon Kullanımı**
+- 🎨 **41 İkon Kullanımı**
 
 ## 🤝 Katkıda Bulunma
 

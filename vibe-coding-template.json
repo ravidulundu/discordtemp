@@ -530,6 +530,15 @@
       "parent_id": "700",
       "position": 3,
       "topic": "Sunucu için öneri ve geri bildirimler 💡"
+    },
+    {
+      "id": "705",
+      "type": 0,
+      "name": "🔒┃güvenlik-bildirimi",
+      "parent_id": "700",
+      "position": 4,
+      "topic": "Güvenlik açıkları, istismar raporları ve acil durumlar için gizli kanal 🛡️",
+      "permission_overwrites": []
     }
   ],
   "afk_channel_id": "607",
