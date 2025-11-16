@@ -108,6 +108,9 @@ class TemplateDeployer {
 
         // Sunucu ayarlarını yapılandır
         await this.configureServer();
+
+        // Hoşgeldin ve kurallar mesajlarını gönder
+        await this.sendWelcomeMessages();
     }
 
     async createRoles() {
@@ -244,6 +247,150 @@ class TemplateDeployer {
 
         await this.guild.edit(editOptions);
         console.log('  ✓ Doğrulama seviyesi ve bildirim ayarları yapılandırıldı');
+    }
+
+    async sendWelcomeMessages() {
+        console.log('\n📨 Hoşgeldin ve kurallar mesajları gönderiliyor...');
+
+        // Hoşgeldin kanalını bul
+        const welcomeChannel = this.guild.channels.cache.find(ch => ch.name === '📢┃hoşgeldin');
+        if (welcomeChannel) {
+            const welcomeMessage = {
+                embeds: [{
+                    color: 0x3498db,
+                    title: '👋 Dulundu.dev Vibe Coding Topluluğu\'na Hoş Geldin!',
+                    description: 'Türkiye\'nin en vibe\'lı yazılım topluluğuna katıldığın için mutluyuz! 🎉',
+                    fields: [
+                        {
+                            name: '🎯 Burası Senin İçin',
+                            value: '• Kod yazmayı öğrenmek\n• Projeler geliştirmek\n• Deneyim paylaşmak\n• Yeni arkadaşlar edinmek\n• Kariyer fırsatları keşfetmek'
+                        },
+                        {
+                            name: '🚀 İlk Adımlar',
+                            value: '1️⃣ <#' + this.guild.channels.cache.find(ch => ch.name === '📜┃kurallar')?.id + '> kanalını okuyun\n' +
+                                   '2️⃣ <#' + this.guild.channels.cache.find(ch => ch.name === '🎯┃rol-seçimi')?.id + '> kanalından rollerinizi seçin\n' +
+                                   '3️⃣ <#' + this.guild.channels.cache.find(ch => ch.name === '👋┃tanışma')?.id + '> kanalında kendinizi tanıtın\n' +
+                                   '4️⃣ <#' + this.guild.channels.cache.find(ch => ch.name === '💭┃genel-sohbet')?.id + '> kanalında sohbete katılın'
+                        },
+                        {
+                            name: '💡 İpucu',
+                            value: 'Sorularınız için doğru kanalları kullanın. Yardıma ihtiyacınız varsa <#' +
+                                   this.guild.channels.cache.find(ch => ch.name === '🆘┃yardım')?.id + '> kanalına gelin!'
+                        }
+                    ],
+                    footer: {
+                        text: 'Dulundu.dev Vibe Coding • Kod yazarken eğlenin! 🎨'
+                    },
+                    timestamp: new Date()
+                }]
+            };
+            await welcomeChannel.send(welcomeMessage);
+            console.log('  ✓ Hoşgeldin mesajı gönderildi');
+        }
+
+        // Kurallar kanalını bul
+        const rulesChannel = this.guild.channels.cache.find(ch => ch.name === '📜┃kurallar');
+        if (rulesChannel) {
+            const rulesMessage = {
+                embeds: [{
+                    color: 0xe74c3c,
+                    title: '📜 SUNUCU KURALLARI',
+                    description: 'Dulundu.dev Vibe Coding topluluğunda herkesin güvenli ve keyifli vakit geçirmesi için lütfen aşağıdaki kuralları okuyun ve uygulayın.',
+                    fields: [
+                        {
+                            name: '1️⃣ Saygılı ve Nazik Olun',
+                            value: '• Herkese karşı saygılı, kibar ve anlayışlı olun\n• Hakaret, aşağılama, küfür veya taciz kesinlikle yasaktır\n• Yapıcı eleştiriler yapın, kırıcı olmayın\n• Farklı görüşlere ve deneyim seviyelerine saygı gösterin'
+                        },
+                        {
+                            name: '2️⃣ Spam ve Flood Yasaktır',
+                            value: '• Gereksiz tekrar mesaj atmayın\n• CAPS LOCK kullanarak yazmayın\n• Emoji ve sticker spam\'i yapmayın\n• Bot komutlarını sadece <#' + this.guild.channels.cache.find(ch => ch.name === '🤖┃bot-komutları')?.id + '> kanalında kullanın'
+                        },
+                        {
+                            name: '3️⃣ Doğru Kanalları Kullanın',
+                            value: '• Her konu için uygun kanalı kullanın\n• Python soruları → <#' + this.guild.channels.cache.find(ch => ch.name === '🐍┃python')?.id + '>\n• JavaScript soruları → <#' + this.guild.channels.cache.find(ch => ch.name === '💛┃javascript')?.id + '>\n• Proje paylaşımı → <#' + this.guild.channels.cache.find(ch => ch.name === '🎨┃proje-vitrini')?.id + '>\n• Meme\'ler → <#' + this.guild.channels.cache.find(ch => ch.name === '😂┃meme')?.id + '>'
+                        },
+                        {
+                            name: '4️⃣ Reklam ve Link Paylaşımı',
+                            value: '• İzinsiz sunucu reklamı yasaktır\n• Davet linkleri paylaşmayın\n• Faydalı kaynak linkleri <#' + this.guild.channels.cache.find(ch => ch.name === '🔗┃faydalı-linkler')?.id + '> kanalında paylaşılabilir\n• İş ilanları sadece <#' + this.guild.channels.cache.find(ch => ch.name === '💼┃iş-ilanları')?.id + '> kanalında'
+                        },
+                        {
+                            name: '5️⃣ Uygun İçerik',
+                            value: '• NSFW (Not Safe For Work) içerik paylaşmayın\n• Siyasi ve dini tartışmalardan kaçının\n• Telif hakkı korumalı içerikleri paylaşmayın\n• Korsan yazılım/crack linklerini paylaşmayın'
+                        },
+                        {
+                            name: '6️⃣ Hesap ve Güvenlik',
+                            value: '• Fake/çoklu hesap kullanmayın\n• Başkalarının hesaplarını taklit etmeyin\n• Kişisel bilgilerinizi paylaşmayın\n• Şüpheli linklere tıklamayın ve paylaşmayın'
+                        },
+                        {
+                            name: '7️⃣ Yardımlaşma',
+                            value: '• Sorular net ve açık olmalı, ekran görüntüsü ekleyin\n• "Çalışmıyor" demek yerine hatayı ve kodu paylaşın\n• Yardım aldığınızda teşekkür edin\n• Ödev/proje sorularında hazır kod istemeyin, öğrenmeye çalışın'
+                        },
+                        {
+                            name: '8️⃣ Dil',
+                            value: '• Ana dil Türkçe\'dir\n• İngilizce kaynak/kod paylaşabilirsiniz\n• Anlaşılır Türkçe kullanın, yazım kurallarına dikkat edin'
+                        },
+                        {
+                            name: '⚠️ Kural İhlalleri',
+                            value: '**1. İhlal:** Uyarı\n**2. İhlal:** Geçici susturma (timeout)\n**3. İhlal:** Sunucudan atılma (kick)\n**4. İhlal veya ciddi ihlal:** Kalıcı ban\n\nModeratorlar duruma göre karar verir.'
+                        },
+                        {
+                            name: '💡 Moderatör Yardımı',
+                            value: 'Sorun yaşarsanız moderatörlere <@&' + this.roleMap.get('3')?.id + '> mention ile ulaşabilirsiniz.'
+                        }
+                    ],
+                    footer: {
+                        text: 'Bu kurallar Discord Topluluk Kuralları ile uyumludur • Son güncelleme'
+                    },
+                    timestamp: new Date()
+                }]
+            };
+            await rulesChannel.send(rulesMessage);
+            console.log('  ✓ Kurallar mesajı gönderildi');
+
+            // Discord'un Community Guidelines linkini de ekle
+            await rulesChannel.send({
+                content: '📖 **Discord Topluluk Kuralları:** https://discord.com/guidelines\n🔒 **Gizlilik Politikası:** https://discord.com/privacy'
+            });
+            console.log('  ✓ Discord kuralları linki eklendi');
+        }
+
+        // Rol seçimi kanalına mesaj
+        const roleChannel = this.guild.channels.cache.find(ch => ch.name === '🎯┃rol-seçimi');
+        if (roleChannel) {
+            const roleMessage = {
+                embeds: [{
+                    color: 0x9b59b6,
+                    title: '🎯 Rol Seçimi',
+                    description: 'İlgilendiğiniz teknolojilere göre rol seçebilirsiniz!\n\n' +
+                                 '**Nasıl Rol Alırım?**\n' +
+                                 'Şu an için moderatörlerden rol isteyebilirsiniz. Yakında reaksiyon rol sistemi eklenecek! 🚀',
+                    fields: [
+                        {
+                            name: '💻 Developer Rolleri',
+                            value: '• 💻 **Developer** - Aktif yazılımcılar\n' +
+                                   '• ⭐ **Kıdemli Developer** - Deneyimli geliştiriciler\n' +
+                                   '• 🌱 **Yeni Başlayan** - Yeni öğrenenler'
+                        },
+                        {
+                            name: '🎨 Özel Roller',
+                            value: '• 🎨 **Tasarımcı** - UI/UX tasarımcılar\n' +
+                                   '• 🚀 **Aktif Üye** - Toplulukta aktif olanlar'
+                        },
+                        {
+                            name: '📚 Teknoloji Rolleri (Yakında)',
+                            value: '• Python, JavaScript, Java, C++\n' +
+                                   '• Frontend, Backend, Full Stack\n' +
+                                   '• Mobile, Game Dev, DevOps'
+                        }
+                    ],
+                    footer: {
+                        text: 'Moderatörlere mention yaparak rol isteyebilirsiniz'
+                    }
+                }]
+            };
+            await roleChannel.send(roleMessage);
+            console.log('  ✓ Rol seçimi mesajı gönderildi');
+        }
     }
 
     async run() {
