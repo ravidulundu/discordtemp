@@ -9,10 +9,11 @@
     {
       "id": "1",
       "name": "@everyone",
-      "permissions": "1071698660929",
+      "permissions": "309341834816",
       "color": 0,
       "hoist": false,
-      "mentionable": false
+      "mentionable": false,
+      "_comment": "Güvenli topluluk izinleri: Mesaj gönder/oku, emoji/dosya kullan, ses kanallarına bağlan/konuş, takma ad değiştir. Admin/moderasyon yetkileri YOK."
     },
     {
       "id": "2",
