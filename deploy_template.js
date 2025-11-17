@@ -251,26 +251,26 @@ class TemplateDeployer {
                 } else {
                     // Yeni rol oluştur
                     console.log(`  🔄 Oluşturuluyor: ${roleData.name}...`);
+                    console.log(`     Bot user: ${this.client.user.tag}, Bot ID: ${this.client.user.id}`);
+                    console.log(`     Guild: ${this.guild.name}, Guild ID: ${this.guild.id}`);
+                    console.log(`     Bot guild permissions:`, this.guild.members.me.permissions.toArray().slice(0, 10).join(', '));
 
-                    // Timeout ile rol oluştur (10 saniye)
-                    const rolePromise = this.guild.roles.create({
-                        name: roleData.name,
-                        permissions: BigInt(roleData.permissions),
-                        color: roleData.color,  // Use 'color' (deprecation warning can be ignored)
-                        hoist: roleData.hoist,
-                        mentionable: roleData.mentionable
-                    });
+                    try {
+                        const role = await this.guild.roles.create({
+                            name: roleData.name,
+                            permissions: BigInt(roleData.permissions),
+                            color: roleData.color,
+                            hoist: roleData.hoist,
+                            mentionable: roleData.mentionable
+                        });
+                        this.roleMap.set(roleData.id, role);
+                        console.log(`  ✓ ${role.name} oluşturuldu (ID: ${role.id})`);
+                    } catch (roleError) {
+                        console.error(`     ⚠️ Rol oluşturma hatası:`, roleError.message);
+                        throw roleError;
+                    }
 
-                    const timeoutPromise = new Promise((_, reject) =>
-                        setTimeout(() => reject(new Error('Rol oluşturma 10 saniye içinde tamamlanmadı')), 10000)
-                    );
-
-                    const role = await Promise.race([rolePromise, timeoutPromise]);
-                    this.roleMap.set(roleData.id, role);
-                    console.log(`  ✓ ${role.name} oluşturuldu`);
-
-                    // Rate limit önleme için daha uzun bekle
-                    console.log(`  ⏳ 1 saniye bekleniyor...`);
+                    // Rate limit önleme için bekle
                     await new Promise(resolve => setTimeout(resolve, 1000));
                 }
             } catch (error) {
