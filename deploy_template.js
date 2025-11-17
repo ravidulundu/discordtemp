@@ -433,14 +433,19 @@ class TemplateDeployer {
                             console.warn(`      ⚠️ "${optionData.title}" için hiç rol eşleşmedi!`);
                         }
 
-                        return {
-                            // Option ID'yi de gönderme, Discord otomatik atar
+                        // Sadece dolu olan field'ları ekle
+                        const option = {
                             title: optionData.title,
                             description: optionData.description || '',
-                            emoji: optionData.emoji ? { name: optionData.emoji.name } : null,
-                            roles: roleIds,    // Discord.js v14 uses 'roles' not 'roleIds'
-                            channels: []       // Discord.js v14 uses 'channels' not 'channelIds'
+                            emoji: optionData.emoji ? { name: optionData.emoji.name } : null
                         };
+
+                        // Roller varsa ekle
+                        if (roleIds.length > 0) {
+                            option.roleIds = roleIds;  // Try roleIds first
+                        }
+
+                        return option;
                     })
                 };
             });
