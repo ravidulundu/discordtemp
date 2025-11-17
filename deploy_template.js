@@ -247,7 +247,7 @@ class TemplateDeployer {
                 const role = await this.guild.roles.create({
                     name: roleData.name,
                     permissions: BigInt(roleData.permissions),
-                    color: roleData.color,
+                    colors: roleData.color,  // Discord.js v14+ uses 'colors'
                     hoist: roleData.hoist,
                     mentionable: roleData.mentionable
                 });
@@ -394,8 +394,13 @@ class TemplateDeployer {
         }
 
         try {
+            console.log(`  ℹ️ roleMap içeriği: ${this.roleMap.size} rol`);
+            console.log(`  ℹ️ roleMap keys:`, Array.from(this.roleMap.keys()).slice(0, 5));
+
             // Prompt'ları hazırla (ID'ler Discord tarafından otomatik atanacak)
-            const prompts = this.template.onboarding.prompts.map(promptData => {
+            const prompts = this.template.onboarding.prompts.map((promptData, pIndex) => {
+                console.log(`  📝 Prompt ${pIndex + 1}: "${promptData.title}"`);
+
                 return {
                     // ID'yi gönderme, Discord otomatik atar
                     title: promptData.title,
@@ -403,18 +408,24 @@ class TemplateDeployer {
                     required: promptData.required || false,
                     inOnboarding: promptData.inOnboarding !== false,
                     type: promptData.type || 0,
-                    options: promptData.options.map(optionData => {
+                    options: promptData.options.map((optionData, oIndex) => {
+                        console.log(`    🔍 Option ${oIndex + 1}: "${optionData.title}", roleIds template:`, optionData.roleIds);
+
                         // Role ID'lerini gerçek role ID'lere çevir
                         const roleIds = optionData.roleIds.map(templateRoleId => {
                             const role = this.roleMap.get(templateRoleId);
                             if (!role) {
-                                console.warn(`    ⚠️ Rol bulunamadı: ${templateRoleId}`);
+                                console.warn(`      ⚠️ Rol bulunamadı: ${templateRoleId}`);
+                            } else {
+                                console.log(`      ✓ Rol bulundu: ${templateRoleId} → ${role.name} (${role.id})`);
                             }
                             return role ? role.id : null;
                         }).filter(id => id !== null);
 
+                        console.log(`      📋 roleIds array:`, roleIds);
+
                         if (roleIds.length === 0) {
-                            console.warn(`    ⚠️ "${optionData.title}" için hiç rol eşleşmedi!`);
+                            console.warn(`      ⚠️ "${optionData.title}" için hiç rol eşleşmedi!`);
                         }
 
                         return {
@@ -465,14 +476,19 @@ class TemplateDeployer {
             // Welcome channel ID'lerini gerçek channel ID'lere çevir
             const welcomeChannels = this.template.welcomeScreen.welcomeChannels.map(wc => {
                 const channel = this.channelMap.get(wc.channelId);
-                if (!channel) return null;
+                if (!channel) {
+                    console.warn(`    ⚠️ Kanal bulunamadı: ${wc.channelId}`);
+                    return null;
+                }
 
                 return {
-                    channelId: channel.id,
+                    channel: channel.id,  // Discord API expects 'channel', not 'channelId'
                     description: wc.description,
-                    emojiName: wc.emoji.name || wc.emoji  // Emoji name as string
+                    emoji: wc.emoji.name || wc.emoji  // Just the emoji string
                 };
             }).filter(wc => wc !== null);
+
+            console.log(`  ℹ️ ${welcomeChannels.length} welcome channel hazırlandı`);
 
             await this.guild.editWelcomeScreen({
                 enabled: true,
