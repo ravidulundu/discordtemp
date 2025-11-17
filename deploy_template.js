@@ -432,8 +432,8 @@ class TemplateDeployer {
                             // Option ID'yi de gönderme, Discord otomatik atar
                             title: optionData.title,
                             description: optionData.description || '',
-                            emoji: optionData.emoji || null,
-                            roleIds: roleIds
+                            emoji: optionData.emoji ? { name: optionData.emoji.name } : null,  // Emoji as object
+                            role_ids: roleIds  // Discord API uses snake_case
                         };
                     })
                 };
