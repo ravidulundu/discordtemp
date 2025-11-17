@@ -276,8 +276,234 @@ class TemplateDeployer:
         )
         print(f"  ✓ Doğrulama seviyesi ve bildirim ayarları yapılandırıldı")
 
-        # Rol seçimi mesajını gönder
+        # Hoşgeldin, kurallar ve rol seçimi mesajlarını gönder
+        await self.send_welcome_message()
+        await self.send_rules_message()
         await self.send_role_selection_message()
+
+    async def send_welcome_message(self):
+        """Hoşgeldin mesajını gönder"""
+        print("\n📨 Hoşgeldin mesajı gönderiliyor...")
+
+        # Hoşgeldin kanalını bul
+        welcome_channel = None
+        for channel in self.guild.text_channels:
+            if channel.name == '📢┃hoşgeldin':
+                welcome_channel = channel
+                break
+
+        if welcome_channel:
+            embed = discord.Embed(
+                color=0x5865F2,
+                title='👋 HOŞ GELDİN!',
+                description=(
+                    '**Dulundu.dev Vibe Coding Topluluğu\'na katıldın!**\n\n'
+                    'Türkiye\'nin en vibe\'lı yazılım topluluğunda seni aramızda görmekten mutluyuz! 🎉\n\n'
+                    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━'
+                ),
+                timestamp=discord.utils.utcnow()
+            )
+
+            # Topluluk özellikleri
+            embed.add_field(name='\u200b', value='**🎯 BURASI SENİN İÇİN**', inline=False)
+            embed.add_field(name='💻 Öğren', value='Kod yazmayı\nöğren', inline=True)
+            embed.add_field(name='🚀 Geliştir', value='Projeler\noluştur', inline=True)
+            embed.add_field(name='🤝 Paylaş', value='Deneyim\npaylaş', inline=True)
+            embed.add_field(name='👥 Tanış', value='Arkadaş\nedin', inline=True)
+            embed.add_field(name='💼 Keşfet', value='Kariyer\nfırsatları', inline=True)
+            embed.add_field(name='🎮 Eğlen', value='Kod yazarken\neğlen', inline=True)
+
+            # Kanal linklerini bul
+            rules_channel = next((ch for ch in self.guild.text_channels if ch.name == '📜┃kurallar'), None)
+            role_channel = next((ch for ch in self.guild.text_channels if ch.name == '🎯┃rol-seçimi'), None)
+            intro_channel = next((ch for ch in self.guild.text_channels if ch.name == '👋┃tanışma'), None)
+            chat_channel = next((ch for ch in self.guild.text_channels if ch.name == '💭┃genel-sohbet'), None)
+            help_channel = next((ch for ch in self.guild.text_channels if ch.name == '🆘┃yardım'), None)
+            links_channel = next((ch for ch in self.guild.text_channels if ch.name == '🔗┃faydalı-linkler'), None)
+
+            # İlk adımlar
+            first_steps = '**🚀 İLK ADIMLAR**\n\n'
+            if rules_channel:
+                first_steps += f'1️⃣ <#{rules_channel.id}> **Kuralları oku**\n'
+            if role_channel:
+                first_steps += f'2️⃣ <#{role_channel.id}> **Rollerini seç**\n'
+            if intro_channel:
+                first_steps += f'3️⃣ <#{intro_channel.id}> **Kendini tanıt**\n'
+            if chat_channel:
+                first_steps += f'4️⃣ <#{chat_channel.id}> **Sohbete katıl**\n\n'
+            first_steps += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━'
+
+            embed.add_field(name='\u200b', value=first_steps, inline=False)
+
+            # İpuçları
+            if help_channel:
+                embed.add_field(name='💡 İpucu', value=f'Yardıma mı ihtiyacın var? → <#{help_channel.id}>', inline=True)
+            if links_channel:
+                embed.add_field(name='📚 Kaynaklar', value=f'Faydalı linkler → <#{links_channel.id}>', inline=True)
+
+            embed.set_footer(text='Dulundu.dev Vibe Coding • Kod yazarken eğlenin!')
+
+            await welcome_channel.send(embed=embed)
+            print('  ✓ Geliştirilmiş hoşgeldin mesajı gönderildi')
+
+    async def send_rules_message(self):
+        """Kurallar mesajını gönder"""
+        print("\n📨 Kurallar mesajı gönderiliyor...")
+
+        # Kurallar kanalını bul
+        rules_channel = None
+        for channel in self.guild.text_channels:
+            if channel.name == '📜┃kurallar':
+                rules_channel = channel
+                break
+
+        if rules_channel:
+            embed = discord.Embed(
+                color=0xe74c3c,
+                title='📜 SUNUCU KURALLARI',
+                description=(
+                    '**Dulundu.dev Vibe Coding Topluluğu\'na hoş geldin!**\n\n'
+                    'Güvenli ve keyifli bir ortam için aşağıdaki kuralları lütfen oku ve uygula.\n\n'
+                    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━'
+                ),
+                timestamp=discord.utils.utcnow()
+            )
+
+            # Temel kurallar
+            embed.add_field(name='\u200b', value='**🤝 TOPLULUK KURALLARI**', inline=False)
+            embed.add_field(name='1️⃣ Saygılı Ol', value='Herkese nazik\nve saygılı davran', inline=True)
+            embed.add_field(name='2️⃣ Spam Yasak', value='Gereksiz tekrar\nmesaj atma', inline=True)
+            embed.add_field(name='3️⃣ Doğru Kanal', value='Konuya uygun\nkanal kullan', inline=True)
+            embed.add_field(name='4️⃣ Reklam Yasak', value='İzinsiz sunucu\nreklamı yapma', inline=True)
+            embed.add_field(name='5️⃣ Uygun İçerik', value='NSFW ve şiddet\niçerik yasak', inline=True)
+            embed.add_field(name='6️⃣ Hesap Güvenliği', value='Fake hesap\nkullanma', inline=True)
+
+            # Kritik kurallar
+            embed.add_field(
+                name='\u200b',
+                value='━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n**⚠️ KESİN YASAK - DERHAL BAN!**',
+                inline=False
+            )
+            embed.add_field(
+                name='❌ Ayrımcılık ve Nefret Söylemi',
+                value=(
+                    '**Hiçbir şekilde tolerans gösterilmez:**\n'
+                    '• Irkçılık, cinsiyet ayrımcılığı\n'
+                    '• Homofobia, transfobia\n'
+                    '• Etnik köken, din, cinsel yönelim nedeniyle ayrımcılık\n'
+                    '• Nefret söylemi ve grup hakaret\n\n'
+                    '**→ İhlal = Anında Kalıcı Ban**'
+                ),
+                inline=False
+            )
+            embed.add_field(
+                name='❌ Politika ve Din Tartışmaları',
+                value=(
+                    '**Bu konular topluluk barışını bozar:**\n'
+                    '• Politik tartışma ve propaganda\n'
+                    '• Siyasi parti/lider propagandası\n'
+                    '• Dini tartışma ve misyonerlik\n\n'
+                    '**→ Gündem değil, kod konuşalım!**'
+                ),
+                inline=False
+            )
+
+            # Kanal linklerini bul
+            bot_channel = next((ch for ch in self.guild.text_channels if ch.name == '🤖┃bot-komutları'), None)
+            python_channel = next((ch for ch in self.guild.text_channels if ch.name == '🐍┃python'), None)
+            js_channel = next((ch for ch in self.guild.text_channels if ch.name == '💛┃javascript'), None)
+            project_channel = next((ch for ch in self.guild.text_channels if ch.name == '🎨┃proje-vitrini'), None)
+            links_channel = next((ch for ch in self.guild.text_channels if ch.name == '🔗┃faydalı-linkler'), None)
+            jobs_channel = next((ch for ch in self.guild.text_channels if ch.name == '💼┃iş-ilanları'), None)
+            security_channel = next((ch for ch in self.guild.text_channels if ch.name == '🔒┃güvenlik-bildirimi'), None)
+
+            # Detaylı kurallar
+            embed.add_field(
+                name='\u200b',
+                value='━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n**📋 DETAYLI KURALLAR**',
+                inline=False
+            )
+            embed.add_field(
+                name='💬 Saygılı İletişim',
+                value='✓ Hakaret, küfür, taciz yasak\n✓ Yapıcı eleştiri yap\n✓ Farklı görüşlere saygı',
+                inline=True
+            )
+
+            spam_rules = '✓ CAPS LOCK kullanma\n✓ Emoji/sticker spam yapma'
+            if bot_channel:
+                spam_rules += f'\n✓ Bot komutları → <#{bot_channel.id}>'
+            embed.add_field(name='🚫 Spam Kuralları', value=spam_rules, inline=True)
+
+            channel_usage = '✓ Her konu için uygun kanal'
+            if python_channel:
+                channel_usage += f'\n✓ Python → <#{python_channel.id}>'
+            if js_channel:
+                channel_usage += f'\n✓ JavaScript → <#{js_channel.id}>'
+            if project_channel:
+                channel_usage += f'\n✓ Projeler → <#{project_channel.id}>'
+            embed.add_field(name='📁 Kanal Kullanımı', value=channel_usage, inline=True)
+
+            link_rules = '✓ Sunucu davet linki yasak'
+            if links_channel:
+                link_rules += f'\n✓ Faydalı linkler → <#{links_channel.id}>'
+            if jobs_channel:
+                link_rules += f'\n✓ İş ilanları → <#{jobs_channel.id}>'
+            embed.add_field(name='🔗 Link Paylaşımı', value=link_rules, inline=True)
+
+            embed.add_field(
+                name='🛡️ Güvenlik',
+                value='✓ Kişisel bilgi paylaşma\n✓ Şüpheli linke tıklama\n✓ Korsan yazılım paylaşma',
+                inline=True
+            )
+            embed.add_field(
+                name='🌍 Dil Kullanımı',
+                value='✓ Ana dil: Türkçe\n✓ İngilizce kaynak OK\n✓ Anlaşılır yazım',
+                inline=True
+            )
+
+            # Cezalar
+            embed.add_field(
+                name='\u200b',
+                value='━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n**⚖️ KURAL İHLALLERİ VE CEZALAR**',
+                inline=False
+            )
+            embed.add_field(
+                name='📊 Normal İhlaller',
+                value='**1. İhlal** → ⚠️ Uyarı\n**2. İhlal** → 🔇 Timeout\n**3. İhlal** → 👢 Kick\n**4. İhlal** → 🔨 Ban',
+                inline=True
+            )
+            embed.add_field(
+                name='🚨 Ciddi İhlaller (Direkt Ban)',
+                value='❌ Irkçılık ve ayrımcılık\n❌ Taciz ve tehdit\n❌ NSFW içerik\n❌ Spam/raid saldırısı',
+                inline=True
+            )
+
+            # Moderatör rolünü bul
+            moderator_role = self.role_map.get('3')
+            mod_mention = f'<@&{moderator_role.id}>' if moderator_role else '@Moderatör'
+            embed.add_field(
+                name='💡 Yardım',
+                value=f'**Sorun mu var?**\nModeratörlere ulaş:\n{mod_mention}',
+                inline=True
+            )
+
+            # Son notlar
+            final_note = '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n✅ **Kuralları okudum ve kabul ediyorum**\n\n'
+            if security_channel:
+                final_note += f'Güvenlik açığı buldun mu? → <#{security_channel.id}>\n'
+            final_note += 'Moderatörler duruma göre karar alma hakkını saklı tutar.'
+            embed.add_field(name='\u200b', value=final_note, inline=False)
+
+            embed.set_footer(text='Dulundu.dev Vibe Coding • Discord Topluluk Kuralları ile uyumludur')
+
+            await rules_channel.send(embed=embed)
+            print('  ✓ Kurallar mesajı gönderildi')
+
+            # Discord kuralları linki
+            await rules_channel.send(
+                content='📖 **Discord Topluluk Kuralları:** https://discord.com/guidelines\n🔒 **Gizlilik Politikası:** https://discord.com/privacy'
+            )
+            print('  ✓ Discord kuralları linki eklendi')
 
     async def send_role_selection_message(self):
         """Rol seçimi mesajını gönder"""
