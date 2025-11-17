@@ -551,6 +551,17 @@ class TemplateDeployer {
     async configureAutoModeration() {
         console.log('\n🛡️ Auto Moderation yapılandırılıyor...');
 
+        // Mevcut kuralları listele
+        try {
+            const existingRules = await this.guild.autoModerationRules.fetch();
+            console.log(`  ℹ️ Sunucuda ${existingRules.size} mevcut Auto Mod kuralı var:`);
+            existingRules.forEach(rule => {
+                console.log(`    - ${rule.name} (Trigger Type: ${rule.triggerType})`);
+            });
+        } catch (error) {
+            console.log('  ⚠️ Mevcut kurallar listelenemedi:', error.message);
+        }
+
         if (!this.template.autoModeration || !this.template.autoModeration.enabled) {
             console.log('  ℹ️ Auto Moderation template\'de tanımlı değil, atlanıyor...');
             return;
