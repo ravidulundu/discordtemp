@@ -678,6 +678,19 @@ class TemplateDeployer {
                             console.warn(`      ⚠️ "${optionData.title}" için hiç rol eşleşmedi!`);
                         }
 
+                        // ChannelIds'leri gerçek Discord ID'lere çevir
+                        const channelIds = (optionData.channelIds || []).map(templateChannelId => {
+                            const channel = this.channelMap.get(templateChannelId);
+                            if (!channel) {
+                                console.warn(`      ⚠️ Kanal bulunamadı: ${templateChannelId}`);
+                            } else {
+                                console.log(`      ✓ Kanal bulundu: ${templateChannelId} → ${channel.name} (${channel.id})`);
+                            }
+                            return channel ? channel.id : null;
+                        }).filter(id => id !== null);
+
+                        console.log(`      📋 channelIds array:`, channelIds);
+
                         // Sadece dolu olan field'ları ekle
                         const option = {
                             title: optionData.title,
@@ -688,6 +701,11 @@ class TemplateDeployer {
                         // Roller varsa ekle - Discord.js 'roles' field adı kullanır (internal olarak role_ids'e çevirir)
                         if (roleIds.length > 0) {
                             option.roles = roleIds;  // Discord.js uses 'roles' (camelCase)
+                        }
+
+                        // Kanallar varsa ekle - Discord.js 'channels' field adı kullanır
+                        if (channelIds.length > 0) {
+                            option.channels = channelIds;  // Discord.js uses 'channels' (camelCase)
                         }
 
                         return option;
