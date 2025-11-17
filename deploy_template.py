@@ -96,6 +96,9 @@ class TemplateDeployer:
         # Kanalları temizle
         await self.delete_all_channels()
 
+        # Rolleri temizle
+        await self.delete_all_roles()
+
         # Rolleri oluştur
         await self.create_roles()
 
@@ -147,6 +150,52 @@ class TemplateDeployer:
         remaining = await self.guild.fetch_channels()
         if remaining:
             print(f"⚠️ Uyarı: {len(remaining)} kanal hala mevcut. Devam ediliyor...")
+
+    async def delete_all_roles(self):
+        """Tüm rolleri temizle"""
+        print("\n🎭 Mevcut roller temizleniyor...\n")
+
+        max_attempts = 3
+        for attempt in range(max_attempts):
+            # Rolleri yeniden getir
+            await self.guild.fetch_roles()
+
+            # @everyone ve yönetilen rolleri hariç tüm rolleri al
+            roles = [
+                role for role in self.guild.roles
+                if role.id != self.guild.id  # @everyone değil
+                and not role.managed  # Bot rolleri, booster rolleri değil
+            ]
+
+            # Pozisyona göre sırala (yukarıdan aşağıya)
+            roles.sort(key=lambda r: r.position, reverse=True)
+
+            if not roles:
+                print("✅ Tüm roller temizlendi! (Sadece @everyone ve sistem rolleri kaldı)\n")
+                return
+
+            print(f"🔄 {len(roles)} rol siliniyor... (Deneme {attempt + 1}/{max_attempts})")
+
+            # Rolleri sil
+            for role in roles:
+                try:
+                    await role.delete()
+                    print(f"  🗑️ {role.name} silindi")
+                except discord.Forbidden:
+                    print(f"  ⚠️ {role.name} silinemedi: İzin yok")
+                except discord.HTTPException as e:
+                    print(f"  ⚠️ {role.name} silinemedi: {e}")
+                except Exception as e:
+                    print(f"  ⚠️ {role.name} silinemedi: Beklenmeyen hata - {type(e).__name__}: {e}")
+
+            print("⏳ Silme işleminin tamamlanması bekleniyor...")
+            await asyncio.sleep(2)
+
+        # Son kontrol
+        await self.guild.fetch_roles()
+        remaining = [r for r in self.guild.roles if r.id != self.guild.id and not r.managed]
+        if remaining:
+            print(f"⚠️ Uyarı: {len(remaining)} rol hala mevcut. Devam ediliyor...")
 
     async def create_roles(self):
         """Rolleri oluştur"""

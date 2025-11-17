@@ -91,6 +91,9 @@ class TemplateDeployer {
         // Kanalları tamamen temizle
         await this.deleteAllChannels();
 
+        // Rolleri tamamen temizle
+        await this.deleteAllRoles();
+
         // Rolleri oluştur
         await this.createRoles();
 
@@ -157,6 +160,63 @@ class TemplateDeployer {
 
         if (remainingChannels > 0) {
             console.warn(`⚠️ Uyarı: ${remainingChannels} kanal hala mevcut. Devam ediliyor...`);
+        }
+    }
+
+    async deleteAllRoles() {
+        console.log(`\n🎭 Mevcut roller temizleniyor...\n`);
+
+        let attemptCount = 0;
+        const maxAttempts = 3;
+
+        while (attemptCount < maxAttempts) {
+            // Cache'i yenile
+            await this.guild.roles.fetch();
+
+            // @everyone hariç tüm rolleri al
+            const roles = Array.from(this.guild.roles.cache.values())
+                .filter(role => {
+                    // @everyone rolünü atla
+                    if (role.id === this.guild.id) return false;
+                    // Bot'un kendi rolünü atla (managed roles: bot rolleri, booster rolleri)
+                    if (role.managed) return false;
+                    return true;
+                })
+                // Pozisyona göre sırala (yukarıdan aşağıya sil)
+                .sort((a, b) => b.position - a.position);
+
+            if (roles.length === 0) {
+                console.log('✅ Tüm roller temizlendi! (Sadece @everyone ve sistem rolleri kaldı)\n');
+                return;
+            }
+
+            console.log(`🔄 ${roles.length} rol siliniyor... (Deneme ${attemptCount + 1}/${maxAttempts})`);
+
+            // Rolleri sil
+            const deletePromises = roles.map(async (role) => {
+                try {
+                    await role.delete();
+                    console.log(`  🗑️ ${role.name} silindi`);
+                } catch (error) {
+                    console.log(`  ⚠️ ${role.name} silinemedi: ${error.message}`);
+                }
+            });
+
+            await Promise.all(deletePromises);
+
+            // Silme işlemlerinin tamamlanması için bekle
+            console.log('⏳ Silme işleminin tamamlanması bekleniyor...');
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            attemptCount++;
+        }
+
+        // Son kontrol
+        await this.guild.roles.fetch();
+        const remainingRoles = this.guild.roles.cache.filter(r => r.id !== this.guild.id && !r.managed).size;
+
+        if (remainingRoles > 0) {
+            console.warn(`⚠️ Uyarı: ${remainingRoles} rol hala mevcut. Devam ediliyor...`);
         }
     }
 
