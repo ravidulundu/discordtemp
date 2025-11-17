@@ -440,9 +440,9 @@ class TemplateDeployer {
                             emoji: optionData.emoji ? { name: optionData.emoji.name } : null
                         };
 
-                        // Roller varsa ekle (REST API snake_case kullanıyor)
+                        // Roller varsa ekle - Discord.js 'roles' field adı kullanır (internal olarak role_ids'e çevirir)
                         if (roleIds.length > 0) {
-                            option.role_ids = roleIds;  // REST API uses snake_case
+                            option.roles = roleIds;  // Discord.js uses 'roles' (camelCase)
                         }
 
                         return option;
