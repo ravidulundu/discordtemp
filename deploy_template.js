@@ -87,30 +87,9 @@ class TemplateDeployer {
         // Mevcut sunucuyu al
         this.guild = await this.client.guilds.fetch(this.guildId);
         console.log(`✅ Sunucu bulundu: ${this.guild.name}`);
-        console.log(`📋 Mevcut kanalları siliyorum...\n`);
 
-        // Cache'i yenile
-        await this.guild.channels.fetch();
-
-        // Tüm kanalları array'e al
-        const channels = Array.from(this.guild.channels.cache.values());
-
-        // Kanalları sırayla sil (race condition önlemek için)
-        for (const channel of channels) {
-            try {
-                await channel.delete();
-                console.log(`  🗑️ ${channel.name} silindi`);
-                // Her silme arasında kısa bekleme
-                await new Promise(resolve => setTimeout(resolve, 200));
-            } catch (error) {
-                // Silme hatası göz ardı edilebilir
-                console.log(`  ⚠️ ${channel.name} silinemedi (zaten silinmiş olabilir)`);
-            }
-        }
-
-        // Tüm silme işlemleri bittikten sonra biraz bekle
-        console.log('\n⏳ Kanalların tamamen silinmesi bekleniyor...');
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        // Kanalları tamamen temizle
+        await this.deleteAllChannels();
 
         // Rolleri oluştur
         await this.createRoles();
@@ -123,6 +102,53 @@ class TemplateDeployer {
 
         // Hoşgeldin ve kurallar mesajlarını gönder
         await this.sendWelcomeMessages();
+    }
+
+    async deleteAllChannels() {
+        console.log(`📋 Mevcut kanallar temizleniyor...\n`);
+
+        let attemptCount = 0;
+        const maxAttempts = 3;
+
+        while (attemptCount < maxAttempts) {
+            // Cache'i yenile
+            await this.guild.channels.fetch();
+
+            const channels = Array.from(this.guild.channels.cache.values());
+
+            if (channels.length === 0) {
+                console.log('✅ Tüm kanallar temizlendi!\n');
+                return;
+            }
+
+            console.log(`🔄 ${channels.length} kanal siliniyor... (Deneme ${attemptCount + 1}/${maxAttempts})`);
+
+            // Kanalları sil
+            const deletePromises = channels.map(async (channel) => {
+                try {
+                    await channel.delete();
+                    console.log(`  🗑️ ${channel.name} silindi`);
+                } catch (error) {
+                    console.log(`  ⚠️ ${channel.name} silinemedi: ${error.message}`);
+                }
+            });
+
+            await Promise.all(deletePromises);
+
+            // Silme işlemlerinin tamamlanması için bekle
+            console.log('⏳ Silme işleminin tamamlanması bekleniyor...');
+            await new Promise(resolve => setTimeout(resolve, 3000));
+
+            attemptCount++;
+        }
+
+        // Son kontrol
+        await this.guild.channels.fetch();
+        const remainingChannels = this.guild.channels.cache.size;
+
+        if (remainingChannels > 0) {
+            console.warn(`⚠️ Uyarı: ${remainingChannels} kanal hala mevcut. Devam ediliyor...`);
+        }
     }
 
     async createRoles() {
