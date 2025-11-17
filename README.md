@@ -4,8 +4,8 @@
 
 ## 🎯 Özellikler
 
-- ✅ **10 Özel Rol** - Kurucudan yeni başlayanlara kadar tam hiyerarşi
-- ✅ **40+ Kanal** - Her ihtiyaca uygun organize edilmiş kanallar
+- ✅ **11 Özel Rol** - Kurucudan yeni başlayanlara kadar tam hiyerarşi
+- ✅ **41+ Kanal** - Her ihtiyaca uygun organize edilmiş kanallar
 - ✅ **Türkçe İçerik** - Tamamen Türkçe kanal ve rol isimleri
 - ✅ **İkon Kullanımı** - Her kanalda görsel emoji ikonları
 - ✅ **Otomatik Kurulum** - Tek komutla sunucu oluşturma
@@ -21,6 +21,7 @@
 | **Developer** | 💻 | Yeşil (#2ECC71) | Aktif yazılımcılar |
 | **Tasarımcı** | 🎨 | Pembe (#FF7675) | UI/UX tasarımcılar |
 | **Aktif Üye** | 🚀 | Mor (#9B59B6) | Aktif katılımcılar |
+| **VIP Üye** | 🎯 | Altın (#F1C40F) | Yönetim tarafından davet edilen özel üyeler |
 | **Yeni Başlayan** | 🌱 | Açık Yeşil (#57F287) | Yeni öğrenenler |
 | **Üye** | 👤 | Gri (#95A5A6) | Standart üyeler |
 | **Bot** | 🤖 | Lacivert (#586F7C) | Botlar |
@@ -69,7 +70,7 @@
 - **💸┃freelance** - Freelance işler
 - **🌟┃motivasyon** - Motivasyon
 
-### 🎙️ SES KANALLARI (7 Kanal)
+### 🎙️ SES KANALLARI (8 Kanal)
 - **🔊 Genel Ses** - Genel ses kanalı
 - **💻 Coding Session #1** - Birlikte kodlama
 - **💻 Coding Session #2** - Birlikte kodlama
@@ -77,6 +78,7 @@
 - **🎮 Oyun & Chill** - Oyun ve eğlence
 - **🤝 Toplantı Odası** - Toplantılar
 - **😴 AFK** - AFK kanalı
+- **🔐 Yönetim Odası** - Yönetici ses kanalı (sadece yöneticiler + VIP üyeler)
 
 ### 🤖 BOT & YÖNETİM (5 Kanal)
 - **🤖┃bot-komutları** - Bot komutları (herkes kullanabilir)

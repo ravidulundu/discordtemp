@@ -439,7 +439,8 @@ class TemplateDeployer {
                         {
                             name: '🎨 Özel Roller',
                             value: '• 🎨 **Tasarımcı** - UI/UX tasarımcılar\n' +
-                                   '• 🚀 **Aktif Üye** - Toplulukta aktif olanlar'
+                                   '• 🚀 **Aktif Üye** - Toplulukta aktif olanlar\n' +
+                                   '• 🎯 **VIP Üye** - Yönetim tarafından davet edilen özel üyeler'
                         },
                         {
                             name: '📚 Teknoloji Rolleri (Yakında)',

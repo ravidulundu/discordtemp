@@ -85,6 +85,14 @@
       "color": 5793266,
       "hoist": true,
       "mentionable": false
+    },
+    {
+      "id": "11",
+      "name": "🎯 VIP Üye",
+      "permissions": "1071698660929",
+      "color": 15844367,
+      "hoist": true,
+      "mentionable": true
     }
   ],
   "channels": [
@@ -488,6 +496,11 @@
         },
         {
           "id": "3",
+          "type": "role",
+          "allow": "1049600"
+        },
+        {
+          "id": "11",
           "type": "role",
           "allow": "1049600"
         }
