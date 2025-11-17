@@ -107,6 +107,15 @@ class TemplateDeployer {
     async deleteAllChannels() {
         console.log(`📋 Mevcut kanallar temizleniyor...\n`);
 
+        // Önce Community Server özelliğini kapat (varsa)
+        try {
+            await this.guild.setFeatures([]);
+            console.log('✅ Community Server özellikleri devre dışı bırakıldı');
+            await new Promise(resolve => setTimeout(resolve, 2000));
+        } catch (error) {
+            console.log('ℹ️ Community özelliği zaten kapalı veya kapatılamadı');
+        }
+
         let attemptCount = 0;
         const maxAttempts = 3;
 
