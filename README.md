@@ -8,8 +8,8 @@
 - ✅ **33 Kanal** - Her ihtiyaca uygun organize edilmiş kanallar (24 metin + 1 forum + 8 ses)
 - ✅ **Discord Onboarding** - Otomatik rol ataması sistemi
 - ✅ **Welcome Screen** - Yeni üyeler için rehber ekranı
-- ✅ **Forum Kanalları** - 12 etiketli soru-cevap sistemi
-- ✅ **Auto Moderation** - Spam ve küfür engelleme
+- ✅ **Forum Kanalları** - 11 etiketli soru-cevap sistemi
+- ✅ **Auto Moderation** - Link spam engelleme
 - ✅ **Türkçe İçerik** - Tamamen Türkçe kanal ve rol isimleri
 - ✅ **İkon Kullanımı** - Her kanalda görsel emoji ikonları
 - ✅ **Otomatik Kurulum** - Tek komutla sunucu oluşturma
@@ -165,7 +165,7 @@ Lacivert:    5793266  (#586F7C)
 - 👥 **20 Rol** (6 genel + 3 tecrübe + 10 uzmanlık + 1 dil öğrenimi)
 - 🎯 **Discord Onboarding Sistemi** (4 soru, otomatik rol ataması)
 - 👋 **Welcome Screen** (5 kanal rehberi)
-- 🛡️ **Auto Moderation** (3 kural: spam, küfür, link spam)
+- 🛡️ **Auto Moderation** (1 kural: link spam)
 - 🎨 **33+ İkon Kullanımı**
 
 ## 🤝 Katkıda Bulunma
@@ -259,21 +259,10 @@ Script çalıştırıldığında `configureWelcomeScreen()` fonksiyonu welcome s
 
 ## 🛡️ Auto Moderation (Otomatik Moderasyon)
 
-Discord'un yerleşik **Auto Moderation** sistemi ile spam ve küfür engelleme!
+Discord'un yerleşik **Auto Moderation** sistemi ile link spam engelleme!
 
-**3 Kural Yapılandırılır:**
-
-### 1. Spam Engelleme
-- ⚠️ 5+ mention = otomatik uyarı + timeout (60 saniye)
-- 🔇 Aşırı mesaj spamını engeller
-
-### 2. Küfür/Hakaret Engelleme
-- 🚫 Discord'un yerleşik küfür filtreleme sistemi
-- ✅ Moderatör ve Kurucu muaf
-- ⚠️ Otomatik mesaj bloklama
-
-### 3. Link Spam Engelleme
-- 🔗 Sadece güvenli linkler:
+**Link Spam Engelleme:**
+- 🔗 Sadece güvenli linkler kabul edilir:
   - discord.com
   - github.com
   - stackoverflow.com
@@ -281,6 +270,10 @@ Discord'un yerleşik **Auto Moderation** sistemi ile spam ve küfür engelleme!
 - ✅ Moderatör ve Kurucu muaf
 - ✅ **🔗┃faydalı-linkler** kanalında muaf
 - 🚫 Diğer linkler otomatik bloklanır
+
+**Notlar:**
+- ℹ️ Spam ve küfür engelleme Discord'un sunucu ayarlarından manuel olarak yapılandırılabilir
+- ℹ️ Server Settings → Safety Setup → AutoMod bölümünden ek kurallar ekleyebilirsiniz
 
 **Avantajlar:**
 - 🚀 Moderatör yükünü azaltır

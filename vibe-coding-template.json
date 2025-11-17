@@ -705,55 +705,6 @@
     "enabled": true,
     "rules": [
       {
-        "name": "Spam Engelleme",
-        "eventType": 1,
-        "triggerType": 5,
-        "triggerMetadata": {
-          "mentionTotalLimit": 5
-        },
-        "actions": [
-          {
-            "type": 1,
-            "metadata": {
-              "customMessage": "⚠️ Spam mesajlar yasaktır! Lütfen kuralları okuyun."
-            }
-          },
-          {
-            "type": 2,
-            "metadata": {
-              "channel": "703",
-              "durationSeconds": 60
-            }
-          }
-        ],
-        "enabled": true
-      },
-      {
-        "name": "Küfür/Hakaret Engelleme",
-        "eventType": 1,
-        "triggerType": 4,
-        "triggerMetadata": {
-          "keywordFilter": [
-            "*"
-          ],
-          "allowList": []
-        },
-        "actions": [
-          {
-            "type": 1,
-            "metadata": {
-              "customMessage": "⚠️ Küfür ve hakaret içeren mesajlar yasaktır!"
-            }
-          }
-        ],
-        "enabled": true,
-        "exemptRoles": [
-          "2",
-          "3"
-        ],
-        "exemptChannels": []
-      },
-      {
         "name": "Link Spam Engelleme",
         "eventType": 1,
         "triggerType": 1,

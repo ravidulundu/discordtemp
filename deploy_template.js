@@ -407,8 +407,15 @@ class TemplateDeployer {
                         // Role ID'lerini gerçek role ID'lere çevir
                         const roleIds = optionData.roleIds.map(templateRoleId => {
                             const role = this.roleMap.get(templateRoleId);
+                            if (!role) {
+                                console.warn(`    ⚠️ Rol bulunamadı: ${templateRoleId}`);
+                            }
                             return role ? role.id : null;
                         }).filter(id => id !== null);
+
+                        if (roleIds.length === 0) {
+                            console.warn(`    ⚠️ "${optionData.title}" için hiç rol eşleşmedi!`);
+                        }
 
                         return {
                             // Option ID'yi de gönderme, Discord otomatik atar
@@ -463,7 +470,7 @@ class TemplateDeployer {
                 return {
                     channelId: channel.id,
                     description: wc.description,
-                    emoji: wc.emoji
+                    emojiName: wc.emoji.name || wc.emoji  // Emoji name as string
                 };
             }).filter(wc => wc !== null);
 
