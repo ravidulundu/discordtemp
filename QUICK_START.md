@@ -56,8 +56,10 @@ Bu rehber, **Dulundu.dev Vibe Coding Topluluğu** Discord sunucusunu nasıl kura
 # 1. Gerekli paketleri yükleyin
 npm install
 
-# 2. Template'i deploy edin
-node deploy_template.js YOUR_BOT_TOKEN
+# 2. Sunucu ID'nizi alın (Ayarlar > Gelişmiş > Geliştirici Modu > Sunucuya sağ tık)
+
+# 3. Template'i deploy edin
+node deploy_template.js YOUR_BOT_TOKEN YOUR_SERVER_ID
 ```
 
 ### Yöntem 2: Python
@@ -75,8 +77,10 @@ source venv/bin/activate
 # 2. Gerekli paketleri yükleyin
 pip install -r requirements.txt
 
-# 3. Template'i deploy edin
-python deploy_template.py YOUR_BOT_TOKEN
+# 3. Sunucu ID'nizi alın (Ayarlar > Gelişmiş > Geliştirici Modu > Sunucuya sağ tık)
+
+# 4. Template'i deploy edin
+python deploy_template.py YOUR_BOT_TOKEN YOUR_SERVER_ID
 ```
 
 ## ✅ Sonuç

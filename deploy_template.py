@@ -17,8 +17,9 @@ import asyncio
 
 
 class TemplateDeployer:
-    def __init__(self, token, template_file='vibe-coding-template.json'):
+    def __init__(self, token, guild_id, template_file='vibe-coding-template.json'):
         self.token = token
+        self.guild_id = guild_id
         self.template_file = template_file
         self.template = None
         self.guild = None
@@ -72,17 +73,28 @@ class TemplateDeployer:
             await self.bot.close()
 
     async def create_server(self):
-        """Sunucuyu oluştur"""
-        # Yeni sunucu oluştur
-        self.guild = await self.bot.create_guild(name=self.template['name'])
-        print(f"✅ Sunucu oluşturuldu: {self.guild.name}")
+        """Sunucuyu yapılandır"""
+        # Mevcut sunucuyu al
+        try:
+            self.guild = await self.bot.fetch_guild(int(self.guild_id))
+            print(f"✅ Sunucu bulundu: {self.guild.name}")
+        except discord.NotFound:
+            print(f"❌ Hata: Sunucu bulunamadı (ID: {self.guild_id})")
+            print("   Sunucu ID'sini kontrol edin ve botun sunucuda olduğundan emin olun.")
+            await self.bot.close()
+            return
+        except discord.Forbidden:
+            print(f"❌ Hata: Bot sunucuya erişim izni yok (ID: {self.guild_id})")
+            await self.bot.close()
+            return
+        except ValueError:
+            print(f"❌ Hata: Geçersiz sunucu ID formatı: {self.guild_id}")
+            print("   Sunucu ID sayısal bir değer olmalıdır.")
+            await self.bot.close()
+            return
 
-        # Varsayılan kanalları sil
-        for channel in self.guild.channels:
-            try:
-                await channel.delete()
-            except:
-                pass
+        # Kanalları temizle
+        await self.delete_all_channels()
 
         # Rolleri oluştur
         await self.create_roles()
@@ -92,6 +104,49 @@ class TemplateDeployer:
 
         # Sunucu ayarlarını yapılandır
         await self.configure_server()
+
+    async def delete_all_channels(self):
+        """Tüm kanalları temizle"""
+        print("\n📋 Mevcut kanallar temizleniyor...\n")
+
+        # Community Server özelliklerini devre dışı bırak
+        try:
+            await self.guild.edit(community=False)
+            print("✅ Community Server özellikleri devre dışı bırakıldı")
+            await asyncio.sleep(2)
+        except (discord.Forbidden, discord.HTTPException) as e:
+            print(f"ℹ️ Community özelliği zaten kapalı veya kapatılamadı: {e}")
+
+        max_attempts = 3
+        for attempt in range(max_attempts):
+            # Kanalları yeniden getir
+            channels = await self.guild.fetch_channels()
+
+            if not channels:
+                print("✅ Tüm kanallar temizlendi!\n")
+                return
+
+            print(f"🔄 {len(channels)} kanal siliniyor... (Deneme {attempt + 1}/{max_attempts})")
+
+            # Kanalları sil
+            for channel in channels:
+                try:
+                    await channel.delete()
+                    print(f"  🗑️ {channel.name} silindi")
+                except discord.Forbidden:
+                    print(f"  ⚠️ {channel.name} silinemedi: İzin yok")
+                except discord.HTTPException as e:
+                    print(f"  ⚠️ {channel.name} silinemedi: {e}")
+                except Exception as e:
+                    print(f"  ⚠️ {channel.name} silinemedi: Beklenmeyen hata - {type(e).__name__}: {e}")
+
+            print("⏳ Silme işleminin tamamlanması bekleniyor...")
+            await asyncio.sleep(3)
+
+        # Son kontrol
+        remaining = await self.guild.fetch_channels()
+        if remaining:
+            print(f"⚠️ Uyarı: {len(remaining)} kanal hala mevcut. Devam ediliyor...")
 
     async def create_roles(self):
         """Rolleri oluştur"""
@@ -243,15 +298,20 @@ def main():
     print("=" * 60)
     print()
 
-    if len(sys.argv) < 2:
-        print("Kullanım: python deploy_template.py YOUR_BOT_TOKEN")
+    if len(sys.argv) < 3:
+        print("Kullanım: python deploy_template.py YOUR_BOT_TOKEN YOUR_SERVER_ID")
         print()
         print("Bot token'ı Discord Developer Portal'dan alabilirsiniz:")
         print("https://discord.com/developers/applications")
+        print()
+        print("Server ID'yi Discord'dan alabilirsiniz:")
+        print("1. Discord'da Ayarlar > Gelişmiş > Geliştirici Modu'nu açın")
+        print("2. Sunucuya sağ tıklayın > 'Sunucu ID'sini Kopyala'")
         return
 
     token = sys.argv[1]
-    deployer = TemplateDeployer(token)
+    guild_id = sys.argv[2]
+    deployer = TemplateDeployer(token, guild_id)
     deployer.run()
 
 

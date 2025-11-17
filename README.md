@@ -98,13 +98,13 @@
 **JavaScript:**
 ```bash
 npm install
-node deploy_template.js YOUR_BOT_TOKEN
+node deploy_template.js YOUR_BOT_TOKEN YOUR_SERVER_ID
 ```
 
 **Python:**
 ```bash
 pip install -r requirements.txt
-python deploy_template.py YOUR_BOT_TOKEN
+python deploy_template.py YOUR_BOT_TOKEN YOUR_SERVER_ID
 ```
 
 Detaylı kurulum için [QUICK_START.md](QUICK_START.md) dosyasına bakın.
@@ -147,9 +147,9 @@ Lacivert:    5793266  (#586F7C)
 
 - 📁 **6 Kategori**
 - 💬 **34 Metin Kanalı**
-- 🎙️ **7 Ses Kanalı**
-- 👥 **10 Rol**
-- 🎨 **41 İkon Kullanımı**
+- 🎙️ **8 Ses Kanalı** (🔐 Yönetim Odası dahil)
+- 👥 **11 Rol** (🎯 VIP Üye dahil)
+- 🎨 **42+ İkon Kullanımı**
 
 ## 🤝 Katkıda Bulunma
 
