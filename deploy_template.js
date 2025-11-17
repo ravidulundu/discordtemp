@@ -10,7 +10,13 @@
  *     2. CLI parametreleri ile: node deploy_template.js YOUR_BOT_TOKEN YOUR_GUILD_ID
  */
 
-require('dotenv').config();
+// dotenv'i opsiyonel olarak yükle (kurulu değilse hata verme)
+try {
+    require('dotenv').config();
+} catch (e) {
+    // dotenv kurulu değilse CLI parametreleri kullanılmalı
+}
+
 const { Client, GatewayIntentBits, PermissionFlagsBits, ChannelType } = require('discord.js');
 const fs = require('fs');
 
