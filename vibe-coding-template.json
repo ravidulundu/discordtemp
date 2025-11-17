@@ -470,6 +470,30 @@
       "position": 6
     },
     {
+      "id": "608",
+      "type": 2,
+      "name": "🔐 Yönetim Odası",
+      "parent_id": "600",
+      "position": 7,
+      "permission_overwrites": [
+        {
+          "id": "1",
+          "type": "role",
+          "deny": "1049600"
+        },
+        {
+          "id": "2",
+          "type": "role",
+          "allow": "1049600"
+        },
+        {
+          "id": "3",
+          "type": "role",
+          "allow": "1049600"
+        }
+      ]
+    },
+    {
       "id": "700",
       "type": 4,
       "name": "🤖 BOT & YÖNETİM",
