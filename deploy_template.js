@@ -250,6 +250,7 @@ class TemplateDeployer {
                     console.log('  ✓ @everyone rolü güncellendi');
                 } else {
                     // Yeni rol oluştur
+                    console.log(`  🔄 Oluşturuluyor: ${roleData.name}...`);
                     const role = await this.guild.roles.create({
                         name: roleData.name,
                         permissions: BigInt(roleData.permissions),
@@ -260,11 +261,12 @@ class TemplateDeployer {
                     this.roleMap.set(roleData.id, role);
                     console.log(`  ✓ ${role.name} oluşturuldu`);
 
-                    // Rate limit önleme için kısa bekle
-                    await new Promise(resolve => setTimeout(resolve, 200));
+                    // Rate limit önleme için bekle
+                    await new Promise(resolve => setTimeout(resolve, 500));
                 }
             } catch (error) {
                 console.error(`  ❌ Rol oluşturulamadı (${roleData.name}):`, error.message);
+                console.error(`  📋 Hata detayı:`, error.stack);
                 throw error; // Hatayı fırlat ki script dursun
             }
         }
