@@ -4,8 +4,9 @@
 
 ## 🎯 Özellikler
 
-- ✅ **11 Özel Rol** - Kurucudan yeni başlayanlara kadar tam hiyerarşi
-- ✅ **41+ Kanal** - Her ihtiyaca uygun organize edilmiş kanallar
+- ✅ **20 Özel Rol** - Kurucudan teknoloji rollerine kadar tam hiyerarşi
+- ✅ **42+ Kanal** - Her ihtiyaca uygun organize edilmiş kanallar
+- ✅ **Discord Onboarding** - Otomatik rol ataması sistemi
 - ✅ **Türkçe İçerik** - Tamamen Türkçe kanal ve rol isimleri
 - ✅ **İkon Kullanımı** - Her kanalda görsel emoji ikonları
 - ✅ **Otomatik Kurulum** - Tek komutla sunucu oluşturma
@@ -148,7 +149,8 @@ Lacivert:    5793266  (#586F7C)
 - 📁 **6 Kategori**
 - 💬 **34 Metin Kanalı**
 - 🎙️ **8 Ses Kanalı** (🔐 Yönetim Odası dahil)
-- 👥 **11 Rol** (🎯 VIP Üye dahil)
+- 👥 **20 Rol** (9 teknoloji + 11 genel rol)
+- 🎯 **Discord Onboarding Sistemi** (3 soru, otomatik rol ataması)
 - 🎨 **42+ İkon Kullanımı**
 
 ## 🤝 Katkıda Bulunma
@@ -169,23 +171,30 @@ MIT License - Özgürce kullanabilirsiniz!
 3. **Gateway Intents**: Discord Developer Portal'da Privileged Gateway Intents'i aktif edin
 4. **Özelleştirme**: Template yüklendikten sonra Discord üzerinden de düzenleyebilirsiniz
 
-## 🎯 Reaksiyon Rol Sistemi
+## 🎯 Otomatik Rol Sistemi (Onboarding)
 
-Template kurulduktan sonra **Carl-bot** kullanarak reaksiyon rol sistemi ekleyebilirsiniz!
+Template **Discord'un yerleşik Onboarding sistemi** ile gelir!
 
-Kullanıcılar emoji'lere tıklayarak otomatik rol alabilir:
-- 💻 → Developer rolü
-- 🐍 → Python rolü
-- 💛 → JavaScript rolü
-- ...ve daha fazlası!
+Yeni üyeler sunucuya katıldığında:
+1. ✅ Otomatik özelleştirme ekranı açılır
+2. ✅ 3 soruya cevap vererek rollerini seçer:
+   - **Teknolojiler**: Python, JavaScript, Java, C/C++, Web Dev, Mobile, Game Dev, Database, Backend
+   - **Deneyim Seviyesi**: Yeni Başlayan, Developer, Kıdemli Developer
+   - **Özel Roller**: Tasarımcı, Aktif Üye (bildirimler)
+3. ✅ Roller otomatik atanır, kanallar açılır!
 
-**Detaylı kurulum rehberi:** [CARL_BOT_SETUP.md](CARL_BOT_SETUP.md)
+### Onboarding Nasıl Çalışır?
 
-### Hızlı Başlangıç:
-1. Carl-bot'u ekle: https://carl.gg
-2. `!rr create #🎯┃rol-seçimi` komutu ile başlat
-3. [CARL_BOT_SETUP.md](CARL_BOT_SETUP.md) dosyasındaki komutları kopyala-yapıştır
-4. 5 dakikada hazır! 🚀
+Script çalıştığında **otomatik** olarak yapılandırılır. Manuel düzenleme için:
+1. Discord → Sunucu Ayarları
+2. **Onboarding** (Community Server özelliği)
+3. Soruları ve rolleri düzenle
+
+**Avantajlar:**
+- 🚀 Carl-bot gibi 3. parti bot gerekmez
+- 🎯 Discord'un native özelliği
+- 💯 %100 güvenilir ve hızlı
+- 🎨 Profesyonel görünüm
 
 ## 🆘 Sorun mu Yaşıyorsunuz?
 

@@ -103,6 +103,9 @@ class TemplateDeployer {
         // Sunucu ayarlarını yapılandır
         await this.configureServer();
 
+        // Onboarding sistemini yapılandır
+        await this.configureOnboarding();
+
         // Hoşgeldin ve kurallar mesajlarını gönder
         await this.sendWelcomeMessages();
     }
@@ -354,6 +357,67 @@ class TemplateDeployer {
 
         await this.guild.edit(editOptions);
         console.log('  ✓ Doğrulama seviyesi ve bildirim ayarları yapılandırıldı');
+    }
+
+    async configureOnboarding() {
+        console.log('\n🎯 Onboarding sistemi yapılandırılıyor...');
+
+        if (!this.template.onboarding || !this.template.onboarding.enabled) {
+            console.log('  ℹ️ Onboarding sistemi template\'de tanımlı değil, atlanıyor...');
+            return;
+        }
+
+        try {
+            // Prompt'ları hazırla
+            const prompts = this.template.onboarding.prompts.map(promptData => {
+                return {
+                    id: promptData.id,
+                    title: promptData.title,
+                    singleSelect: promptData.singleSelect || false,
+                    required: promptData.required || false,
+                    inOnboarding: promptData.inOnboarding !== false,
+                    type: promptData.type || 0,
+                    options: promptData.options.map(optionData => {
+                        // Role ID'lerini gerçek role ID'lere çevir
+                        const roleIds = optionData.roleIds.map(templateRoleId => {
+                            const role = this.roleMap.get(templateRoleId);
+                            return role ? role.id : null;
+                        }).filter(id => id !== null);
+
+                        return {
+                            id: optionData.id,
+                            title: optionData.title,
+                            description: optionData.description || '',
+                            emoji: optionData.emoji || null,
+                            roleIds: roleIds
+                        };
+                    })
+                };
+            });
+
+            // Default channel ID'lerini gerçek channel ID'lere çevir
+            const defaultChannelIds = (this.template.onboarding.defaultChannelIds || [])
+                .map(templateChannelId => {
+                    const channel = this.channelMap.get(templateChannelId);
+                    return channel ? channel.id : null;
+                })
+                .filter(id => id !== null);
+
+            // Onboarding'i yapılandır
+            await this.guild.editOnboarding({
+                prompts: prompts,
+                defaultChannels: defaultChannelIds,
+                enabled: true,
+                mode: this.template.onboarding.mode || 0
+            });
+
+            console.log('  ✅ Onboarding sistemi başarıyla yapılandırıldı!');
+            console.log(`  ✓ ${prompts.length} soru eklendi`);
+            console.log(`  ✓ ${defaultChannelIds.length} varsayılan kanal ayarlandı`);
+        } catch (error) {
+            console.error('  ❌ Onboarding yapılandırılırken hata:', error.message);
+            console.log('  ℹ️ Onboarding manuel olarak Discord ayarlarından yapılandırılabilir');
+        }
     }
 
     async sendWelcomeMessages() {
@@ -716,16 +780,16 @@ class TemplateDeployer {
                         {
                             name: '\u200b',
                             value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
-                                   '💡 **Nasıl Kullanılır?**\n' +
-                                   '✅ Emoji\'ye tıkla → Rol al\n' +
-                                   '❌ Emoji\'yi kaldır → Rol sil\n\n' +
-                                   '🤖 Carl-bot ile çalışır. Kurulum için: `CARL_BOT_SETUP.md`',
+                                   '💡 **Nasıl Kullanılır?**\n\n' +
+                                   '✅ Sunucuya **katıldığında** Discord\'un onboarding ekranı açılır\n' +
+                                   '✅ Sorulara cevap vererek **rollerini seç**\n' +
+                                   '✅ İstersen **Kanallar ve Roller** → **Özelleştirme** bölümünden değiştirebilirsin\n\n' +
+                                   '🎯 Discord\'un yerleşik Onboarding sistemi ile otomatik rol ataması!',
                             inline: false
                         }
                     ],
                     footer: {
-                        text: 'Dulundu.dev Vibe Coding • Reaksiyon Rol Sistemi',
-                        icon_url: 'https://cdn.discordapp.com/emojis/1234567890.png'
+                        text: 'Dulundu.dev Vibe Coding • Onboarding Sistemi'
                     },
                     timestamp: new Date()
                 }]

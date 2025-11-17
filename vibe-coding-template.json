@@ -651,6 +651,141 @@
       "permission_overwrites": []
     }
   ],
+  "onboarding": {
+    "enabled": true,
+    "mode": 0,
+    "prompts": [
+      {
+        "id": "1001",
+        "title": "Hangi teknolojilerle çalışıyorsun?",
+        "singleSelect": false,
+        "required": true,
+        "inOnboarding": true,
+        "type": 0,
+        "options": [
+          {
+            "id": "1001-1",
+            "title": "Python",
+            "description": "Python geliştiricileri",
+            "emoji": {"name": "🐍"},
+            "roleIds": ["12"]
+          },
+          {
+            "id": "1001-2",
+            "title": "JavaScript",
+            "description": "JS/TS geliştiricileri",
+            "emoji": {"name": "💛"},
+            "roleIds": ["13"]
+          },
+          {
+            "id": "1001-3",
+            "title": "Java",
+            "description": "Java geliştiricileri",
+            "emoji": {"name": "☕"},
+            "roleIds": ["14"]
+          },
+          {
+            "id": "1001-4",
+            "title": "C/C++",
+            "description": "C/C++ geliştiricileri",
+            "emoji": {"name": "⚙️"},
+            "roleIds": ["15"]
+          },
+          {
+            "id": "1001-5",
+            "title": "Web Development",
+            "description": "Web geliştiricileri",
+            "emoji": {"name": "🌐"},
+            "roleIds": ["16"]
+          },
+          {
+            "id": "1001-6",
+            "title": "Mobile",
+            "description": "iOS/Android",
+            "emoji": {"name": "📱"},
+            "roleIds": ["17"]
+          },
+          {
+            "id": "1001-7",
+            "title": "Game Dev",
+            "description": "Oyun geliştiricileri",
+            "emoji": {"name": "🎮"},
+            "roleIds": ["18"]
+          },
+          {
+            "id": "1001-8",
+            "title": "Database",
+            "description": "Veritabanı uzmanı",
+            "emoji": {"name": "🗄️"},
+            "roleIds": ["19"]
+          },
+          {
+            "id": "1001-9",
+            "title": "Backend",
+            "description": "Backend developer",
+            "emoji": {"name": "🔐"},
+            "roleIds": ["20"]
+          }
+        ]
+      },
+      {
+        "id": "1002",
+        "title": "Deneyim seviyeniz nedir?",
+        "singleSelect": true,
+        "required": true,
+        "inOnboarding": true,
+        "type": 0,
+        "options": [
+          {
+            "id": "1002-1",
+            "title": "Yeni Başlayan",
+            "description": "Yeni öğrenenler",
+            "emoji": {"name": "🌱"},
+            "roleIds": ["8"]
+          },
+          {
+            "id": "1002-2",
+            "title": "Developer",
+            "description": "Aktif yazılımcılar",
+            "emoji": {"name": "💻"},
+            "roleIds": ["5"]
+          },
+          {
+            "id": "1002-3",
+            "title": "Kıdemli Developer",
+            "description": "Deneyimli geliştiriciler",
+            "emoji": {"name": "⭐"},
+            "roleIds": ["4"]
+          }
+        ]
+      },
+      {
+        "id": "1003",
+        "title": "Özel roller",
+        "singleSelect": false,
+        "required": false,
+        "inOnboarding": true,
+        "type": 0,
+        "options": [
+          {
+            "id": "1003-1",
+            "title": "Tasarımcı",
+            "description": "UI/UX tasarımcılar",
+            "emoji": {"name": "🎨"},
+            "roleIds": ["6"]
+          },
+          {
+            "id": "1003-2",
+            "title": "Aktif Üye",
+            "description": "Duyuru bildirimleri al",
+            "emoji": {"name": "🚀"},
+            "roleIds": ["7"]
+          }
+        ]
+      }
+    ],
+    "defaultChannelIds": ["101", "102", "104", "201", "301"]
+  },
   "afk_channel_id": "607",
   "system_channel_id": "201"
 }
