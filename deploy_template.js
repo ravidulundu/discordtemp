@@ -113,12 +113,39 @@ class TemplateDeployer {
         );
 
         if (missingPermissions.length > 0) {
-            throw new Error(
-                `❌ Bot'un gerekli izinleri yok:\n` +
-                `   Eksik izinler: ${missingPermissions.join(', ')}\n` +
-                `   Bot'a "Administrator" iznini ver veya şu izinleri ekle:\n` +
-                `   ${missingPermissions.map(p => `   - ${p}`).join('\n')}\n`
-            );
+            // OAuth davet linki oluştur (doğru izinlerle)
+            const requiredPermissionBits =
+                PermissionFlagsBits.ManageGuild |
+                PermissionFlagsBits.ManageRoles |
+                PermissionFlagsBits.ManageChannels |
+                PermissionFlagsBits.ViewAuditLog |
+                PermissionFlagsBits.ManageWebhooks |
+                PermissionFlagsBits.ModerateMembers;
+
+            const inviteUrl = `https://discord.com/api/oauth2/authorize?client_id=${this.client.user.id}&permissions=${requiredPermissionBits}&scope=bot%20applications.commands`;
+
+            console.error('\n' + '='.repeat(70));
+            console.error('❌ BOT İZİNLERİ EKSİK!');
+            console.error('='.repeat(70));
+            console.error('\n📋 Eksik İzinler:');
+            missingPermissions.forEach(perm => console.error(`   ❌ ${perm}`));
+
+            console.error('\n🔧 OTOMATİK DÜZELTME - 2 SEÇENEK:\n');
+
+            console.error('1️⃣ OAuth Linki ile Yeniden Yetkilendir (ÖNERİLEN - KOLAY):');
+            console.error('   Aşağıdaki linke tıkla, sunucunu seç ve "Yetkilendir" de:\n');
+            console.error(`   🔗 ${inviteUrl}\n`);
+            console.error('   ✅ Bot otomatik olarak eksik izinleri alacak');
+            console.error('   ✅ Mevcut bot rolü korunur, sadece izinler güncellenir\n');
+
+            console.error('2️⃣ Manuel İzin Ekleme (Discord\'da):');
+            console.error('   • Discord\'da Sunucu Ayarları → Roller');
+            console.error(`   • "${this.client.user.username}" rolünü bul`);
+            console.error('   • Şu izinleri ekle:');
+            missingPermissions.forEach(perm => console.error(`     ✓ ${perm}`));
+            console.error('\n' + '='.repeat(70) + '\n');
+
+            throw new Error('Bot izinleri eksik - yukarıdaki adımları uygula');
         }
 
         console.log('✅ Bot izinleri doğrulandı');
