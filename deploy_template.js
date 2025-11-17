@@ -302,109 +302,241 @@ class TemplateDeployer {
         // Hoşgeldin kanalını bul
         const welcomeChannel = this.guild.channels.cache.find(ch => ch.name === '📢┃hoşgeldin');
         if (welcomeChannel) {
-            const welcomeMessage = {
+            const welcomeEmbed = {
                 embeds: [{
-                    color: 0x3498db,
-                    title: '👋 Dulundu.dev Vibe Coding Topluluğu\'na Hoş Geldin!',
-                    description: 'Türkiye\'nin en vibe\'lı yazılım topluluğuna katıldığın için mutluyuz! 🎉',
+                    color: 0x5865F2,
+                    title: '👋 HOŞ GELDİN!',
+                    description: '**Dulundu.dev Vibe Coding Topluluğu\'na katıldın!**\n\n' +
+                                 'Türkiye\'nin en vibe\'lı yazılım topluluğunda seni aramızda görmekten mutluyuz! 🎉\n\n' +
+                                 '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
                     fields: [
                         {
-                            name: '🎯 Burası Senin İçin',
-                            value: '• Kod yazmayı öğrenmek\n• Projeler geliştirmek\n• Deneyim paylaşmak\n• Yeni arkadaşlar edinmek\n• Kariyer fırsatları keşfetmek'
+                            name: '\u200b',
+                            value: '**🎯 BURASI SENİN İÇİN**',
+                            inline: false
                         },
                         {
-                            name: '🚀 İlk Adımlar',
-                            value: '1️⃣ <#' + this.guild.channels.cache.find(ch => ch.name === '📜┃kurallar')?.id + '> kanalını okuyun\n' +
-                                   '2️⃣ <#' + this.guild.channels.cache.find(ch => ch.name === '🎯┃rol-seçimi')?.id + '> kanalından rollerinizi seçin\n' +
-                                   '3️⃣ <#' + this.guild.channels.cache.find(ch => ch.name === '👋┃tanışma')?.id + '> kanalında kendinizi tanıtın\n' +
-                                   '4️⃣ <#' + this.guild.channels.cache.find(ch => ch.name === '💭┃genel-sohbet')?.id + '> kanalında sohbete katılın'
+                            name: '💻 Öğren',
+                            value: 'Kod yazmayı\nöğren',
+                            inline: true
+                        },
+                        {
+                            name: '🚀 Geliştir',
+                            value: 'Projeler\noluştur',
+                            inline: true
+                        },
+                        {
+                            name: '🤝 Paylaş',
+                            value: 'Deneyim\npaylaş',
+                            inline: true
+                        },
+                        {
+                            name: '👥 Tanış',
+                            value: 'Arkadaş\nedin',
+                            inline: true
+                        },
+                        {
+                            name: '💼 Keşfet',
+                            value: 'Kariyer\nfırsatları',
+                            inline: true
+                        },
+                        {
+                            name: '🎮 Eğlen',
+                            value: 'Kod yazarken\neğlen',
+                            inline: true
+                        },
+                        {
+                            name: '\u200b',
+                            value: '**🚀 İLK ADIMLAR**\n\n' +
+                                   '1️⃣ <#' + this.guild.channels.cache.find(ch => ch.name === '📜┃kurallar')?.id + '> **Kuralları oku**\n' +
+                                   '2️⃣ <#' + this.guild.channels.cache.find(ch => ch.name === '🎯┃rol-seçimi')?.id + '> **Rollerini seç**\n' +
+                                   '3️⃣ <#' + this.guild.channels.cache.find(ch => ch.name === '👋┃tanışma')?.id + '> **Kendini tanıt**\n' +
+                                   '4️⃣ <#' + this.guild.channels.cache.find(ch => ch.name === '💭┃genel-sohbet')?.id + '> **Sohbete katıl**\n\n' +
+                                   '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+                            inline: false
                         },
                         {
                             name: '💡 İpucu',
-                            value: 'Sorularınız için doğru kanalları kullanın. Yardıma ihtiyacınız varsa <#' +
-                                   this.guild.channels.cache.find(ch => ch.name === '🆘┃yardım')?.id + '> kanalına gelin!'
+                            value: 'Yardıma mı ihtiyacın var? → <#' + this.guild.channels.cache.find(ch => ch.name === '🆘┃yardım')?.id + '>',
+                            inline: true
+                        },
+                        {
+                            name: '📚 Kaynaklar',
+                            value: 'Faydalı linkler → <#' + this.guild.channels.cache.find(ch => ch.name === '🔗┃faydalı-linkler')?.id + '>',
+                            inline: true
                         }
                     ],
                     footer: {
-                        text: 'Dulundu.dev Vibe Coding • Kod yazarken eğlenin! 🎨'
+                        text: 'Dulundu.dev Vibe Coding • Kod yazarken eğlenin!',
+                        icon_url: 'https://cdn.discordapp.com/emojis/1234567890.png'
                     },
                     timestamp: new Date()
                 }]
             };
-            await welcomeChannel.send(welcomeMessage);
-            console.log('  ✓ Hoşgeldin mesajı gönderildi');
+            await welcomeChannel.send(welcomeEmbed);
+            console.log('  ✓ Geliştirilmiş hoşgeldin mesajı gönderildi');
         }
 
         // Kurallar kanalını bul
         const rulesChannel = this.guild.channels.cache.find(ch => ch.name === '📜┃kurallar');
         if (rulesChannel) {
+            // Ana kurallar embed'i
             const rulesMessage = {
                 embeds: [{
                     color: 0xe74c3c,
                     title: '📜 SUNUCU KURALLARI',
-                    description: 'Dulundu.dev Vibe Coding topluluğunda herkesin güvenli ve keyifli vakit geçirmesi için lütfen aşağıdaki kuralları okuyun ve uygulayın.',
+                    description: '**Dulundu.dev Vibe Coding Topluluğu\'na hoş geldin!**\n\n' +
+                                 'Güvenli ve keyifli bir ortam için aşağıdaki kuralları lütfen oku ve uygula.\n\n' +
+                                 '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
                     fields: [
                         {
-                            name: '1️⃣ Saygılı ve Nazik Olun',
-                            value: '• Herkese karşı saygılı, kibar ve anlayışlı olun\n• Hakaret, aşağılama, küfür veya taciz kesinlikle yasaktır\n• Yapıcı eleştiriler yapın, kırıcı olmayın\n• Farklı görüşlere ve deneyim seviyelerine saygı gösterin'
+                            name: '\u200b',
+                            value: '**🤝 TOPLULUK KURALLARI**',
+                            inline: false
                         },
                         {
-                            name: '2️⃣ Spam ve Flood Yasaktır',
-                            value: '• Gereksiz tekrar mesaj atmayın\n• CAPS LOCK kullanarak yazmayın\n• Emoji ve sticker spam\'i yapmayın\n• Bot komutlarını sadece <#' + this.guild.channels.cache.find(ch => ch.name === '🤖┃bot-komutları')?.id + '> kanalında kullanın'
+                            name: '1️⃣ Saygılı Ol',
+                            value: 'Herkese nazik\nve saygılı davran',
+                            inline: true
                         },
                         {
-                            name: '3️⃣ Doğru Kanalları Kullanın',
-                            value: '• Her konu için uygun kanalı kullanın\n• Python soruları → <#' + this.guild.channels.cache.find(ch => ch.name === '🐍┃python')?.id + '>\n• JavaScript soruları → <#' + this.guild.channels.cache.find(ch => ch.name === '💛┃javascript')?.id + '>\n• Proje paylaşımı → <#' + this.guild.channels.cache.find(ch => ch.name === '🎨┃proje-vitrini')?.id + '>\n• Meme\'ler → <#' + this.guild.channels.cache.find(ch => ch.name === '😂┃meme')?.id + '>'
+                            name: '2️⃣ Spam Yasak',
+                            value: 'Gereksiz tekrar\nmesaj atma',
+                            inline: true
                         },
                         {
-                            name: '4️⃣ Reklam ve Link Paylaşımı',
-                            value: '• İzinsiz sunucu reklamı yasaktır\n• Davet linkleri paylaşmayın\n• Faydalı kaynak linkleri <#' + this.guild.channels.cache.find(ch => ch.name === '🔗┃faydalı-linkler')?.id + '> kanalında paylaşılabilir\n• İş ilanları sadece <#' + this.guild.channels.cache.find(ch => ch.name === '💼┃iş-ilanları')?.id + '> kanalında'
+                            name: '3️⃣ Doğru Kanal',
+                            value: 'Konuya uygun\nkanal kullan',
+                            inline: true
                         },
                         {
-                            name: '5️⃣ Ayrımcılık ve Nefret Söylemi KESİNLİKLE YASAKTIR',
-                            value: '• **Irkçılık, cinsiyet ayrımcılığı, homofobia, transfobia YASAK**\n• Etnik köken, din, cinsiyet, cinsel yönelim, engellilik nedeniyle ayrımcılık yasak\n• Nefret söylemi ve gruplara yönelik hakaret yasak\n• **İhlal durumunda DERHAL BAN**\n• Bu kural için tolerans gösterilmez!'
+                            name: '4️⃣ Reklam Yasak',
+                            value: 'İzinsiz sunucu\nreklamı yapma',
+                            inline: true
                         },
                         {
-                            name: '6️⃣ Politika ve Din',
-                            value: '• Politik tartışmalar yasaktır\n• Siyasi parti/lider propagandası yasak\n• Dini tartışmalar ve misyonerlik yasak\n• Gündem konuları yerine kodlamaya odaklanın\n• Bu konular topluluk barışını bozar'
+                            name: '5️⃣ Uygun İçerik',
+                            value: 'NSFW ve şiddet\niçerik yasak',
+                            inline: true
                         },
                         {
-                            name: '7️⃣ Uygun İçerik',
-                            value: '• NSFW (Not Safe For Work) içerik kesinlikle yasak\n• Şiddet, gore, kan içeren medya yasak\n• Telif hakkı korumalı içerikleri paylaşmayın\n• Korsan yazılım/crack linklerini paylaşmayın\n• Dolandırıcılık, illegal aktivite yasak'
+                            name: '6️⃣ Hesap Güvenliği',
+                            value: 'Fake hesap\nkullanma',
+                            inline: true
                         },
                         {
-                            name: '8️⃣ Hesap ve Güvenlik',
-                            value: '• Fake/çoklu hesap kullanmayın\n• Başkalarının hesaplarını taklit etmeyin\n• Kişisel bilgilerinizi paylaşmayın\n• Şüpheli linklere tıklamayın ve paylaşmayın'
+                            name: '\u200b',
+                            value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+                                   '**⚠️ KESİN YASAK - DERHAL BAN!**',
+                            inline: false
                         },
                         {
-                            name: '9️⃣ Yardımlaşma',
-                            value: '• Sorular net ve açık olmalı, ekran görüntüsü ekleyin\n• "Çalışmıyor" demek yerine hatayı ve kodu paylaşın\n• Yardım aldığınızda teşekkür edin\n• Ödev/proje sorularında hazır kod istemeyin, öğrenmeye çalışın'
+                            name: '❌ Ayrımcılık ve Nefret Söylemi',
+                            value: '**Hiçbir şekilde tolerans gösterilmez:**\n' +
+                                   '• Irkçılık, cinsiyet ayrımcılığı\n' +
+                                   '• Homofobia, transfobia\n' +
+                                   '• Etnik köken, din, cinsel yönelim nedeniyle ayrımcılık\n' +
+                                   '• Nefret söylemi ve grup hakaret\n\n' +
+                                   '**→ İhlal = Anında Kalıcı Ban**',
+                            inline: false
                         },
                         {
-                            name: '🔟 Dil',
-                            value: '• Ana dil Türkçe\'dir\n• İngilizce kaynak/kod paylaşabilirsiniz\n• Anlaşılır Türkçe kullanın, yazım kurallarına dikkat edin'
+                            name: '❌ Politika ve Din Tartışmaları',
+                            value: '**Bu konular topluluk barışını bozar:**\n' +
+                                   '• Politik tartışma ve propaganda\n' +
+                                   '• Siyasi parti/lider propagandası\n' +
+                                   '• Dini tartışma ve misyonerlik\n\n' +
+                                   '**→ Gündem değil, kod konuşalım!**',
+                            inline: false
                         },
                         {
-                            name: '⚠️ Kural İhlalleri ve Cezalar',
-                            value: '**Genel İhlaller:**\n' +
-                                   '• 1. İhlal: Uyarı\n' +
-                                   '• 2. İhlal: Geçici susturma (timeout)\n' +
-                                   '• 3. İhlal: Sunucudan atılma (kick)\n' +
-                                   '• 4. İhlal: Kalıcı ban\n\n' +
-                                   '**CİDDİ İHLALLER (Direkt Ban):**\n' +
-                                   '• ❌ Irkçılık, ayrımcılık, nefret söylemi\n' +
-                                   '• ❌ Taciz, tehdit, doxxing\n' +
-                                   '• ❌ NSFW içerik paylaşımı\n' +
-                                   '• ❌ Spam/raid saldırısı\n\n' +
-                                   'Moderatörler duruma göre karar verir.'
+                            name: '\u200b',
+                            value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+                                   '**📋 DETAYLI KURALLAR**',
+                            inline: false
                         },
                         {
-                            name: '💡 Moderatör Yardımı',
-                            value: 'Sorun yaşarsanız moderatörlere <@&' + this.roleMap.get('3')?.id + '> mention ile ulaşabilirsiniz.'
+                            name: '💬 Saygılı İletişim',
+                            value: '✓ Hakaret, küfür, taciz yasak\n' +
+                                   '✓ Yapıcı eleştiri yap\n' +
+                                   '✓ Farklı görüşlere saygı',
+                            inline: true
+                        },
+                        {
+                            name: '🚫 Spam Kuralları',
+                            value: '✓ CAPS LOCK kullanma\n' +
+                                   '✓ Emoji/sticker spam yapma\n' +
+                                   '✓ Bot komutları → <#' + this.guild.channels.cache.find(ch => ch.name === '🤖┃bot-komutları')?.id + '>',
+                            inline: true
+                        },
+                        {
+                            name: '📁 Kanal Kullanımı',
+                            value: '✓ Python → <#' + this.guild.channels.cache.find(ch => ch.name === '🐍┃python')?.id + '>\n' +
+                                   '✓ JavaScript → <#' + this.guild.channels.cache.find(ch => ch.name === '💛┃javascript')?.id + '>\n' +
+                                   '✓ Projeler → <#' + this.guild.channels.cache.find(ch => ch.name === '🎨┃proje-vitrini')?.id + '>',
+                            inline: true
+                        },
+                        {
+                            name: '🔗 Link Paylaşımı',
+                            value: '✓ Sunucu davet linki yasak\n' +
+                                   '✓ Faydalı linkler → <#' + this.guild.channels.cache.find(ch => ch.name === '🔗┃faydalı-linkler')?.id + '>\n' +
+                                   '✓ İş ilanları → <#' + this.guild.channels.cache.find(ch => ch.name === '💼┃iş-ilanları')?.id + '>',
+                            inline: true
+                        },
+                        {
+                            name: '🛡️ Güvenlik',
+                            value: '✓ Kişisel bilgi paylaşma\n' +
+                                   '✓ Şüpheli linke tıklama\n' +
+                                   '✓ Korsan yazılım paylaşma',
+                            inline: true
+                        },
+                        {
+                            name: '🌍 Dil Kullanımı',
+                            value: '✓ Ana dil: Türkçe\n' +
+                                   '✓ İngilizce kaynak OK\n' +
+                                   '✓ Anlaşılır yazım',
+                            inline: true
+                        },
+                        {
+                            name: '\u200b',
+                            value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+                                   '**⚖️ KURAL İHLALLERİ VE CEZALAR**',
+                            inline: false
+                        },
+                        {
+                            name: '📊 Normal İhlaller',
+                            value: '**1. İhlal** → ⚠️ Uyarı\n' +
+                                   '**2. İhlal** → 🔇 Timeout\n' +
+                                   '**3. İhlal** → 👢 Kick\n' +
+                                   '**4. İhlal** → 🔨 Ban',
+                            inline: true
+                        },
+                        {
+                            name: '🚨 Ciddi İhlaller (Direkt Ban)',
+                            value: '❌ Irkçılık ve ayrımcılık\n' +
+                                   '❌ Taciz ve tehdit\n' +
+                                   '❌ NSFW içerik\n' +
+                                   '❌ Spam/raid saldırısı',
+                            inline: true
+                        },
+                        {
+                            name: '💡 Yardım',
+                            value: '**Sorun mu var?**\n' +
+                                   'Moderatörlere ulaş:\n' +
+                                   '<@&' + this.roleMap.get('3')?.id + '>',
+                            inline: true
+                        },
+                        {
+                            name: '\u200b',
+                            value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+                                   '✅ **Kuralları okudum ve kabul ediyorum**\n\n' +
+                                   'Güvenlik açığı buldun mu? → <#' + this.guild.channels.cache.find(ch => ch.name === '🔒┃güvenlik-bildirimi')?.id + '>\n' +
+                                   'Moderatörler duruma göre karar alma hakkını saklı tutar.',
+                            inline: false
                         }
                     ],
                     footer: {
-                        text: 'Bu kurallar Discord Topluluk Kuralları ile uyumludur • Son güncelleme'
+                        text: 'Dulundu.dev Vibe Coding • Discord Topluluk Kuralları ile uyumludur'
                     },
                     timestamp: new Date()
                 }]
