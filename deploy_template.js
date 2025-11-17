@@ -440,9 +440,9 @@ class TemplateDeployer {
                             emoji: optionData.emoji ? { name: optionData.emoji.name } : null
                         };
 
-                        // Roller varsa ekle
+                        // Roller varsa ekle (REST API snake_case kullanıyor)
                         if (roleIds.length > 0) {
-                            option.roleIds = roleIds;  // Try roleIds first
+                            option.role_ids = roleIds;  // REST API uses snake_case
                         }
 
                         return option;
