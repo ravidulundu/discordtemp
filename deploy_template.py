@@ -276,6 +276,75 @@ class TemplateDeployer:
         )
         print(f"  ✓ Doğrulama seviyesi ve bildirim ayarları yapılandırıldı")
 
+        # Rol seçimi mesajını gönder
+        await self.send_role_selection_message()
+
+    async def send_role_selection_message(self):
+        """Rol seçimi mesajını gönder"""
+        print("\n📨 Rol seçimi mesajı gönderiliyor...")
+
+        # Rol seçimi kanalını bul
+        role_channel = None
+        for channel in self.guild.text_channels:
+            if channel.name == '🎯┃rol-seçimi':
+                role_channel = channel
+                break
+
+        if role_channel:
+            embed = discord.Embed(
+                title='🎯 ROL SEÇİMİ',
+                description=(
+                    '**Aşağıdaki emoji\'lere tıklayarak istediğiniz rolleri alabilirsiniz!**\n\n'
+                    'Her emoji bir rolü temsil eder. Emoji\'ye tıkladığınızda rol otomatik olarak verilir, '
+                    'emoji\'yi kaldırdığınızda rol silinir.\n\n'
+                    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━'
+                ),
+                color=0x9b59b6,
+                timestamp=discord.utils.utcnow()
+            )
+
+            # Developer Rolleri Başlığı
+            embed.add_field(name='\u200b', value='**💻 DEVELOPER ROLLERİ**', inline=False)
+            embed.add_field(name='💻', value='**Developer**\nAktif yazılımcılar', inline=True)
+            embed.add_field(name='⭐', value='**Kıdemli Developer**\nDeneyimli geliştiriciler', inline=True)
+            embed.add_field(name='🌱', value='**Yeni Başlayan**\nYeni öğrenenler', inline=True)
+
+            # Özel Roller Başlığı
+            embed.add_field(name='\u200b', value='**🎨 ÖZEL ROLLER**', inline=False)
+            embed.add_field(name='🎨', value='**Tasarımcı**\nUI/UX tasarımcılar', inline=True)
+            embed.add_field(name='🚀', value='**Aktif Üye**\nAktif katılımcılar', inline=True)
+            embed.add_field(name='\u200b', value='\u200b', inline=True)
+
+            # Teknoloji Rolleri Başlığı
+            embed.add_field(name='\u200b', value='**🛠️ TEKNOLOJİ ROLLERİ**', inline=False)
+            embed.add_field(name='🐍', value='**Python**\nPython geliştiricileri', inline=True)
+            embed.add_field(name='💛', value='**JavaScript**\nJS/TS geliştiricileri', inline=True)
+            embed.add_field(name='☕', value='**Java**\nJava geliştiricileri', inline=True)
+            embed.add_field(name='⚙️', value='**C/C++**\nC/C++ geliştiricileri', inline=True)
+            embed.add_field(name='🌐', value='**Web Dev**\nWeb geliştiricileri', inline=True)
+            embed.add_field(name='📱', value='**Mobile**\niOS/Android', inline=True)
+            embed.add_field(name='🎮', value='**Game Dev**\nOyun geliştiricileri', inline=True)
+            embed.add_field(name='🗄️', value='**Database**\nVeritabanı uzmanı', inline=True)
+            embed.add_field(name='🔐', value='**Backend**\nBackend developer', inline=True)
+
+            # Kullanım Talimatları
+            embed.add_field(
+                name='\u200b',
+                value=(
+                    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n'
+                    '💡 **Nasıl Kullanılır?**\n'
+                    '✅ Emoji\'ye tıkla → Rol al\n'
+                    '❌ Emoji\'yi kaldır → Rol sil\n\n'
+                    '🤖 Carl-bot ile çalışır. Kurulum için: `CARL_BOT_SETUP.md`'
+                ),
+                inline=False
+            )
+
+            embed.set_footer(text='Dulundu.dev Vibe Coding • Reaksiyon Rol Sistemi')
+
+            await role_channel.send(embed=embed)
+            print('  ✓ Geliştirilmiş rol seçimi mesajı gönderildi')
+
     def run(self):
         """Botu çalıştır"""
         if not self.load_template():

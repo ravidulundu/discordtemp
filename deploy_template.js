@@ -422,40 +422,124 @@ class TemplateDeployer {
         // Rol seçimi kanalına mesaj
         const roleChannel = this.guild.channels.cache.find(ch => ch.name === '🎯┃rol-seçimi');
         if (roleChannel) {
+            // Ana rol seçimi embed'i
             const roleMessage = {
                 embeds: [{
                     color: 0x9b59b6,
-                    title: '🎯 Rol Seçimi',
-                    description: 'İlgilendiğiniz teknolojilere göre rol seçebilirsiniz!\n\n' +
-                                 '**Nasıl Rol Alırım?**\n' +
-                                 'Şu an için moderatörlerden rol isteyebilirsiniz. Yakında reaksiyon rol sistemi eklenecek! 🚀',
+                    title: '🎯 ROL SEÇİMİ',
+                    description: '**Aşağıdaki emoji\'lere tıklayarak istediğiniz rolleri alabilirsiniz!**\n\n' +
+                                 'Her emoji bir rolü temsil eder. Emoji\'ye tıkladığınızda rol otomatik olarak verilir, emoji\'yi kaldırdığınızda rol silinir.\n\n' +
+                                 '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
                     fields: [
                         {
-                            name: '💻 Developer Rolleri',
-                            value: '• 💻 **Developer** - Aktif yazılımcılar\n' +
-                                   '• ⭐ **Kıdemli Developer** - Deneyimli geliştiriciler\n' +
-                                   '• 🌱 **Yeni Başlayan** - Yeni öğrenenler'
+                            name: '\u200b',
+                            value: '**💻 DEVELOPER ROLLERİ**',
+                            inline: false
                         },
                         {
-                            name: '🎨 Özel Roller',
-                            value: '• 🎨 **Tasarımcı** - UI/UX tasarımcılar\n' +
-                                   '• 🚀 **Aktif Üye** - Toplulukta aktif olanlar\n' +
-                                   '• 🎯 **VIP Üye** - Yönetim tarafından davet edilen özel üyeler'
+                            name: '💻',
+                            value: '**Developer**\nAktif yazılımcılar',
+                            inline: true
                         },
                         {
-                            name: '📚 Teknoloji Rolleri (Yakında)',
-                            value: '• Python, JavaScript, Java, C++\n' +
-                                   '• Frontend, Backend, Full Stack\n' +
-                                   '• Mobile, Game Dev, DevOps'
+                            name: '⭐',
+                            value: '**Kıdemli Developer**\nDeneyimli geliştiriciler',
+                            inline: true
+                        },
+                        {
+                            name: '🌱',
+                            value: '**Yeni Başlayan**\nYeni öğrenenler',
+                            inline: true
+                        },
+                        {
+                            name: '\u200b',
+                            value: '**🎨 ÖZEL ROLLER**',
+                            inline: false
+                        },
+                        {
+                            name: '🎨',
+                            value: '**Tasarımcı**\nUI/UX tasarımcılar',
+                            inline: true
+                        },
+                        {
+                            name: '🚀',
+                            value: '**Aktif Üye**\nAktif katılımcılar',
+                            inline: true
+                        },
+                        {
+                            name: '\u200b',
+                            value: '\u200b',
+                            inline: true
+                        },
+                        {
+                            name: '\u200b',
+                            value: '**🛠️ TEKNOLOJİ ROLLERİ**',
+                            inline: false
+                        },
+                        {
+                            name: '🐍',
+                            value: '**Python**\nPython geliştiricileri',
+                            inline: true
+                        },
+                        {
+                            name: '💛',
+                            value: '**JavaScript**\nJS/TS geliştiricileri',
+                            inline: true
+                        },
+                        {
+                            name: '☕',
+                            value: '**Java**\nJava geliştiricileri',
+                            inline: true
+                        },
+                        {
+                            name: '⚙️',
+                            value: '**C/C++**\nC/C++ geliştiricileri',
+                            inline: true
+                        },
+                        {
+                            name: '🌐',
+                            value: '**Web Dev**\nWeb geliştiricileri',
+                            inline: true
+                        },
+                        {
+                            name: '📱',
+                            value: '**Mobile**\niOS/Android',
+                            inline: true
+                        },
+                        {
+                            name: '🎮',
+                            value: '**Game Dev**\nOyun geliştiricileri',
+                            inline: true
+                        },
+                        {
+                            name: '🗄️',
+                            value: '**Database**\nVeritabanı uzmanı',
+                            inline: true
+                        },
+                        {
+                            name: '🔐',
+                            value: '**Backend**\nBackend developer',
+                            inline: true
+                        },
+                        {
+                            name: '\u200b',
+                            value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+                                   '💡 **Nasıl Kullanılır?**\n' +
+                                   '✅ Emoji\'ye tıkla → Rol al\n' +
+                                   '❌ Emoji\'yi kaldır → Rol sil\n\n' +
+                                   '🤖 Carl-bot ile çalışır. Kurulum için: `CARL_BOT_SETUP.md`',
+                            inline: false
                         }
                     ],
                     footer: {
-                        text: 'Moderatörlere mention yaparak rol isteyebilirsiniz'
-                    }
+                        text: 'Dulundu.dev Vibe Coding • Reaksiyon Rol Sistemi',
+                        icon_url: 'https://cdn.discordapp.com/emojis/1234567890.png'
+                    },
+                    timestamp: new Date()
                 }]
             };
             await roleChannel.send(roleMessage);
-            console.log('  ✓ Rol seçimi mesajı gönderildi');
+            console.log('  ✓ Geliştirilmiş rol seçimi mesajı gönderildi');
         }
     }
 
