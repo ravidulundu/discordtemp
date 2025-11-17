@@ -432,8 +432,9 @@ class TemplateDeployer {
                             // Option ID'yi de gönderme, Discord otomatik atar
                             title: optionData.title,
                             description: optionData.description || '',
-                            emoji: optionData.emoji ? { name: optionData.emoji.name } : null,  // Emoji as object
-                            role_ids: roleIds  // Discord API uses snake_case
+                            emoji: optionData.emoji ? { name: optionData.emoji.name } : null,
+                            roleIds: roleIds,  // Try camelCase
+                            channelIds: []     // Add empty channelIds (at least one of role/channel required)
                         };
                     })
                 };
