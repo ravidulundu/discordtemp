@@ -17,18 +17,39 @@
 
 ## 📋 Rol Yapısı
 
+### Genel Roller
+
 | Rol | İkon | Renk | Açıklama |
 |-----|------|------|----------|
 | **Kurucu** | 👑 | Kırmızı (#E74C3C) | Sunucu sahibi ve kurucular |
 | **Moderatör** | 🛡️ | Turuncu (#E67E22) | Sunucu moderatörleri |
-| **Kıdemli Developer** | ⭐ | Mavi (#3498DB) | Deneyimli yazılımcılar |
-| **Developer** | 💻 | Yeşil (#2ECC71) | Aktif yazılımcılar |
-| **Tasarımcı** | 🎨 | Pembe (#FF7675) | UI/UX tasarımcılar |
-| **Aktif Üye** | 🚀 | Mor (#9B59B6) | Aktif katılımcılar |
 | **VIP Üye** | 🎯 | Altın (#F1C40F) | Yönetim tarafından davet edilen özel üyeler |
-| **Yeni Başlayan** | 🌱 | Açık Yeşil (#57F287) | Yeni öğrenenler |
+| **Aktif Üye** | 🚀 | Mor (#9B59B6) | Duyuru bildirimleri alan üyeler |
 | **Üye** | 👤 | Gri (#95A5A6) | Standart üyeler |
 | **Bot** | 🤖 | Lacivert (#586F7C) | Botlar |
+
+### Tecrübe Seviyeleri
+
+| Rol | İkon | Renk | Açıklama |
+|-----|------|------|----------|
+| **Senior Dev** | ⭐ | Mavi (#3498DB) | 5+ yıl tecrübe |
+| **Mid Dev** | 💻 | Yeşil (#2ECC71) | 2-5 yıl tecrübe |
+| **Junior Dev** | 🌱 | Açık Yeşil (#57F287) | 0-2 yıl tecrübe |
+
+### Uzmanlık Alanları
+
+| Rol | İkon | Açıklama |
+|-----|------|----------|
+| **Fullstack** | 🌐 | Hem frontend hem backend |
+| **Backend** | 🔐 | Sunucu tarafı geliştirme |
+| **Frontend** | 💻 | Kullanıcı arayüzü geliştirme |
+| **Data Science** | 📊 | Veri analizi ve bilimi |
+| **AI** | 🤖 | Yapay zeka ve makine öğrenmesi |
+| **Game Dev** | 🎮 | Oyun geliştirme |
+| **UI/UX Designer** | 🎨 | Tasarım ve kullanıcı deneyimi |
+| **Systems Dev** | ⚙️ | Sistem programlama |
+| **Mobile Dev** | 📱 | iOS ve Android geliştirme |
+| **English Learner** | 🇬🇧 | İngilizce pratik seansları |
 
 ## 🗂️ Kanal Yapısı
 
@@ -53,7 +74,7 @@
 - **🤝┃işbirliği** - Proje ortağı bulma
 - **💡┃proje-fikirleri** - Proje fikirleri
 - **📊┃github-updates** - GitHub bildirimleri
-- **💡┃soru-cevap** (Forum) - Etiketli soru-cevap sistemi (12 tag: Python, JS, Java, C/C++, Web, Mobile, DB, Backend, Game Dev, DevOps, Çözüldü, Acil)
+- **💡┃soru-cevap** (Forum) - Etiketli soru-cevap sistemi (11 tag: Fullstack, Backend, Frontend, Data Science, AI, Game Dev, UI/UX, Systems Dev, Mobile Dev, Çözüldü, Acil)
 
 ### 📚 ÖĞRENME & KARİYER (6 Kanal)
 - **📖┃eğitimler** - Eğitim içerikleri
@@ -139,10 +160,10 @@ Lacivert:    5793266  (#586F7C)
 ## 📊 İstatistikler
 
 - 📁 **5 Kategori**
-- 💬 **24 Metin Kanalı** + **1 Forum Kanalı** (12 tag)
+- 💬 **24 Metin Kanalı** + **1 Forum Kanalı** (11 tag)
 - 🎙️ **8 Ses Kanalı** (🔐 Yönetim Odası dahil)
-- 👥 **20 Rol** (9 teknoloji + 11 genel rol)
-- 🎯 **Discord Onboarding Sistemi** (3 soru, otomatik rol ataması)
+- 👥 **20 Rol** (6 genel + 3 tecrübe + 10 uzmanlık + 1 dil öğrenimi)
+- 🎯 **Discord Onboarding Sistemi** (4 soru, otomatik rol ataması)
 - 👋 **Welcome Screen** (5 kanal rehberi)
 - 🛡️ **Auto Moderation** (3 kural: spam, küfür, link spam)
 - 🎨 **33+ İkon Kullanımı**
@@ -171,10 +192,11 @@ Template **Discord'un yerleşik Onboarding sistemi** ile gelir!
 
 Yeni üyeler sunucuya katıldığında:
 1. ✅ Otomatik özelleştirme ekranı açılır
-2. ✅ 3 soruya cevap vererek rollerini seçer:
-   - **Teknolojiler**: Python, JavaScript, Java, C/C++, Web Dev, Mobile, Game Dev, Database, Backend
-   - **Deneyim Seviyesi**: Yeni Başlayan, Developer, Kıdemli Developer
-   - **Özel Roller**: Tasarımcı, Aktif Üye (bildirimler)
+2. ✅ 4 soruya cevap vererek rollerini seçer:
+   - **Uzmanlık Alanı**: Fullstack, Backend, Frontend, Data Science, AI, Game Dev, UI/UX, Systems Dev, Mobile Dev
+   - **Tecrübe Seviyesi**: Junior Dev (0-2 yıl), Mid Dev (2-5 yıl), Senior Dev (5+ yıl)
+   - **İngilizce Pratik**: English Learner (opsiyonel)
+   - **Bildirimler**: Aktif Üye rolü (opsiyonel)
 3. ✅ Roller otomatik atanır, kanallar açılır!
 
 ### Onboarding Nasıl Çalışır?
@@ -189,6 +211,7 @@ Script çalıştığında **otomatik** olarak yapılandırılır. Manuel düzenl
 - 🎯 Discord'un native özelliği
 - 💯 %100 güvenilir ve hızlı
 - 🎨 Profesyonel görünüm
+- 🌍 Alan bazlı roller (dil bazlı değil)
 
 ## 👋 Welcome Screen (Hoş Geldin Ekranı)
 
@@ -212,17 +235,16 @@ Script çalıştırıldığında `configureWelcomeScreen()` fonksiyonu welcome s
 **💡┃soru-cevap** forum kanalı ile organize edilmiş soru-cevap sistemi!
 
 **Özellikler:**
-- ✅ **12 Etiket (Tag):**
-  - 🐍 Python
-  - 💛 JavaScript
-  - ☕ Java
-  - ⚙️ C/C++
-  - 🌐 Web Dev
-  - 📱 Mobile
-  - 🗄️ Database
+- ✅ **11 Etiket (Tag):**
+  - 🌐 Fullstack
   - 🔐 Backend
+  - 💻 Frontend
+  - 📊 Data Science
+  - 🤖 AI
   - 🎮 Game Dev
-  - 🚀 DevOps
+  - 🎨 UI/UX
+  - ⚙️ Systems Dev
+  - 📱 Mobile Dev
   - ✅ Çözüldü
   - 🚨 Acil
 - ✅ Her soru ayrı bir post (thread)
