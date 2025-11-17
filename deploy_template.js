@@ -251,18 +251,27 @@ class TemplateDeployer {
                 } else {
                     // Yeni rol oluştur
                     console.log(`  🔄 Oluşturuluyor: ${roleData.name}...`);
-                    const role = await this.guild.roles.create({
+
+                    // Timeout ile rol oluştur (10 saniye)
+                    const rolePromise = this.guild.roles.create({
                         name: roleData.name,
                         permissions: BigInt(roleData.permissions),
                         color: roleData.color,  // Use 'color' (deprecation warning can be ignored)
                         hoist: roleData.hoist,
                         mentionable: roleData.mentionable
                     });
+
+                    const timeoutPromise = new Promise((_, reject) =>
+                        setTimeout(() => reject(new Error('Rol oluşturma 10 saniye içinde tamamlanmadı')), 10000)
+                    );
+
+                    const role = await Promise.race([rolePromise, timeoutPromise]);
                     this.roleMap.set(roleData.id, role);
                     console.log(`  ✓ ${role.name} oluşturuldu`);
 
-                    // Rate limit önleme için bekle
-                    await new Promise(resolve => setTimeout(resolve, 500));
+                    // Rate limit önleme için daha uzun bekle
+                    console.log(`  ⏳ 1 saniye bekleniyor...`);
+                    await new Promise(resolve => setTimeout(resolve, 1000));
                 }
             } catch (error) {
                 console.error(`  ❌ Rol oluşturulamadı (${roleData.name}):`, error.message);
