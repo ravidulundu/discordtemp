@@ -691,7 +691,20 @@ class TemplateDeployer {
             const defaultChannelIds = (this.template.onboarding.defaultChannelIds || [])
                 .map(templateChannelId => {
                     const channel = this.channelMap.get(templateChannelId);
-                    return channel ? channel.id : null;
+                    if (!channel) {
+                        console.log(`  ⚠️ Kanal bulunamadı: Template ID ${templateChannelId}`);
+                        return null;
+                    }
+
+                    // @everyone erişimini kontrol et
+                    const everyonePerms = channel.permissionsFor(this.guild.roles.everyone);
+                    if (!everyonePerms || !everyonePerms.has('ViewChannel')) {
+                        console.log(`  ⚠️ Kanal @everyone tarafından görülemez: ${channel.name} - Atlanıyor`);
+                        return null;
+                    }
+
+                    console.log(`  ✓ Default kanal: ${channel.name} (${channel.id})`);
+                    return channel.id;
                 })
                 .filter(id => id !== null);
 
@@ -708,6 +721,9 @@ class TemplateDeployer {
             console.log(`  ✓ ${defaultChannelIds.length} varsayılan kanal ayarlandı`);
         } catch (error) {
             console.error('  ❌ Onboarding yapılandırılırken hata:', error.message);
+            if (error.rawError?.errors) {
+                console.error('  📋 Detaylı hata:', JSON.stringify(error.rawError.errors, null, 2));
+            }
             console.log('  ℹ️ Onboarding manuel olarak Discord ayarlarından yapılandırılabilir');
         }
     }
