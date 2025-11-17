@@ -169,6 +169,24 @@ MIT License - Özgürce kullanabilirsiniz!
 3. **Gateway Intents**: Discord Developer Portal'da Privileged Gateway Intents'i aktif edin
 4. **Özelleştirme**: Template yüklendikten sonra Discord üzerinden de düzenleyebilirsiniz
 
+## 🎯 Reaksiyon Rol Sistemi
+
+Template kurulduktan sonra **Carl-bot** kullanarak reaksiyon rol sistemi ekleyebilirsiniz!
+
+Kullanıcılar emoji'lere tıklayarak otomatik rol alabilir:
+- 💻 → Developer rolü
+- 🐍 → Python rolü
+- 💛 → JavaScript rolü
+- ...ve daha fazlası!
+
+**Detaylı kurulum rehberi:** [CARL_BOT_SETUP.md](CARL_BOT_SETUP.md)
+
+### Hızlı Başlangıç:
+1. Carl-bot'u ekle: https://carl.gg
+2. `!rr create #🎯┃rol-seçimi` komutu ile başlat
+3. [CARL_BOT_SETUP.md](CARL_BOT_SETUP.md) dosyasındaki komutları kopyala-yapıştır
+4. 5 dakikada hazır! 🚀
+
 ## 🆘 Sorun mu Yaşıyorsunuz?
 
 [QUICK_START.md](QUICK_START.md) dosyasındaki "Sorun Giderme" bölümüne bakın.
