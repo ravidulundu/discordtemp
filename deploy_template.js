@@ -359,6 +359,23 @@ class TemplateDeployer {
             }
         }
 
+        // Community Server özelliklerini etkinleştir (Onboarding ve Welcome Screen için gerekli)
+        try {
+            // Kurallar kanalını ayarla (ID: 102 = kurallar)
+            const rulesChannel = this.channelMap.get('102');
+            // Duyurular kanalını ayarla (ID: 103 = duyurular)
+            const updatesChannel = this.channelMap.get('103');
+
+            if (rulesChannel && updatesChannel) {
+                editOptions.features = ['COMMUNITY'];
+                editOptions.rulesChannel = rulesChannel;
+                editOptions.publicUpdatesChannel = updatesChannel;
+                console.log('  ✓ Community Server özellikleri etkinleştirildi');
+            }
+        } catch (error) {
+            console.log('  ⚠️ Community Server etkinleştirilemedi:', error.message);
+        }
+
         // Doğrulama seviyesini ayarla
         editOptions.verificationLevel = this.template.verification_level || 0;
         editOptions.defaultMessageNotifications = this.template.default_message_notifications || 0;
@@ -377,10 +394,10 @@ class TemplateDeployer {
         }
 
         try {
-            // Prompt'ları hazırla
+            // Prompt'ları hazırla (ID'ler Discord tarafından otomatik atanacak)
             const prompts = this.template.onboarding.prompts.map(promptData => {
                 return {
-                    id: promptData.id,
+                    // ID'yi gönderme, Discord otomatik atar
                     title: promptData.title,
                     singleSelect: promptData.singleSelect || false,
                     required: promptData.required || false,
@@ -394,7 +411,7 @@ class TemplateDeployer {
                         }).filter(id => id !== null);
 
                         return {
-                            id: optionData.id,
+                            // Option ID'yi de gönderme, Discord otomatik atar
                             title: optionData.title,
                             description: optionData.description || '',
                             emoji: optionData.emoji || null,

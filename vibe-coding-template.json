@@ -715,7 +715,7 @@
       {
         "name": "Spam Engelleme",
         "eventType": 1,
-        "triggerType": 3,
+        "triggerType": 5,
         "triggerMetadata": {
           "mentionTotalLimit": 5
         },
