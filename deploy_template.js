@@ -103,17 +103,22 @@ class TemplateDeployer {
         // Sunucu ayarlarını yapılandır
         await this.configureServer();
 
-        // Onboarding sistemini yapılandır
-        await this.configureOnboarding();
-
-        // Welcome Screen yapılandır
-        await this.configureWelcomeScreen();
+        // Community Server'ın tam etkinleşmesi için bekle
+        console.log('\n⏳ Community Server\'ın etkinleşmesi bekleniyor...');
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        console.log('  ✓ Bekleme tamamlandı\n');
 
         // Forum kanallarını oluştur
         await this.createForumChannels();
 
         // Auto Moderation yapılandır
         await this.configureAutoModeration();
+
+        // Welcome Screen yapılandır (Community Server gerektirir)
+        await this.configureWelcomeScreen();
+
+        // Onboarding sistemini yapılandır (EN SON - Community Server tamamen hazır olmalı)
+        await this.configureOnboarding();
 
         // Hoşgeldin ve kurallar mesajlarını gönder
         await this.sendWelcomeMessages();
