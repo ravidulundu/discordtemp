@@ -97,7 +97,7 @@
     },
     {
       "id": "12",
-      "name": "Python",
+      "name": "🐍 Python",
       "permissions": "0",
       "color": 3447003,
       "hoist": false,
@@ -105,7 +105,7 @@
     },
     {
       "id": "13",
-      "name": "JavaScript",
+      "name": "💛 JavaScript",
       "permissions": "0",
       "color": 15844367,
       "hoist": false,
@@ -113,7 +113,7 @@
     },
     {
       "id": "14",
-      "name": "Java",
+      "name": "☕ Java",
       "permissions": "0",
       "color": 15105570,
       "hoist": false,
@@ -121,7 +121,7 @@
     },
     {
       "id": "15",
-      "name": "C/C++",
+      "name": "⚙️ C/C++",
       "permissions": "0",
       "color": 5793266,
       "hoist": false,
@@ -129,7 +129,7 @@
     },
     {
       "id": "16",
-      "name": "Web Dev",
+      "name": "🌐 Web Dev",
       "permissions": "0",
       "color": 3066993,
       "hoist": false,
@@ -137,7 +137,7 @@
     },
     {
       "id": "17",
-      "name": "Mobile",
+      "name": "📱 Mobile",
       "permissions": "0",
       "color": 10181046,
       "hoist": false,
@@ -145,7 +145,7 @@
     },
     {
       "id": "18",
-      "name": "Game Dev",
+      "name": "🎮 Game Dev",
       "permissions": "0",
       "color": 9807270,
       "hoist": false,
@@ -153,7 +153,7 @@
     },
     {
       "id": "19",
-      "name": "Database",
+      "name": "🗄️ Database",
       "permissions": "0",
       "color": 5763719,
       "hoist": false,
@@ -161,7 +161,7 @@
     },
     {
       "id": "20",
-      "name": "Backend",
+      "name": "🔐 Backend",
       "permissions": "0",
       "color": 7419530,
       "hoist": false,
