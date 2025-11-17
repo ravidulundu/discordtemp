@@ -551,15 +551,30 @@ class TemplateDeployer {
     async configureAutoModeration() {
         console.log('\n🛡️ Auto Moderation yapılandırılıyor...');
 
-        // Mevcut kuralları listele
+        // Mevcut kuralları listele ve duplicate kontrolü
+        let existingRules;
         try {
-            const existingRules = await this.guild.autoModerationRules.fetch();
+            existingRules = await this.guild.autoModerationRules.fetch();
             console.log(`  ℹ️ Sunucuda ${existingRules.size} mevcut Auto Mod kuralı var:`);
+
+            // Kural isimlerini say (duplicate tespit)
+            const ruleNames = {};
             existingRules.forEach(rule => {
+                ruleNames[rule.name] = (ruleNames[rule.name] || 0) + 1;
                 console.log(`    - ${rule.name} (Trigger Type: ${rule.triggerType})`);
             });
+
+            // Duplicate varsa uyar
+            const duplicates = Object.entries(ruleNames).filter(([name, count]) => count > 1);
+            if (duplicates.length > 0) {
+                console.log(`  ⚠️ Duplicate kurallar tespit edildi:`);
+                duplicates.forEach(([name, count]) => {
+                    console.log(`    - "${name}" ${count} kere var`);
+                });
+            }
         } catch (error) {
             console.log('  ⚠️ Mevcut kurallar listelenemedi:', error.message);
+            existingRules = null;
         }
 
         if (!this.template.autoModeration || !this.template.autoModeration.enabled) {
@@ -569,6 +584,18 @@ class TemplateDeployer {
 
         for (const ruleData of this.template.autoModeration.rules) {
             try {
+                // Aynı isimde kural var mı kontrol et
+                if (existingRules) {
+                    const duplicateRules = existingRules.filter(r => r.name === ruleData.name);
+                    if (duplicateRules.size > 0) {
+                        console.log(`  ⚠️ "${ruleData.name}" kuralı zaten var (${duplicateRules.size} adet), siliniyor...`);
+                        for (const rule of duplicateRules.values()) {
+                            await rule.delete();
+                            console.log(`    ✓ Silindi: ${rule.name}`);
+                        }
+                    }
+                }
+
                 // Exempt role ID'lerini gerçek role ID'lere çevir
                 const exemptRoles = (ruleData.exemptRoles || [])
                     .map(templateRoleId => {
