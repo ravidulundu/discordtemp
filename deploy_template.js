@@ -255,35 +255,55 @@ class TemplateDeployer {
                     console.log(`     Guild: ${this.guild.name}, Guild ID: ${this.guild.id}`);
                     console.log(`     Bot guild permissions:`, this.guild.members.me.permissions.toArray().slice(0, 10).join(', '));
 
-                    try {
-                        console.log(`     ⏳ İstek gönderiliyor...`);
+                    let role = null;
+                    let attempts = 0;
+                    const maxAttempts = 3;
 
-                        // Önce sadece isim ile oluştur (en minimal)
-                        const role = await this.guild.roles.create({
-                            name: roleData.name
-                        });
+                    while (!role && attempts < maxAttempts) {
+                        attempts++;
+                        try {
+                            console.log(`     ⏳ İstek gönderiliyor... (Deneme ${attempts}/${maxAttempts})`);
 
-                        console.log(`     ✓ Rol oluşturuldu, özellikler ekleniyor...`);
+                            // 30 saniye timeout ile rol oluştur
+                            const createPromise = this.guild.roles.create({
+                                name: roleData.name
+                            });
 
-                        // Sonra özellikleri ekle
-                        await role.edit({
-                            permissions: BigInt(roleData.permissions),
-                            color: roleData.color,
-                            hoist: roleData.hoist,
-                            mentionable: roleData.mentionable
-                        });
+                            const timeoutPromise = new Promise((_, reject) =>
+                                setTimeout(() => reject(new Error('30 saniye timeout')), 30000)
+                            );
 
-                        this.roleMap.set(roleData.id, role);
-                        console.log(`  ✓ ${role.name} tamamlandı (ID: ${role.id})`);
-                    } catch (roleError) {
-                        console.error(`     ⚠️ Rol oluşturma hatası:`, roleError.message);
-                        console.error(`     Stack:`, roleError.stack);
-                        throw roleError;
+                            role = await Promise.race([createPromise, timeoutPromise]);
+
+                            console.log(`     ✓ Rol oluşturuldu, özellikler ekleniyor...`);
+
+                            // Sonra özellikleri ekle
+                            await role.edit({
+                                permissions: BigInt(roleData.permissions),
+                                color: roleData.color,
+                                hoist: roleData.hoist,
+                                mentionable: roleData.mentionable
+                            });
+
+                            this.roleMap.set(roleData.id, role);
+                            console.log(`  ✓ ${role.name} tamamlandı (ID: ${role.id})`);
+
+                        } catch (roleError) {
+                            console.error(`     ⚠️ Deneme ${attempts} başarısız: ${roleError.message}`);
+
+                            if (attempts >= maxAttempts) {
+                                console.error(`     ❌ ${maxAttempts} deneme sonunda başarısız!`);
+                                throw roleError;
+                            }
+
+                            console.log(`     🔄 ${5} saniye sonra tekrar denenecek...`);
+                            await new Promise(resolve => setTimeout(resolve, 5000));
+                        }
                     }
 
                     // Rate limit önleme için bekle
-                    console.log(`     ⏳ 2 saniye bekleniyor...`);
-                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    console.log(`     ⏳ 3 saniye bekleniyor...`);
+                    await new Promise(resolve => setTimeout(resolve, 3000));
                 }
             } catch (error) {
                 console.error(`  ❌ Rol oluşturulamadı (${roleData.name}):`, error.message);
