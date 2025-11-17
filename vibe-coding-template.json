@@ -651,6 +651,133 @@
       "permission_overwrites": []
     }
   ],
+  "welcomeScreen": {
+    "enabled": true,
+    "description": "Türkiye'nin en vibe'lı yazılım topluluğuna hoş geldin! 🎉 Kod yazarken eğlenmeye hazır mısın?",
+    "welcomeChannels": [
+      {
+        "channelId": "102",
+        "description": "📜 Önce kuralları oku",
+        "emoji": {"name": "📜"}
+      },
+      {
+        "channelId": "104",
+        "description": "🎯 Rollerini seç",
+        "emoji": {"name": "🎯"}
+      },
+      {
+        "channelId": "202",
+        "description": "👋 Kendini tanıt",
+        "emoji": {"name": "👋"}
+      },
+      {
+        "channelId": "201",
+        "description": "💬 Sohbete katıl",
+        "emoji": {"name": "💬"}
+      },
+      {
+        "channelId": "301",
+        "description": "🆘 Yardım al",
+        "emoji": {"name": "🆘"}
+      }
+    ]
+  },
+  "forumChannels": {
+    "enabled": true,
+    "channels": [
+      {
+        "id": "801",
+        "name": "💡┃soru-cevap",
+        "parent_id": "300",
+        "type": 15,
+        "position": 0,
+        "topic": "Kodlama soruları için forum - Her soru ayrı bir post! 💬",
+        "availableTags": [
+          {"id": "tag-1", "name": "Python", "emoji": {"name": "🐍"}},
+          {"id": "tag-2", "name": "JavaScript", "emoji": {"name": "💛"}},
+          {"id": "tag-3", "name": "Java", "emoji": {"name": "☕"}},
+          {"id": "tag-4", "name": "C/C++", "emoji": {"name": "⚙️"}},
+          {"id": "tag-5", "name": "Web Dev", "emoji": {"name": "🌐"}},
+          {"id": "tag-6", "name": "Mobile", "emoji": {"name": "📱"}},
+          {"id": "tag-7", "name": "Database", "emoji": {"name": "🗄️"}},
+          {"id": "tag-8", "name": "Backend", "emoji": {"name": "🔐"}},
+          {"id": "tag-9", "name": "Çözüldü", "emoji": {"name": "✅"}},
+          {"id": "tag-10", "name": "Acil", "emoji": {"name": "🚨"}}
+        ],
+        "defaultAutoArchiveDuration": 1440,
+        "defaultReactionEmoji": {"name": "👍"}
+      }
+    ]
+  },
+  "autoModeration": {
+    "enabled": true,
+    "rules": [
+      {
+        "name": "Spam Engelleme",
+        "eventType": 1,
+        "triggerType": 3,
+        "triggerMetadata": {
+          "mentionTotalLimit": 5
+        },
+        "actions": [
+          {
+            "type": 1,
+            "metadata": {
+              "customMessage": "⚠️ Spam mesajlar yasaktır! Lütfen kuralları okuyun."
+            }
+          },
+          {
+            "type": 2,
+            "metadata": {
+              "channel": "703",
+              "durationSeconds": 60
+            }
+          }
+        ],
+        "enabled": true
+      },
+      {
+        "name": "Küfür/Hakaret Engelleme",
+        "eventType": 1,
+        "triggerType": 4,
+        "triggerMetadata": {
+          "keywordFilter": ["*"],
+          "allowList": []
+        },
+        "actions": [
+          {
+            "type": 1,
+            "metadata": {
+              "customMessage": "⚠️ Küfür ve hakaret içeren mesajlar yasaktır!"
+            }
+          }
+        ],
+        "enabled": true,
+        "exemptRoles": ["2", "3"],
+        "exemptChannels": []
+      },
+      {
+        "name": "Link Spam Engelleme",
+        "eventType": 1,
+        "triggerType": 1,
+        "triggerMetadata": {
+          "regexPatterns": ["(https?://|www\\.)"],
+          "allowList": ["discord.com", "github.com", "stackoverflow.com", "dulundu.dev"]
+        },
+        "actions": [
+          {
+            "type": 1,
+            "metadata": {
+              "customMessage": "⚠️ İzinsiz link paylaşımı yasaktır! Faydalı linkleri #🔗┃faydalı-linkler kanalında paylaşabilirsiniz."
+            }
+          }
+        ],
+        "enabled": true,
+        "exemptRoles": ["2", "3"],
+        "exemptChannels": ["105"]
+      }
+    ]
+  },
   "onboarding": {
     "enabled": true,
     "mode": 0,

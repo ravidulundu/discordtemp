@@ -106,6 +106,15 @@ class TemplateDeployer {
         // Onboarding sistemini yapılandır
         await this.configureOnboarding();
 
+        // Welcome Screen yapılandır
+        await this.configureWelcomeScreen();
+
+        // Forum kanallarını oluştur
+        await this.createForumChannels();
+
+        // Auto Moderation yapılandır
+        await this.configureAutoModeration();
+
         // Hoşgeldin ve kurallar mesajlarını gönder
         await this.sendWelcomeMessages();
     }
@@ -417,6 +426,133 @@ class TemplateDeployer {
         } catch (error) {
             console.error('  ❌ Onboarding yapılandırılırken hata:', error.message);
             console.log('  ℹ️ Onboarding manuel olarak Discord ayarlarından yapılandırılabilir');
+        }
+    }
+
+    async configureWelcomeScreen() {
+        console.log('\n👋 Welcome Screen yapılandırılıyor...');
+
+        if (!this.template.welcomeScreen || !this.template.welcomeScreen.enabled) {
+            console.log('  ℹ️ Welcome Screen template\'de tanımlı değil, atlanıyor...');
+            return;
+        }
+
+        try {
+            // Welcome channel ID'lerini gerçek channel ID'lere çevir
+            const welcomeChannels = this.template.welcomeScreen.welcomeChannels.map(wc => {
+                const channel = this.channelMap.get(wc.channelId);
+                if (!channel) return null;
+
+                return {
+                    channelId: channel.id,
+                    description: wc.description,
+                    emoji: wc.emoji
+                };
+            }).filter(wc => wc !== null);
+
+            await this.guild.editWelcomeScreen({
+                enabled: true,
+                description: this.template.welcomeScreen.description,
+                welcomeChannels: welcomeChannels
+            });
+
+            console.log('  ✅ Welcome Screen başarıyla yapılandırıldı!');
+            console.log(`  ✓ ${welcomeChannels.length} kanal eklendi`);
+        } catch (error) {
+            console.error('  ❌ Welcome Screen yapılandırılırken hata:', error.message);
+            console.log('  ℹ️ Welcome Screen manuel olarak Discord ayarlarından yapılandırılabilir');
+        }
+    }
+
+    async createForumChannels() {
+        console.log('\n💬 Forum kanalları oluşturuluyor...');
+
+        if (!this.template.forumChannels || !this.template.forumChannels.enabled) {
+            console.log('  ℹ️ Forum kanalları template\'de tanımlı değil, atlanıyor...');
+            return;
+        }
+
+        for (const forumData of this.template.forumChannels.channels) {
+            try {
+                // Parent kategorisini bul
+                const parent = this.channelMap.get(forumData.parent_id);
+
+                // Forum kanalını oluştur
+                const forum = await this.guild.channels.create({
+                    name: forumData.name,
+                    type: ChannelType.GuildForum,
+                    parent: parent,
+                    topic: forumData.topic,
+                    position: forumData.position,
+                    availableTags: forumData.availableTags || [],
+                    defaultAutoArchiveDuration: forumData.defaultAutoArchiveDuration || 1440,
+                    defaultReactionEmoji: forumData.defaultReactionEmoji || null
+                });
+
+                this.channelMap.set(forumData.id, forum);
+                console.log(`  ✓ Forum kanalı: ${forum.name} (${forumData.availableTags.length} tag)`);
+            } catch (error) {
+                console.error(`  ❌ Forum kanalı oluşturulamadı (${forumData.name}):`, error.message);
+            }
+        }
+    }
+
+    async configureAutoModeration() {
+        console.log('\n🛡️ Auto Moderation yapılandırılıyor...');
+
+        if (!this.template.autoModeration || !this.template.autoModeration.enabled) {
+            console.log('  ℹ️ Auto Moderation template\'de tanımlı değil, atlanıyor...');
+            return;
+        }
+
+        for (const ruleData of this.template.autoModeration.rules) {
+            try {
+                // Exempt role ID'lerini gerçek role ID'lere çevir
+                const exemptRoles = (ruleData.exemptRoles || [])
+                    .map(templateRoleId => {
+                        const role = this.roleMap.get(templateRoleId);
+                        return role ? role.id : null;
+                    })
+                    .filter(id => id !== null);
+
+                // Exempt channel ID'lerini gerçek channel ID'lere çevir
+                const exemptChannels = (ruleData.exemptChannels || [])
+                    .map(templateChannelId => {
+                        const channel = this.channelMap.get(templateChannelId);
+                        return channel ? channel.id : null;
+                    })
+                    .filter(id => id !== null);
+
+                // Action'lardaki channel ID'lerini çevir
+                const actions = ruleData.actions.map(action => {
+                    if (action.metadata && action.metadata.channel) {
+                        const channel = this.channelMap.get(action.metadata.channel);
+                        return {
+                            ...action,
+                            metadata: {
+                                ...action.metadata,
+                                channelId: channel ? channel.id : undefined
+                            }
+                        };
+                    }
+                    return action;
+                });
+
+                await this.guild.autoModerationRules.create({
+                    name: ruleData.name,
+                    eventType: ruleData.eventType,
+                    triggerType: ruleData.triggerType,
+                    triggerMetadata: ruleData.triggerMetadata || {},
+                    actions: actions,
+                    enabled: ruleData.enabled !== false,
+                    exemptRoles: exemptRoles,
+                    exemptChannels: exemptChannels
+                });
+
+                console.log(`  ✓ Auto Mod kuralı: ${ruleData.name}`);
+            } catch (error) {
+                console.error(`  ❌ Auto Mod kuralı oluşturulamadı (${ruleData.name}):`, error.message);
+            }
         }
     }
 

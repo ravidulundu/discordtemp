@@ -5,8 +5,11 @@
 ## 🎯 Özellikler
 
 - ✅ **20 Özel Rol** - Kurucudan teknoloji rollerine kadar tam hiyerarşi
-- ✅ **42+ Kanal** - Her ihtiyaca uygun organize edilmiş kanallar
+- ✅ **42+ Kanal** - Her ihtiyaca uygun organize edilmiş kanallar (forum dahil)
 - ✅ **Discord Onboarding** - Otomatik rol ataması sistemi
+- ✅ **Welcome Screen** - Yeni üyeler için rehber ekranı
+- ✅ **Forum Kanalları** - Etiketli soru-cevap sistemi
+- ✅ **Auto Moderation** - Spam ve küfür engelleme
 - ✅ **Türkçe İçerik** - Tamamen Türkçe kanal ve rol isimleri
 - ✅ **İkon Kullanımı** - Her kanalda görsel emoji ikonları
 - ✅ **Otomatik Kurulum** - Tek komutla sunucu oluşturma
@@ -43,13 +46,14 @@
 - **😂┃meme** - Programlama memleri
 - **🎵┃müzik** - Müzik paylaşımları
 
-### 💻 KODLAMA (6 Kanal)
+### 💻 KODLAMA (7 Kanal)
 - **🆘┃yardım** - Kod yardımı
 - **🔍┃kod-inceleme** - Kod review
 - **🎨┃proje-vitrini** - Proje gösterimi
 - **🤝┃işbirliği** - Proje ortağı bulma
 - **💡┃proje-fikirleri** - Proje fikirleri
 - **📊┃github-updates** - GitHub bildirimleri
+- **💡┃soru-cevap** (Forum) - Etiketli soru-cevap sistemi (10 tag: Python, JS, Java, C/C++, Web, Mobile, Game, DB, Çözüldü, Acil)
 
 ### 🛠️ PROGRAMLAMA DİLLERİ (10 Kanal)
 - **🐍┃python** - Python
@@ -147,10 +151,12 @@ Lacivert:    5793266  (#586F7C)
 ## 📊 İstatistikler
 
 - 📁 **6 Kategori**
-- 💬 **34 Metin Kanalı**
+- 💬 **34 Metin Kanalı** + **1 Forum Kanalı** (10 tag)
 - 🎙️ **8 Ses Kanalı** (🔐 Yönetim Odası dahil)
 - 👥 **20 Rol** (9 teknoloji + 11 genel rol)
 - 🎯 **Discord Onboarding Sistemi** (3 soru, otomatik rol ataması)
+- 👋 **Welcome Screen** (5 kanal rehberi)
+- 🛡️ **Auto Moderation** (3 kural: spam, küfür, link spam)
 - 🎨 **42+ İkon Kullanımı**
 
 ## 🤝 Katkıda Bulunma
@@ -195,6 +201,80 @@ Script çalıştığında **otomatik** olarak yapılandırılır. Manuel düzenl
 - 🎯 Discord'un native özelliği
 - 💯 %100 güvenilir ve hızlı
 - 🎨 Profesyonel görünüm
+
+## 👋 Welcome Screen (Hoş Geldin Ekranı)
+
+Yeni üyeler sunucuya katıldığında **otomatik rehber ekranı** gösterilir!
+
+**Özellikler:**
+- ✅ 5 kanal rehberi:
+  - 📜 Kuralları oku
+  - 🎯 Rollerini seç
+  - 👋 Kendini tanıt
+  - 💬 Sohbete katıl
+  - 🆘 Yardım al
+- ✅ Otomatik olarak script tarafından yapılandırılır
+- ✅ Discord'un native özelliği
+
+**Nasıl Çalışır:**
+Script çalıştırıldığında `configureWelcomeScreen()` fonksiyonu welcome screen'i otomatik oluşturur.
+
+## 💡 Forum Kanalları (Soru-Cevap Sistemi)
+
+**💡┃soru-cevap** forum kanalı ile organize edilmiş soru-cevap sistemi!
+
+**Özellikler:**
+- ✅ **10 Etiket (Tag):**
+  - 🐍 Python
+  - 💛 JavaScript
+  - ☕ Java
+  - ⚙️ C/C++
+  - 🌐 Web Dev
+  - 📱 Mobile
+  - 🎮 Game Dev
+  - 🗄️ Database
+  - ✅ Çözüldü
+  - 🚨 Acil
+- ✅ Her soru ayrı bir post (thread)
+- ✅ Otomatik arşivleme (24 saat)
+- ✅ Etiket bazlı filtreleme
+
+**Avantajlar:**
+- 📌 Sorular kaybolmaz, her soru ayrı thread
+- 🏷️ Etiketlerle kategorize edilmiş içerik
+- 🔍 Arama ile kolay bulunur
+- ✅ Çözülen sorular işaretlenebilir
+
+## 🛡️ Auto Moderation (Otomatik Moderasyon)
+
+Discord'un yerleşik **Auto Moderation** sistemi ile spam ve küfür engelleme!
+
+**3 Kural Yapılandırılır:**
+
+### 1. Spam Engelleme
+- ⚠️ 5+ mention = otomatik uyarı + timeout (60 saniye)
+- 🔇 Aşırı mesaj spamını engeller
+
+### 2. Küfür/Hakaret Engelleme
+- 🚫 Discord'un yerleşik küfür filtreleme sistemi
+- ✅ Moderatör ve Kurucu muaf
+- ⚠️ Otomatik mesaj bloklama
+
+### 3. Link Spam Engelleme
+- 🔗 Sadece güvenli linkler:
+  - discord.com
+  - github.com
+  - stackoverflow.com
+  - dulundu.dev
+- ✅ Moderatör ve Kurucu muaf
+- ✅ **🔗┃faydalı-linkler** kanalında muaf
+- 🚫 Diğer linkler otomatik bloklanır
+
+**Avantajlar:**
+- 🚀 Moderatör yükünü azaltır
+- ⚡ Anında tepki, manuel müdahale gerekmez
+- 🎯 Özelleştirilebilir kurallar
+- 💯 Discord'un native özelliği
 
 ## 🆘 Sorun mu Yaşıyorsunuz?
 
