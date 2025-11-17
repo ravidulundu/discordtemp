@@ -264,13 +264,13 @@ class TemplateDeployer {
                         try {
                             console.log(`     ⏳ İstek gönderiliyor... (Deneme ${attempts}/${maxAttempts})`);
 
-                            // 30 saniye timeout ile rol oluştur
+                            // 60 saniye timeout ile rol oluştur (Discord API yavaş olabilir)
                             const createPromise = this.guild.roles.create({
                                 name: roleData.name
                             });
 
                             const timeoutPromise = new Promise((_, reject) =>
-                                setTimeout(() => reject(new Error('30 saniye timeout')), 30000)
+                                setTimeout(() => reject(new Error('60 saniye timeout')), 60000)
                             );
 
                             role = await Promise.race([createPromise, timeoutPromise]);
