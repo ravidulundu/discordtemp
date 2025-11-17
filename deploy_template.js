@@ -175,7 +175,7 @@ class TemplateDeployer {
                 const role = await this.guild.roles.create({
                     name: roleData.name,
                     permissions: BigInt(roleData.permissions),
-                    color: roleData.color,
+                    colors: roleData.color, // Discord.js v14+ uses 'colors' instead of 'color'
                     hoist: roleData.hoist,
                     mentionable: roleData.mentionable
                 });
