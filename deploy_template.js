@@ -438,8 +438,8 @@ class TemplateDeployer {
                             title: optionData.title,
                             description: optionData.description || '',
                             emoji: optionData.emoji ? { name: optionData.emoji.name } : null,
-                            roleIds: roleIds,  // Try camelCase
-                            channelIds: []     // Add empty channelIds (at least one of role/channel required)
+                            roles: roleIds,    // Discord.js v14 uses 'roles' not 'roleIds'
+                            channels: []       // Discord.js v14 uses 'channels' not 'channelIds'
                         };
                     })
                 };
