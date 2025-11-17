@@ -94,6 +94,78 @@
       "color": 15844367,
       "hoist": true,
       "mentionable": true
+    },
+    {
+      "id": "12",
+      "name": "Python",
+      "permissions": "0",
+      "color": 3447003,
+      "hoist": false,
+      "mentionable": false
+    },
+    {
+      "id": "13",
+      "name": "JavaScript",
+      "permissions": "0",
+      "color": 15844367,
+      "hoist": false,
+      "mentionable": false
+    },
+    {
+      "id": "14",
+      "name": "Java",
+      "permissions": "0",
+      "color": 15105570,
+      "hoist": false,
+      "mentionable": false
+    },
+    {
+      "id": "15",
+      "name": "C/C++",
+      "permissions": "0",
+      "color": 5793266,
+      "hoist": false,
+      "mentionable": false
+    },
+    {
+      "id": "16",
+      "name": "Web Dev",
+      "permissions": "0",
+      "color": 3066993,
+      "hoist": false,
+      "mentionable": false
+    },
+    {
+      "id": "17",
+      "name": "Mobile",
+      "permissions": "0",
+      "color": 10181046,
+      "hoist": false,
+      "mentionable": false
+    },
+    {
+      "id": "18",
+      "name": "Game Dev",
+      "permissions": "0",
+      "color": 9807270,
+      "hoist": false,
+      "mentionable": false
+    },
+    {
+      "id": "19",
+      "name": "Database",
+      "permissions": "0",
+      "color": 5763719,
+      "hoist": false,
+      "mentionable": false
+    },
+    {
+      "id": "20",
+      "name": "Backend",
+      "permissions": "0",
+      "color": 7419530,
+      "hoist": false,
+      "mentionable": false
     }
   ],
   "channels": [
