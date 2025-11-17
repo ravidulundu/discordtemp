@@ -469,13 +469,21 @@ class TemplateDeployer {
                             }
 
                             // Yoksa oluştur
-                            return await this.guild.roles.create({
+                            const createData = {
                                 name: roleData.name,
                                 permissions: this.safeBigInt(roleData.permissions),
-                                color: roleData.color || 0, // Default to 0 (grey) if undefined
                                 hoist: roleData.hoist,
                                 mentionable: roleData.mentionable
-                            });
+                            };
+
+                            // Discord.js v14.24+ uses 'colors' object with primaryColor
+                            if (roleData.color !== undefined && roleData.color !== null) {
+                                createData.colors = {
+                                    primaryColor: roleData.color
+                                };
+                            }
+
+                            return await this.guild.roles.create(createData);
                         },
                         `Rol oluşturma: ${roleData.name}`
                     );
