@@ -30,6 +30,11 @@ class TemplateDeployer {
         this.roleMap = new Map();
         this.channelMap = new Map();
 
+        // Rate limit yönetimi için
+        this.requestCount = 0;
+        this.requestWindowStart = Date.now();
+        this.MAX_REQUESTS_PER_SECOND = 45; // 50 yerine 45 (güvenlik marjı)
+
         this.client = new Client({
             intents: [
                 GatewayIntentBits.Guilds,
@@ -149,6 +154,74 @@ class TemplateDeployer {
         }
 
         console.log('✅ Bot izinleri doğrulandı');
+    }
+
+    /**
+     * Rate limit kontrolü ve throttling
+     * Discord API limiti: 50 req/s, bizim limitimiz: 45 req/s (güvenlik marjı)
+     */
+    async rateLimit() {
+        const now = Date.now();
+        const windowDuration = 1000; // 1 saniye
+
+        // Yeni zaman penceresi başlat
+        if (now - this.requestWindowStart >= windowDuration) {
+            this.requestCount = 0;
+            this.requestWindowStart = now;
+        }
+
+        // Limiti aştıysak bekle
+        if (this.requestCount >= this.MAX_REQUESTS_PER_SECOND) {
+            const waitTime = windowDuration - (now - this.requestWindowStart);
+            if (waitTime > 0) {
+                console.log(`   ⏱️ Rate limit koruması: ${waitTime}ms bekleniyor...`);
+                await new Promise(resolve => setTimeout(resolve, waitTime));
+                this.requestCount = 0;
+                this.requestWindowStart = Date.now();
+            }
+        }
+
+        this.requestCount++;
+    }
+
+    /**
+     * Discord API isteği retry mantığı ile (429 hatalarını yakalar)
+     * @param {Function} operation - Çalıştırılacak async fonksiyon
+     * @param {string} operationName - İşlem adı (loglama için)
+     * @param {number} maxRetries - Maksimum deneme sayısı
+     * @returns {Promise<any>}
+     */
+    async retryWithBackoff(operation, operationName, maxRetries = 3) {
+        for (let attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                // Rate limit kontrolü
+                await this.rateLimit();
+
+                // İşlemi çalıştır
+                return await operation();
+
+            } catch (error) {
+                // Discord rate limit hatası (429)
+                if (error.code === 429 || error.status === 429 || error.httpStatus === 429) {
+                    const retryAfter = error.retryAfter || (error.retry_after * 1000) || 2000;
+                    console.log(`   ⚠️ Rate limit! ${retryAfter}ms sonra tekrar denenecek...`);
+                    await new Promise(resolve => setTimeout(resolve, retryAfter));
+                    continue;
+                }
+
+                // Son deneme değilse exponential backoff ile tekrar dene
+                if (attempt < maxRetries) {
+                    const backoffTime = Math.min(1000 * Math.pow(2, attempt - 1), 10000);
+                    console.log(`   ⚠️ ${operationName} başarısız (Deneme ${attempt}/${maxRetries}): ${error.message}`);
+                    console.log(`   🔄 ${backoffTime}ms sonra tekrar denenecek...`);
+                    await new Promise(resolve => setTimeout(resolve, backoffTime));
+                    continue;
+                }
+
+                // Tüm denemeler başarısız
+                throw error;
+            }
+        }
     }
 
     /**
@@ -344,85 +417,33 @@ class TemplateDeployer {
                     await everyoneRole.setPermissions(this.safeBigInt(roleData.permissions));
                     console.log('  ✓ @everyone rolü güncellendi');
                 } else {
-                    // Yeni rol oluştur
+                    // Yeni rol oluştur (retryWithBackoff kullan)
                     console.log(`  🔄 Oluşturuluyor: ${roleData.name}...`);
-                    console.log(`     Bot user: ${this.client.user.tag}, Bot ID: ${this.client.user.id}`);
-                    console.log(`     Guild: ${this.guild.name}, Guild ID: ${this.guild.id}`);
-                    console.log(`     Bot guild permissions:`, this.guild.members.me.permissions.toArray().slice(0, 10).join(', '));
 
-                    let role = null;
-                    let attempts = 0;
-                    const maxAttempts = 3;
+                    const role = await this.retryWithBackoff(
+                        async () => {
+                            // Önce varsa kontrol et
+                            await this.guild.roles.fetch();
+                            const existing = this.guild.roles.cache.find(r => r.name === roleData.name);
+                            if (existing) {
+                                console.log(`     ℹ️ Rol zaten mevcut, güncelleniyor...`);
+                                return existing;
+                            }
 
-                    while (!role && attempts < maxAttempts) {
-                        attempts++;
-                        try {
-                            console.log(`     ⏳ İstek gönderiliyor... (Deneme ${attempts}/${maxAttempts})`);
-
-                            // 60 saniye timeout ile rol oluştur (Discord API yavaş olabilir)
-                            const createPromise = this.guild.roles.create({
-                                name: roleData.name
-                            });
-
-                            const timeoutPromise = new Promise((_, reject) =>
-                                setTimeout(() => reject(new Error('60 saniye timeout')), 60000)
-                            );
-
-                            role = await Promise.race([createPromise, timeoutPromise]);
-
-                            console.log(`     ✓ Rol oluşturuldu, özellikler ekleniyor...`);
-
-                            // Sonra özellikleri ekle
-                            await role.edit({
+                            // Yoksa oluştur
+                            return await this.guild.roles.create({
+                                name: roleData.name,
                                 permissions: this.safeBigInt(roleData.permissions),
                                 color: roleData.color,
                                 hoist: roleData.hoist,
                                 mentionable: roleData.mentionable
                             });
+                        },
+                        `Rol oluşturma: ${roleData.name}`
+                    );
 
-                            this.roleMap.set(roleData.id, role);
-                            console.log(`  ✓ ${role.name} tamamlandı (ID: ${role.id})`);
-
-                        } catch (roleError) {
-                            console.error(`     ⚠️ Deneme ${attempts} başarısız: ${roleError.message}`);
-
-                            if (roleError.message.includes('timeout')) {
-                                // Race condition fix: Timeout oldu, ama rol yine de oluşmuş olabilir
-                                console.log(`     🔍 Rol oluşmuş olabilir, kontrol ediliyor...`);
-                                await this.guild.roles.fetch();
-                                const existingRole = this.guild.roles.cache.find(r => r.name === roleData.name);
-
-                                if (existingRole) {
-                                    console.log(`     ✅ Rol timeout sonrası bulundu!`);
-                                    role = existingRole;
-
-                                    // Özellikleri ekle
-                                    await role.edit({
-                                        permissions: this.safeBigInt(roleData.permissions),
-                                        color: roleData.color,
-                                        hoist: roleData.hoist,
-                                        mentionable: roleData.mentionable
-                                    });
-
-                                    this.roleMap.set(roleData.id, role);
-                                    console.log(`  ✓ ${role.name} tamamlandı (ID: ${role.id})`);
-                                    break; // Success, exit retry loop
-                                }
-                            }
-
-                            if (attempts >= maxAttempts) {
-                                console.error(`     ❌ ${maxAttempts} deneme sonunda başarısız!`);
-                                throw roleError;
-                            }
-
-                            console.log(`     🔄 ${5} saniye sonra tekrar denenecek...`);
-                            await new Promise(resolve => setTimeout(resolve, 5000));
-                        }
-                    }
-
-                    // Rate limit önleme için bekle
-                    console.log(`     ⏳ 3 saniye bekleniyor...`);
-                    await new Promise(resolve => setTimeout(resolve, 3000));
+                    this.roleMap.set(roleData.id, role);
+                    console.log(`  ✓ ${role.name} oluşturuldu (ID: ${role.id})`);
                 }
             } catch (error) {
                 console.error(`  ❌ Rol oluşturulamadı (${roleData.name}):`, error.message);
@@ -435,28 +456,25 @@ class TemplateDeployer {
     async createChannels() {
         console.log('\n📁 Kategoriler ve kanallar oluşturuluyor...');
 
-        // Önce kategorileri oluştur
+        // Önce kategorileri oluştur (retryWithBackoff kullan)
         const categories = this.template.channels.filter(ch => ch.type === 4);
         for (const categoryData of categories) {
-            try {
-                const overwrites = this.getPermissionOverwrites(categoryData.permission_overwrites || []);
+            const overwrites = this.getPermissionOverwrites(categoryData.permission_overwrites || []);
 
-                const category = await this.guild.channels.create({
-                    name: categoryData.name,
-                    type: ChannelType.GuildCategory,
-                    permissionOverwrites: overwrites,
-                    position: categoryData.position
-                });
+            const category = await this.retryWithBackoff(
+                async () => {
+                    return await this.guild.channels.create({
+                        name: categoryData.name,
+                        type: ChannelType.GuildCategory,
+                        permissionOverwrites: overwrites,
+                        position: categoryData.position
+                    });
+                },
+                `Kategori oluşturma: ${categoryData.name}`
+            );
 
-                this.channelMap.set(categoryData.id, category);
-                console.log(`  ✓ Kategori: ${category.name}`);
-
-                // Rate limit önleme için kısa bekle
-                await new Promise(resolve => setTimeout(resolve, 200));
-            } catch (error) {
-                console.error(`  ❌ Kategori oluşturulamadı (${categoryData.name}):`, error.message);
-                throw error;
-            }
+            this.channelMap.set(categoryData.id, category);
+            console.log(`  ✓ Kategori: ${category.name}`);
         }
 
         // Sonra kanalları oluştur
@@ -466,42 +484,38 @@ class TemplateDeployer {
 
         for (const channelData of allChannels) {
             await this.createChannel(channelData);
-            // Rate limit önleme için kısa bekle
-            await new Promise(resolve => setTimeout(resolve, 200));
         }
     }
 
     async createChannel(channelData) {
-        try {
-            const parent = channelData.parent_id ? this.channelMap.get(channelData.parent_id) : null;
-            const overwrites = this.getPermissionOverwrites(channelData.permission_overwrites || []);
+        const parent = channelData.parent_id ? this.channelMap.get(channelData.parent_id) : null;
+        const overwrites = this.getPermissionOverwrites(channelData.permission_overwrites || []);
 
-            const channelOptions = {
-                name: channelData.name,
-                parent: parent,
-                permissionOverwrites: overwrites,
-                position: channelData.position
-            };
+        const channelOptions = {
+            name: channelData.name,
+            parent: parent,
+            permissionOverwrites: overwrites,
+            position: channelData.position
+        };
 
-            let channel;
-            if (channelData.type === 0) {
-                // Text channel
-                channelOptions.type = ChannelType.GuildText;
-                channelOptions.topic = channelData.topic || '';
-                channel = await this.guild.channels.create(channelOptions);
-                console.log(`    ✓ Metin kanalı: #${channel.name}`);
-            } else if (channelData.type === 2) {
-                // Voice channel
-                channelOptions.type = ChannelType.GuildVoice;
-                channel = await this.guild.channels.create(channelOptions);
-                console.log(`    ✓ Ses kanalı: 🔊 ${channel.name}`);
-            }
-
-            this.channelMap.set(channelData.id, channel);
-        } catch (error) {
-            console.error(`    ❌ Kanal oluşturulamadı (${channelData.name}):`, error.message);
-            throw error;
+        let channelType;
+        if (channelData.type === 0) {
+            channelType = 'Metin kanalı';
+            channelOptions.type = ChannelType.GuildText;
+            channelOptions.topic = channelData.topic || '';
+        } else if (channelData.type === 2) {
+            channelType = 'Ses kanalı';
+            channelOptions.type = ChannelType.GuildVoice;
         }
+
+        const channel = await this.retryWithBackoff(
+            async () => await this.guild.channels.create(channelOptions),
+            `${channelType}: ${channelData.name}`
+        );
+
+        this.channelMap.set(channelData.id, channel);
+        const icon = channelData.type === 2 ? '🔊' : '#';
+        console.log(`    ✓ ${channelType}: ${icon}${channel.name}`);
     }
 
     getPermissionOverwrites(overwritesData) {
