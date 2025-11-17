@@ -241,23 +241,31 @@ class TemplateDeployer {
         console.log('\n📝 Roller oluşturuluyor...');
 
         for (const roleData of this.template.roles) {
-            if (roleData.name === '@everyone') {
-                // @everyone rolünü güncelle
-                const everyoneRole = this.guild.roles.everyone;
-                this.roleMap.set(roleData.id, everyoneRole);
-                await everyoneRole.setPermissions(BigInt(roleData.permissions));
-                console.log('  ✓ @everyone rolü güncellendi');
-            } else {
-                // Yeni rol oluştur
-                const role = await this.guild.roles.create({
-                    name: roleData.name,
-                    permissions: BigInt(roleData.permissions),
-                    color: roleData.color,  // Use 'color' (deprecation warning can be ignored)
-                    hoist: roleData.hoist,
-                    mentionable: roleData.mentionable
-                });
-                this.roleMap.set(roleData.id, role);
-                console.log(`  ✓ ${role.name} oluşturuldu`);
+            try {
+                if (roleData.name === '@everyone') {
+                    // @everyone rolünü güncelle
+                    const everyoneRole = this.guild.roles.everyone;
+                    this.roleMap.set(roleData.id, everyoneRole);
+                    await everyoneRole.setPermissions(BigInt(roleData.permissions));
+                    console.log('  ✓ @everyone rolü güncellendi');
+                } else {
+                    // Yeni rol oluştur
+                    const role = await this.guild.roles.create({
+                        name: roleData.name,
+                        permissions: BigInt(roleData.permissions),
+                        color: roleData.color,  // Use 'color' (deprecation warning can be ignored)
+                        hoist: roleData.hoist,
+                        mentionable: roleData.mentionable
+                    });
+                    this.roleMap.set(roleData.id, role);
+                    console.log(`  ✓ ${role.name} oluşturuldu`);
+
+                    // Rate limit önleme için kısa bekle
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                }
+            } catch (error) {
+                console.error(`  ❌ Rol oluşturulamadı (${roleData.name}):`, error.message);
+                throw error; // Hatayı fırlat ki script dursun
             }
         }
     }
@@ -268,17 +276,25 @@ class TemplateDeployer {
         // Önce kategorileri oluştur
         const categories = this.template.channels.filter(ch => ch.type === 4);
         for (const categoryData of categories) {
-            const overwrites = this.getPermissionOverwrites(categoryData.permission_overwrites || []);
+            try {
+                const overwrites = this.getPermissionOverwrites(categoryData.permission_overwrites || []);
 
-            const category = await this.guild.channels.create({
-                name: categoryData.name,
-                type: ChannelType.GuildCategory,
-                permissionOverwrites: overwrites,
-                position: categoryData.position
-            });
+                const category = await this.guild.channels.create({
+                    name: categoryData.name,
+                    type: ChannelType.GuildCategory,
+                    permissionOverwrites: overwrites,
+                    position: categoryData.position
+                });
 
-            this.channelMap.set(categoryData.id, category);
-            console.log(`  ✓ Kategori: ${category.name}`);
+                this.channelMap.set(categoryData.id, category);
+                console.log(`  ✓ Kategori: ${category.name}`);
+
+                // Rate limit önleme için kısa bekle
+                await new Promise(resolve => setTimeout(resolve, 200));
+            } catch (error) {
+                console.error(`  ❌ Kategori oluşturulamadı (${categoryData.name}):`, error.message);
+                throw error;
+            }
         }
 
         // Sonra kanalları oluştur
@@ -288,35 +304,42 @@ class TemplateDeployer {
 
         for (const channelData of allChannels) {
             await this.createChannel(channelData);
+            // Rate limit önleme için kısa bekle
+            await new Promise(resolve => setTimeout(resolve, 200));
         }
     }
 
     async createChannel(channelData) {
-        const parent = channelData.parent_id ? this.channelMap.get(channelData.parent_id) : null;
-        const overwrites = this.getPermissionOverwrites(channelData.permission_overwrites || []);
+        try {
+            const parent = channelData.parent_id ? this.channelMap.get(channelData.parent_id) : null;
+            const overwrites = this.getPermissionOverwrites(channelData.permission_overwrites || []);
 
-        const channelOptions = {
-            name: channelData.name,
-            parent: parent,
-            permissionOverwrites: overwrites,
-            position: channelData.position
-        };
+            const channelOptions = {
+                name: channelData.name,
+                parent: parent,
+                permissionOverwrites: overwrites,
+                position: channelData.position
+            };
 
-        let channel;
-        if (channelData.type === 0) {
-            // Text channel
-            channelOptions.type = ChannelType.GuildText;
-            channelOptions.topic = channelData.topic || '';
-            channel = await this.guild.channels.create(channelOptions);
-            console.log(`    ✓ Metin kanalı: #${channel.name}`);
-        } else if (channelData.type === 2) {
-            // Voice channel
-            channelOptions.type = ChannelType.GuildVoice;
-            channel = await this.guild.channels.create(channelOptions);
-            console.log(`    ✓ Ses kanalı: 🔊 ${channel.name}`);
+            let channel;
+            if (channelData.type === 0) {
+                // Text channel
+                channelOptions.type = ChannelType.GuildText;
+                channelOptions.topic = channelData.topic || '';
+                channel = await this.guild.channels.create(channelOptions);
+                console.log(`    ✓ Metin kanalı: #${channel.name}`);
+            } else if (channelData.type === 2) {
+                // Voice channel
+                channelOptions.type = ChannelType.GuildVoice;
+                channel = await this.guild.channels.create(channelOptions);
+                console.log(`    ✓ Ses kanalı: 🔊 ${channel.name}`);
+            }
+
+            this.channelMap.set(channelData.id, channel);
+        } catch (error) {
+            console.error(`    ❌ Kanal oluşturulamadı (${channelData.name}):`, error.message);
+            throw error;
         }
-
-        this.channelMap.set(channelData.id, channel);
     }
 
     getPermissionOverwrites(overwritesData) {
