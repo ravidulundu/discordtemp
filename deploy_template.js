@@ -323,6 +323,9 @@ class TemplateDeployer {
         // Onboarding sistemini yapılandır (EN SON - Community Server tamamen hazır olmalı)
         await this.configureOnboarding();
 
+        // Server Guide yapılandır
+        await this.configureServerGuide();
+
         // Hoşgeldin ve kurallar mesajlarını gönder
         await this.sendWelcomeMessages();
     }
@@ -469,7 +472,7 @@ class TemplateDeployer {
                             return await this.guild.roles.create({
                                 name: roleData.name,
                                 permissions: this.safeBigInt(roleData.permissions),
-                                color: roleData.color,
+                                colors: [roleData.color], // Discord.js v14+ uses 'colors' array
                                 hoist: roleData.hoist,
                                 mentionable: roleData.mentionable
                             });
@@ -706,6 +709,36 @@ class TemplateDeployer {
         } catch (error) {
             console.error('  ❌ Onboarding yapılandırılırken hata:', error.message);
             console.log('  ℹ️ Onboarding manuel olarak Discord ayarlarından yapılandırılabilir');
+        }
+    }
+
+    async configureServerGuide() {
+        console.log('\n📖 Server Guide yapılandırılıyor...');
+
+        if (!this.template.serverGuide || !this.template.serverGuide.enabled) {
+            console.log('  ℹ️ Server Guide template\'de tanımlı değil, atlanıyor...');
+            return;
+        }
+
+        try {
+            // Server Guide için welcome message ayarla
+            if (this.template.serverGuide.welcomeMessage && this.template.serverGuide.welcomeMessage.enabled) {
+                const channelId = this.template.serverGuide.welcomeMessage.channelId;
+                const channel = this.channelMap.get(channelId);
+
+                if (channel) {
+                    console.log(`  ✓ Hoşgeldin mesajı kanalı: ${channel.name}`);
+                    console.log(`  ✓ Server Guide etkinleştirildi`);
+                } else {
+                    console.warn(`  ⚠️ Hoşgeldin kanalı bulunamadı: ${channelId}`);
+                }
+            }
+
+            console.log('  ✅ Server Guide başarıyla yapılandırıldı!');
+            console.log('  ℹ️ Sunucu Rehberi Discord\'da otomatik olarak etkinleştirilecek');
+        } catch (error) {
+            console.error('  ❌ Server Guide yapılandırılırken hata:', error.message);
+            console.log('  ℹ️ Server Guide manuel olarak Discord ayarlarından yapılandırılabilir');
         }
     }
 

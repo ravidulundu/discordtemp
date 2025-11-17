@@ -940,12 +940,37 @@
     "defaultChannelIds": [
       "101",
       "102",
+      "103",
       "104",
+      "105",
       "201",
       "202",
       "203",
-      "301"
+      "204",
+      "205",
+      "301",
+      "302",
+      "303",
+      "304",
+      "305",
+      "306",
+      "501",
+      "502",
+      "503",
+      "504",
+      "505",
+      "506",
+      "701",
+      "704"
     ]
+  },
+  "serverGuide": {
+    "enabled": true,
+    "welcomeMessage": {
+      "enabled": true,
+      "channelId": "101",
+      "message": "👋 **Dulundu.dev Vibe Coding Topluluğu'na Hoş Geldin!**\n\nTürkiye'nin en vibe'lı yazılım topluluğundasın! 🎉"
+    }
   },
   "afk_channel_id": "607",
   "system_channel_id": "201"
