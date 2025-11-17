@@ -472,7 +472,7 @@ class TemplateDeployer {
                             return await this.guild.roles.create({
                                 name: roleData.name,
                                 permissions: this.safeBigInt(roleData.permissions),
-                                color: roleData.color, // Discord.js v14 uses 'color' as number
+                                color: roleData.color || 0, // Default to 0 (grey) if undefined
                                 hoist: roleData.hoist,
                                 mentionable: roleData.mentionable
                             });
