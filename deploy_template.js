@@ -89,16 +89,28 @@ class TemplateDeployer {
         console.log(`✅ Sunucu bulundu: ${this.guild.name}`);
         console.log(`📋 Mevcut kanalları siliyorum...\n`);
 
-        // Varsayılan kanalları sil
-        const defaultChannels = this.guild.channels.cache;
-        for (const [, channel] of defaultChannels) {
+        // Cache'i yenile
+        await this.guild.channels.fetch();
+
+        // Tüm kanalları array'e al
+        const channels = Array.from(this.guild.channels.cache.values());
+
+        // Kanalları sırayla sil (race condition önlemek için)
+        for (const channel of channels) {
             try {
                 await channel.delete();
                 console.log(`  🗑️ ${channel.name} silindi`);
+                // Her silme arasında kısa bekleme
+                await new Promise(resolve => setTimeout(resolve, 200));
             } catch (error) {
                 // Silme hatası göz ardı edilebilir
+                console.log(`  ⚠️ ${channel.name} silinemedi (zaten silinmiş olabilir)`);
             }
         }
+
+        // Tüm silme işlemleri bittikten sonra biraz bekle
+        console.log('\n⏳ Kanalların tamamen silinmesi bekleniyor...');
+        await new Promise(resolve => setTimeout(resolve, 2000));
 
         // Rolleri oluştur
         await this.createRoles();
