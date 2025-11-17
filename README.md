@@ -5,10 +5,10 @@
 ## 🎯 Özellikler
 
 - ✅ **20 Özel Rol** - Kurucudan teknoloji rollerine kadar tam hiyerarşi
-- ✅ **42+ Kanal** - Her ihtiyaca uygun organize edilmiş kanallar (forum dahil)
+- ✅ **33 Kanal** - Her ihtiyaca uygun organize edilmiş kanallar (24 metin + 1 forum + 8 ses)
 - ✅ **Discord Onboarding** - Otomatik rol ataması sistemi
 - ✅ **Welcome Screen** - Yeni üyeler için rehber ekranı
-- ✅ **Forum Kanalları** - Etiketli soru-cevap sistemi
+- ✅ **Forum Kanalları** - 12 etiketli soru-cevap sistemi
 - ✅ **Auto Moderation** - Spam ve küfür engelleme
 - ✅ **Türkçe İçerik** - Tamamen Türkçe kanal ve rol isimleri
 - ✅ **İkon Kullanımı** - Her kanalda görsel emoji ikonları
@@ -53,19 +53,7 @@
 - **🤝┃işbirliği** - Proje ortağı bulma
 - **💡┃proje-fikirleri** - Proje fikirleri
 - **📊┃github-updates** - GitHub bildirimleri
-- **💡┃soru-cevap** (Forum) - Etiketli soru-cevap sistemi (10 tag: Python, JS, Java, C/C++, Web, Mobile, Game, DB, Çözüldü, Acil)
-
-### 🛠️ PROGRAMLAMA DİLLERİ (10 Kanal)
-- **🐍┃python** - Python
-- **💛┃javascript** - JavaScript/TypeScript
-- **☕┃java** - Java
-- **⚙️┃c-cpp** - C/C++
-- **🌐┃web-development** - Web geliştirme
-- **📱┃mobile-dev** - Mobil uygulama
-- **🎮┃game-dev** - Oyun geliştirme
-- **🗄️┃database** - Veritabanı
-- **🔐┃backend** - Backend
-- **🚀┃devops** - DevOps & Cloud
+- **💡┃soru-cevap** (Forum) - Etiketli soru-cevap sistemi (12 tag: Python, JS, Java, C/C++, Web, Mobile, DB, Backend, Game Dev, DevOps, Çözüldü, Acil)
 
 ### 📚 ÖĞRENME & KARİYER (6 Kanal)
 - **📖┃eğitimler** - Eğitim içerikleri
@@ -150,14 +138,14 @@ Lacivert:    5793266  (#586F7C)
 
 ## 📊 İstatistikler
 
-- 📁 **6 Kategori**
-- 💬 **34 Metin Kanalı** + **1 Forum Kanalı** (10 tag)
+- 📁 **5 Kategori**
+- 💬 **24 Metin Kanalı** + **1 Forum Kanalı** (12 tag)
 - 🎙️ **8 Ses Kanalı** (🔐 Yönetim Odası dahil)
 - 👥 **20 Rol** (9 teknoloji + 11 genel rol)
 - 🎯 **Discord Onboarding Sistemi** (3 soru, otomatik rol ataması)
 - 👋 **Welcome Screen** (5 kanal rehberi)
 - 🛡️ **Auto Moderation** (3 kural: spam, küfür, link spam)
-- 🎨 **42+ İkon Kullanımı**
+- 🎨 **33+ İkon Kullanımı**
 
 ## 🤝 Katkıda Bulunma
 
@@ -224,15 +212,17 @@ Script çalıştırıldığında `configureWelcomeScreen()` fonksiyonu welcome s
 **💡┃soru-cevap** forum kanalı ile organize edilmiş soru-cevap sistemi!
 
 **Özellikler:**
-- ✅ **10 Etiket (Tag):**
+- ✅ **12 Etiket (Tag):**
   - 🐍 Python
   - 💛 JavaScript
   - ☕ Java
   - ⚙️ C/C++
   - 🌐 Web Dev
   - 📱 Mobile
-  - 🎮 Game Dev
   - 🗄️ Database
+  - 🔐 Backend
+  - 🎮 Game Dev
+  - 🚀 DevOps
   - ✅ Çözüldü
   - 🚨 Acil
 - ✅ Her soru ayrı bir post (thread)

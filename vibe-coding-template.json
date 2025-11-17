@@ -353,93 +353,6 @@
       "topic": "GitHub commit ve PR bildirimleri 🔔"
     },
     {
-      "id": "400",
-      "type": 4,
-      "name": "🛠️ PROGRAMLAMA DİLLERİ",
-      "position": 3,
-      "permission_overwrites": []
-    },
-    {
-      "id": "401",
-      "type": 0,
-      "name": "🐍┃python",
-      "parent_id": "400",
-      "position": 0,
-      "topic": "Python ile ilgili her şey 🐍"
-    },
-    {
-      "id": "402",
-      "type": 0,
-      "name": "💛┃javascript",
-      "parent_id": "400",
-      "position": 1,
-      "topic": "JavaScript ve TypeScript tartışmaları ⚡"
-    },
-    {
-      "id": "403",
-      "type": 0,
-      "name": "☕┃java",
-      "parent_id": "400",
-      "position": 2,
-      "topic": "Java ile kodlama ☕"
-    },
-    {
-      "id": "404",
-      "type": 0,
-      "name": "⚙️┃c-cpp",
-      "parent_id": "400",
-      "position": 3,
-      "topic": "C ve C++ programlama 🔧"
-    },
-    {
-      "id": "405",
-      "type": 0,
-      "name": "🌐┃web-development",
-      "parent_id": "400",
-      "position": 4,
-      "topic": "HTML, CSS, React, Vue, Angular ve daha fazlası! 🎨"
-    },
-    {
-      "id": "406",
-      "type": 0,
-      "name": "📱┃mobile-dev",
-      "parent_id": "400",
-      "position": 5,
-      "topic": "iOS, Android, React Native, Flutter 📲"
-    },
-    {
-      "id": "407",
-      "type": 0,
-      "name": "🎮┃game-dev",
-      "parent_id": "400",
-      "position": 6,
-      "topic": "Oyun geliştirme - Unity, Unreal, Godot 🕹️"
-    },
-    {
-      "id": "408",
-      "type": 0,
-      "name": "🗄️┃database",
-      "parent_id": "400",
-      "position": 7,
-      "topic": "SQL, NoSQL, PostgreSQL, MongoDB 💾"
-    },
-    {
-      "id": "409",
-      "type": 0,
-      "name": "🔐┃backend",
-      "parent_id": "400",
-      "position": 8,
-      "topic": "Backend geliştirme, API'lar, sunucu işlemleri 🖥️"
-    },
-    {
-      "id": "410",
-      "type": 0,
-      "name": "🚀┃devops",
-      "parent_id": "400",
-      "position": 9,
-      "topic": "Docker, Kubernetes, CI/CD, AWS, Azure ☁️"
-    },
-    {
       "id": "500",
       "type": 4,
       "name": "📚 ÖĞRENME & KARİYER",
@@ -701,8 +614,10 @@
           {"id": "tag-6", "name": "Mobile", "emoji": {"name": "📱"}},
           {"id": "tag-7", "name": "Database", "emoji": {"name": "🗄️"}},
           {"id": "tag-8", "name": "Backend", "emoji": {"name": "🔐"}},
-          {"id": "tag-9", "name": "Çözüldü", "emoji": {"name": "✅"}},
-          {"id": "tag-10", "name": "Acil", "emoji": {"name": "🚨"}}
+          {"id": "tag-9", "name": "Game Dev", "emoji": {"name": "🎮"}},
+          {"id": "tag-10", "name": "DevOps", "emoji": {"name": "🚀"}},
+          {"id": "tag-11", "name": "Çözüldü", "emoji": {"name": "✅"}},
+          {"id": "tag-12", "name": "Acil", "emoji": {"name": "🚨"}}
         ],
         "defaultAutoArchiveDuration": 1440,
         "defaultReactionEmoji": {"name": "👍"}
