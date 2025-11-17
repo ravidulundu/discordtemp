@@ -3,12 +3,14 @@
  * Bu script, template'i Discord sunucusuna yükler.
  *
  * Gereksinimler:
- *     npm install discord.js
+ *     npm install discord.js dotenv
  *
  * Kullanım:
- *     node deploy_template.js YOUR_BOT_TOKEN
+ *     1. .env dosyası ile: node deploy_template.js
+ *     2. CLI parametreleri ile: node deploy_template.js YOUR_BOT_TOKEN YOUR_GUILD_ID
  */
 
+require('dotenv').config();
 const { Client, GatewayIntentBits, PermissionFlagsBits, ChannelType } = require('discord.js');
 const fs = require('fs');
 
@@ -49,7 +51,7 @@ class TemplateDeployer {
     }
 
     setupEvents() {
-        this.client.once('ready', async () => {
+        this.client.once('clientReady', async () => {
             console.log(`✅ Bot giriş yaptı: ${this.client.user.tag}`);
             console.log('🚀 Sunucu yapılandırılıyor...\n');
 
@@ -83,10 +85,70 @@ class TemplateDeployer {
         });
     }
 
+    /**
+     * Bot'un gerekli izinlere sahip olduğunu doğrular
+     * @throws {Error} Gerekli izin eksikse
+     */
+    async validatePermissions() {
+        const requiredPermissions = [
+            'ManageGuild',
+            'ManageRoles',
+            'ManageChannels',
+            'ViewAuditLog'
+        ];
+
+        const botMember = this.guild.members.me;
+        if (!botMember) {
+            throw new Error('Bot sunucuda bulunamadı!');
+        }
+
+        const missingPermissions = requiredPermissions.filter(
+            perm => !botMember.permissions.has(PermissionFlagsBits[perm])
+        );
+
+        if (missingPermissions.length > 0) {
+            throw new Error(
+                `❌ Bot'un gerekli izinleri yok:\n` +
+                `   Eksik izinler: ${missingPermissions.join(', ')}\n` +
+                `   Bot'a "Administrator" iznini ver veya şu izinleri ekle:\n` +
+                `   ${missingPermissions.map(p => `   - ${p}`).join('\n')}\n`
+            );
+        }
+
+        console.log('✅ Bot izinleri doğrulandı');
+    }
+
+    /**
+     * Güvenli BigInt dönüşümü
+     * @param {string|number} value Dönüştürülecek değer
+     * @returns {bigint} BigInt değeri
+     * @throws {Error} Geçersiz değer ise
+     */
+    safeBigInt(value) {
+        try {
+            return BigInt(value || 0);
+        } catch (error) {
+            throw new Error(`Geçersiz permission değeri: ${value}`);
+        }
+    }
+
+    /**
+     * Güvenli kanal mention oluştur
+     * @param {string} channelName Kanal adı
+     * @returns {string} Kanal mention veya fallback
+     */
+    getChannelMention(channelName) {
+        const channel = this.guild.channels.cache.find(ch => ch.name === channelName);
+        return channel ? `<#${channel.id}>` : `**#${channelName}**`;
+    }
+
     async setupServer() {
         // Mevcut sunucuyu al
         this.guild = await this.client.guilds.fetch(this.guildId);
         console.log(`✅ Sunucu bulundu: ${this.guild.name}`);
+
+        // Bot izinlerini kontrol et
+        await this.validatePermissions();
 
         // Kanalları tamamen temizle
         await this.deleteAllChannels();
@@ -246,7 +308,7 @@ class TemplateDeployer {
                     // @everyone rolünü güncelle
                     const everyoneRole = this.guild.roles.everyone;
                     this.roleMap.set(roleData.id, everyoneRole);
-                    await everyoneRole.setPermissions(BigInt(roleData.permissions));
+                    await everyoneRole.setPermissions(this.safeBigInt(roleData.permissions));
                     console.log('  ✓ @everyone rolü güncellendi');
                 } else {
                     // Yeni rol oluştur
@@ -279,7 +341,7 @@ class TemplateDeployer {
 
                             // Sonra özellikleri ekle
                             await role.edit({
-                                permissions: BigInt(roleData.permissions),
+                                permissions: this.safeBigInt(roleData.permissions),
                                 color: roleData.color,
                                 hoist: roleData.hoist,
                                 mentionable: roleData.mentionable
@@ -290,6 +352,30 @@ class TemplateDeployer {
 
                         } catch (roleError) {
                             console.error(`     ⚠️ Deneme ${attempts} başarısız: ${roleError.message}`);
+
+                            if (roleError.message.includes('timeout')) {
+                                // Race condition fix: Timeout oldu, ama rol yine de oluşmuş olabilir
+                                console.log(`     🔍 Rol oluşmuş olabilir, kontrol ediliyor...`);
+                                await this.guild.roles.fetch();
+                                const existingRole = this.guild.roles.cache.find(r => r.name === roleData.name);
+
+                                if (existingRole) {
+                                    console.log(`     ✅ Rol timeout sonrası bulundu!`);
+                                    role = existingRole;
+
+                                    // Özellikleri ekle
+                                    await role.edit({
+                                        permissions: this.safeBigInt(roleData.permissions),
+                                        color: roleData.color,
+                                        hoist: roleData.hoist,
+                                        mentionable: roleData.mentionable
+                                    });
+
+                                    this.roleMap.set(roleData.id, role);
+                                    console.log(`  ✓ ${role.name} tamamlandı (ID: ${role.id})`);
+                                    break; // Success, exit retry loop
+                                }
+                            }
 
                             if (attempts >= maxAttempts) {
                                 console.error(`     ❌ ${maxAttempts} deneme sonunda başarısız!`);
@@ -397,8 +483,8 @@ class TemplateDeployer {
 
                 overwrites.push({
                     id: target.id,
-                    allow: BigInt(overwrite.allow || 0),
-                    deny: BigInt(overwrite.deny || 0)
+                    allow: this.safeBigInt(overwrite.allow),
+                    deny: this.safeBigInt(overwrite.deny)
                 });
             }
         }
@@ -763,21 +849,21 @@ class TemplateDeployer {
                         {
                             name: '\u200b',
                             value: '**🚀 İLK ADIMLAR**\n\n' +
-                                   '1️⃣ <#' + this.guild.channels.cache.find(ch => ch.name === '📜┃kurallar')?.id + '> **Kuralları oku**\n' +
-                                   '2️⃣ <#' + this.guild.channels.cache.find(ch => ch.name === '🎯┃rol-seçimi')?.id + '> **Rollerini seç**\n' +
-                                   '3️⃣ <#' + this.guild.channels.cache.find(ch => ch.name === '👋┃tanışma')?.id + '> **Kendini tanıt**\n' +
-                                   '4️⃣ <#' + this.guild.channels.cache.find(ch => ch.name === '💭┃genel-sohbet')?.id + '> **Sohbete katıl**\n\n' +
+                                   '1️⃣ ' + this.getChannelMention('📜┃kurallar') + ' **Kuralları oku**\n' +
+                                   '2️⃣ ' + this.getChannelMention('🎯┃rol-seçimi') + ' **Rollerini seç**\n' +
+                                   '3️⃣ ' + this.getChannelMention('👋┃tanışma') + ' **Kendini tanıt**\n' +
+                                   '4️⃣ ' + this.getChannelMention('💭┃genel-sohbet') + ' **Sohbete katıl**\n\n' +
                                    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
                             inline: false
                         },
                         {
                             name: '💡 İpucu',
-                            value: 'Yardıma mı ihtiyacın var? → <#' + this.guild.channels.cache.find(ch => ch.name === '🆘┃yardım')?.id + '>',
+                            value: 'Yardıma mı ihtiyacın var? → ' + this.getChannelMention('🆘┃yardım'),
                             inline: true
                         },
                         {
                             name: '📚 Kaynaklar',
-                            value: 'Faydalı linkler → <#' + this.guild.channels.cache.find(ch => ch.name === '🔗┃faydalı-linkler')?.id + '>',
+                            value: 'Faydalı linkler → ' + this.getChannelMention('🔗┃faydalı-linkler'),
                             inline: true
                         }
                     ],
@@ -881,21 +967,21 @@ class TemplateDeployer {
                             name: '🚫 Spam Kuralları',
                             value: '✓ CAPS LOCK kullanma\n' +
                                    '✓ Emoji/sticker spam yapma\n' +
-                                   '✓ Bot komutları → <#' + this.guild.channels.cache.find(ch => ch.name === '🤖┃bot-komutları')?.id + '>',
+                                   '✓ Bot komutları → ' + this.getChannelMention('🤖┃bot-komutları'),
                             inline: true
                         },
                         {
                             name: '📁 Kanal Kullanımı',
-                            value: '✓ Python → <#' + this.guild.channels.cache.find(ch => ch.name === '🐍┃python')?.id + '>\n' +
-                                   '✓ JavaScript → <#' + this.guild.channels.cache.find(ch => ch.name === '💛┃javascript')?.id + '>\n' +
-                                   '✓ Projeler → <#' + this.guild.channels.cache.find(ch => ch.name === '🎨┃proje-vitrini')?.id + '>',
+                            value: '✓ Python → ' + this.getChannelMention('🐍┃python') + '\n' +
+                                   '✓ JavaScript → ' + this.getChannelMention('💛┃javascript') + '\n' +
+                                   '✓ Projeler → ' + this.getChannelMention('🎨┃proje-vitrini'),
                             inline: true
                         },
                         {
                             name: '🔗 Link Paylaşımı',
                             value: '✓ Sunucu davet linki yasak\n' +
-                                   '✓ Faydalı linkler → <#' + this.guild.channels.cache.find(ch => ch.name === '🔗┃faydalı-linkler')?.id + '>\n' +
-                                   '✓ İş ilanları → <#' + this.guild.channels.cache.find(ch => ch.name === '💼┃iş-ilanları')?.id + '>',
+                                   '✓ Faydalı linkler → ' + this.getChannelMention('🔗┃faydalı-linkler') + '\n' +
+                                   '✓ İş ilanları → ' + this.getChannelMention('💼┃iş-ilanları'),
                             inline: true
                         },
                         {
@@ -945,7 +1031,7 @@ class TemplateDeployer {
                             name: '\u200b',
                             value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
                                    '✅ **Kuralları okudum ve kabul ediyorum**\n\n' +
-                                   'Güvenlik açığı buldun mu? → <#' + this.guild.channels.cache.find(ch => ch.name === '🔒┃güvenlik-bildirimi')?.id + '>\n' +
+                                   'Güvenlik açığı buldun mu? → ' + this.getChannelMention('🔒┃güvenlik-bildirimi') + '\n' +
                                    'Moderatörler duruma göre karar alma hakkını saklı tutar.',
                             inline: false
                         }
@@ -1114,21 +1200,36 @@ function main() {
 
     const args = process.argv.slice(2);
 
-    if (args.length < 2) {
-        console.log('Kullanım: node deploy_template.js YOUR_BOT_TOKEN YOUR_SERVER_ID');
-        console.log();
-        console.log('Bot token\'ı Discord Developer Portal\'dan alabilirsiniz:');
-        console.log('https://discord.com/developers/applications');
-        console.log();
-        console.log('Server ID\'yi Discord\'dan alabilirsiniz:');
-        console.log('1. Discord\'da Ayarlar > Gelişmiş > Geliştirici Modu\'nu açın');
-        console.log('2. Sunucuya sağ tıklayın > "Sunucu ID\'sini Kopyala"');
+    // .env dosyasından veya CLI'dan token ve guild ID al
+    const token = process.env.DISCORD_BOT_TOKEN || args[0];
+    const guildId = process.env.DISCORD_GUILD_ID || args[1];
+    const templateFile = process.env.TEMPLATE_FILE || args[2] || 'vibe-coding-template.json';
+
+    if (!token || !guildId) {
+        console.log('❌ Bot token ve Server ID gerekli!\n');
+        console.log('Kullanım Seçenekleri:\n');
+        console.log('1️⃣ .env dosyası ile (GÜVENLİ - ÖNERİLEN):');
+        console.log('   - .env.example dosyasını .env olarak kopyala');
+        console.log('   - DISCORD_BOT_TOKEN ve DISCORD_GUILD_ID değerlerini doldur');
+        console.log('   - node deploy_template.js\n');
+        console.log('2️⃣ CLI parametreleri ile:');
+        console.log('   - node deploy_template.js YOUR_BOT_TOKEN YOUR_SERVER_ID\n');
+        console.log('📖 Bot token\'ı buradan al:');
+        console.log('   https://discord.com/developers/applications\n');
+        console.log('📖 Server ID\'yi almak için:');
+        console.log('   1. Discord\'da Ayarlar > Gelişmiş > Geliştirici Modu\'nu aç');
+        console.log('   2. Sunucuya sağ tıkla > "Sunucu ID\'sini Kopyala"\n');
         process.exit(1);
     }
 
-    const token = args[0];
-    const guildId = args[1];
-    const deployer = new TemplateDeployer(token, guildId);
+    if (process.env.DISCORD_BOT_TOKEN) {
+        console.log('✅ .env dosyasından yapılandırma yüklendi');
+    } else {
+        console.log('⚠️ Token CLI parametresi ile verildi (güvenlik riski!)');
+        console.log('💡 .env dosyası kullanmanız önerilir\n');
+    }
+
+    const deployer = new TemplateDeployer(token, guildId, templateFile);
     deployer.run();
 }
 

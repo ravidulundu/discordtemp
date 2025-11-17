@@ -57,11 +57,13 @@ client.once('ready', async () => {
     }
 
     console.log('============================================================\n');
+    await client.destroy();
     process.exit(0);
 });
 
-client.on('error', (error) => {
+client.on('error', async (error) => {
     console.error('❌ Bot hatası:', error.message);
+    await client.destroy();
     process.exit(1);
 });
 
