@@ -256,22 +256,34 @@ class TemplateDeployer {
                     console.log(`     Bot guild permissions:`, this.guild.members.me.permissions.toArray().slice(0, 10).join(', '));
 
                     try {
+                        console.log(`     ⏳ İstek gönderiliyor...`);
+
+                        // Önce sadece isim ile oluştur (en minimal)
                         const role = await this.guild.roles.create({
-                            name: roleData.name,
+                            name: roleData.name
+                        });
+
+                        console.log(`     ✓ Rol oluşturuldu, özellikler ekleniyor...`);
+
+                        // Sonra özellikleri ekle
+                        await role.edit({
                             permissions: BigInt(roleData.permissions),
                             color: roleData.color,
                             hoist: roleData.hoist,
                             mentionable: roleData.mentionable
                         });
+
                         this.roleMap.set(roleData.id, role);
-                        console.log(`  ✓ ${role.name} oluşturuldu (ID: ${role.id})`);
+                        console.log(`  ✓ ${role.name} tamamlandı (ID: ${role.id})`);
                     } catch (roleError) {
                         console.error(`     ⚠️ Rol oluşturma hatası:`, roleError.message);
+                        console.error(`     Stack:`, roleError.stack);
                         throw roleError;
                     }
 
                     // Rate limit önleme için bekle
-                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    console.log(`     ⏳ 2 saniye bekleniyor...`);
+                    await new Promise(resolve => setTimeout(resolve, 2000));
                 }
             } catch (error) {
                 console.error(`  ❌ Rol oluşturulamadı (${roleData.name}):`, error.message);
