@@ -53,3 +53,9 @@ Thumbs.db
 *.tmp
 *.temp
 .cache/
+
+# Development/Debug documentation (keep only README.md)
+BUG_*.md
+COMPREHENSIVE_*.md
+*_SUMMARY.md
+*_REPORT.md
