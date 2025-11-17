@@ -250,8 +250,43 @@ class TemplateDeployer {
 
     async setupServer() {
         // Mevcut sunucuyu al
-        this.guild = await this.client.guilds.fetch(this.guildId);
-        console.log(`✅ Sunucu bulundu: ${this.guild.name}`);
+        try {
+            this.guild = await this.client.guilds.fetch(this.guildId);
+            console.log(`✅ Sunucu bulundu: ${this.guild.name}`);
+        } catch (error) {
+            if (error.code === 10004) {
+                // Unknown Guild hatası
+                console.error('\n' + '='.repeat(70));
+                console.error('❌ SUNUCU BULUNAMADI!');
+                console.error('='.repeat(70));
+                console.error(`\n📋 Aranan Guild ID: ${this.guildId}`);
+                console.error('\n🔍 SORUN TESPİTİ:\n');
+                console.error('1️⃣ Guild ID yanlış olabilir');
+                console.error('2️⃣ Bot bu sunucuda olmayabilir');
+                console.error('3️⃣ Bot sunucudan atılmış olabilir\n');
+
+                // Bot'un bulunduğu sunucuları göster
+                console.error('📊 Bot şu anda şu sunucularda:\n');
+                const guilds = this.client.guilds.cache;
+                if (guilds.size === 0) {
+                    console.error('   ⚠️ Bot hiçbir sunucuda değil!\n');
+                    console.error('🔧 ÇÖZ ÜM:\n');
+                    console.error(`   Bot'u sunucuya eklemek için:\n`);
+                    console.error(`   🔗 https://discord.com/api/oauth2/authorize?client_id=${this.client.user.id}&permissions=8&scope=bot%20applications.commands\n`);
+                } else {
+                    guilds.forEach(guild => {
+                        console.error(`   • ${guild.name}`);
+                        console.error(`     ID: ${guild.id}`);
+                        console.error(`     Üye: ${guild.memberCount}\n`);
+                    });
+                    console.error('💡 Yukarıdaki ID\'lerden birini kullan veya bot\'u doğru sunucuya ekle\n');
+                }
+
+                console.error('='.repeat(70) + '\n');
+                throw new Error('Sunucu bulunamadı - Guild ID\'yi kontrol et veya bot\'u sunucuya ekle');
+            }
+            throw error;
+        }
 
         // Bot izinlerini kontrol et
         await this.validatePermissions();
